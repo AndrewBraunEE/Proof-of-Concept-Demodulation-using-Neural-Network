@@ -1,0 +1,16 @@
+__main__.py
+app/__init__.py
+app/color.py
+app/main.py
+app/mainwindow.cpp
+app/mainwindow.h
+app/mainwindow.ui
+app/ui/Resources_rc.py
+app/ui/Ui_MainWindow.py
+app/ui/Ui_TelemetryWindow.py
+app/ui/__pycache__/Ui_LoadExporter.cpython-35.pyc
+app/ui/__pycache__/Ui_LoadExporter.cpython-36.pyc
+app/ui/__pycache__/Ui_MainWindow.cpython-35.pyc
+app/ui/__pycache__/Ui_MainWindow.cpython-36.pyc
+app/ui/__pycache__/Ui_TimestampEditor.cpython-35.pyc
+app/ui/__pycache__/Ui_TimestampEditor.cpython-36.pyc
