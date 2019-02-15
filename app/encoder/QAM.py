@@ -6,7 +6,7 @@ class QAM_Modulator:
 		self.amplitude = amplitude
 	def modulate(data):
 		t_array = np.arange(0, 2, t_samples)
-		s00 = 0 * np.(t_array)
+		s00 = 0 * np*(t_array)
 		s01 = np.sin(2*np.pi*frequency_center * t_array)
 		s11 = np.cos(2* np.pi * frequency_center * t_array + np.pi) + np.sin(2*np.pi*frequency_center * t_array)		
 		s10 = np.cos(2* np.pi * frequency_center * t_array + np.pi)
@@ -21,3 +21,5 @@ class QAM_Modulator:
 			elif(data[i]=='11'):
 				modulated_waveform.append(s2)
 		return modulated_waveform * self.amplitude
+
+	def demodulate(data):
