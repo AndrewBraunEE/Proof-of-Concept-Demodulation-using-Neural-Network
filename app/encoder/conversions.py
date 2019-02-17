@@ -1,3 +1,5 @@
+from . import hamming
+
 def str_to_binary_str(input):
 	return ' '.join(format(ord(x), 'b') for x in input)
 
