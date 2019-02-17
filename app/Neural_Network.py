@@ -40,6 +40,7 @@ def Hidden_Layers(self):
 
 def Hidden_layers_output(self):
     #output layer 
+    sig3 = Hidden_Layers(self)
     Wo = tf.Variable(tf.random_normal([self.n_neurons_in_h3, self.n_classes], mean=0,sttdev=1/np.sqrt(self.n_features)), name='weightsOut')
     Bo = tf.Variable(tf.randmom_normal([self.n_classes], mean=0, stddev=1/np.sqrt(self.n_features)),name='biasesOut')
     a = tf.nn.softmax((tf.matmul(sig3,Wo)+bo), name='activationOutputLayer')
