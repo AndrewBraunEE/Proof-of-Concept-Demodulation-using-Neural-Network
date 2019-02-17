@@ -1,4 +1,4 @@
-import numpy
+import numpy as np
 
 class QAM_Modulator:
 
@@ -6,14 +6,14 @@ class QAM_Modulator:
 		self.frequency_center = frequency_center
 		self.t_samples = t_samples #Sample Rate
 		self.amplitude = amplitude
-	def modulate(data):
-		t_array = np.arange(0, 2, t_samples)
-		s00 = 0 * np*(t_array)
-		s01 = np.sin(2*np.pi*frequency_center * t_array)
-		s11 = np.cos(2* np.pi * frequency_center * t_array + np.pi) + np.sin(2*np.pi*frequency_center * t_array)		
-		s10 = np.cos(2* np.pi * frequency_center * t_array + np.pi)
+		self.t_array = np.arange(0, 2, t_samples)
+	def modulate(self, data):
+		s00 = 0 * (self.t_array)
+		s01 = np.sin(2*np.pi*self.frequency_center * self.t_array)
+		s11 = np.cos(2* np.pi * self.frequency_center * self.t_array + np.pi) + np.sin(2*np.pi*self.frequency_center * self.t_array)		
+		s10 = np.cos(2* np.pi * self.frequency_center * self.t_array + np.pi)
 		modulated_waveform = []
-		for i in xrange(0, len(data, 1)):
+		for i in range(0, len(data)):
 			if(data[i]=='00'):
 				modulated_waveform.append(s00)
 			elif(data[i]=='01'):
@@ -24,12 +24,14 @@ class QAM_Modulator:
 				modulated_waveform.append(s10)
 		return modulated_waveform * self.amplitude
 
-	def demodulate(data):
-		normalized_waveform = waveform / self.amplitude 
+	def demodulate(self, waveform):
+		normalized_waveform = []
+		for element in waveform:
+			normalized_waveform = element / self.amplitude 
 		data = []
-		for i in xrange(0, len(data), 1):
-			bit1 = normalized_waveform[i]*np.cos(2* np.pi * frequency_center * t_array + np.pi)
-			bit2 = normalized_waveform[i]*np.sin(2 * np.pi * frequency_center * t_array)
+		for i in range(0, len(normalized_waveform)):
+			bit1 = normalized_waveform[i]*np.cos(2* np.pi * self.frequency_center * self.t_array + np.pi)
+			bit2 = normalized_waveform[i]*np.sin(2 * np.pi * self.frequency_center * self.t_array)
 			if bit1 > 0.5:
 				bit1 = 1
 			else:
