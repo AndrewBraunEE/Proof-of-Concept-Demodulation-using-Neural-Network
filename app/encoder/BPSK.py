@@ -1,3 +1,4 @@
+import numpy
 class BPSK_Modulator:
 	def __init__(self, frequency_center, t_samples, amplitude):
 		self.frequency_center = frequency_center
