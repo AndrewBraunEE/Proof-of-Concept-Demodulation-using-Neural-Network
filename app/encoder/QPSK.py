@@ -12,17 +12,25 @@ class QPSK_Modulator:
 		self.s3 = np.cos(2*np.pi*frequency_center*self.t_array + np.pi)
 		self.s4 = np.cos(2*np.pi*frequency_center*self.t_array + (np.pi)*1.5)
 	def modulate(self, data):
-		modulated_waveform = []
-		for i in range(0, len(data)):
-			if(data[i]=='00'):
-				modulated_waveform.append(self.s1)
-			elif(data[i]=='01'):
-				modulated_waveform.append(self.s2)
-			elif(data[i] == '10'):
-				modulated_waveform.append(self.s3)
-			elif(data[i] == '11'):
-				modulated_waveform.append(self.s4)
-		return modulated_waveform * self.amplitude
+		#Demux
+		waveform = []
+		bool switch = True
+		cnt = 0
+		for element in data:
+			if switch == True:
+				if element == 1:
+					waveform.append(self.s0[cnt])
+				elif element == 0:
+					waveform.append(self.s1[cnt])
+				switch = False
+			elif switch == False:
+				if element == 1:
+					waveform.append(self.s2[cnt])
+				elif element == 0:
+					waveform.append(self.s3[cnt])
+				switch = True
+			cnt = cnt + 1
+		return waveform * self.amplitude
 	def demodulate(self, waveform):
 		normalized_waveform = []
 		for element in waveform:
