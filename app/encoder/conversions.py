@@ -10,6 +10,6 @@ def binary_str_to_str(input=None):
 	binary = wrap(input, 8)
 	for element in binary:
 		string = string + chr(int(element, 2)).encode('ascii', errors='replace').decode("utf-8")
-	print(binary)
-	print(string)
+	#print(binary)
+	#print(string)
 	return string

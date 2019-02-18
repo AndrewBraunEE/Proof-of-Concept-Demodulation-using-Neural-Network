@@ -7,7 +7,7 @@ class BPSK_Modulator:
 		self.amplitude = amplitude
 		self.sample_freq = sample_freq
 		self.t_array = np.linspace(0, 2*np.pi*frequency_center*self.t_samples, self.t_samples)
-		print('T_Array:' + str(len(self.t_array)))
+		#print('T_Array:' + str(len(self.t_array)))
 		self.s0 = np.cos(2* np.pi * self.frequency_center * self.t_array + np.pi) #According to wikipedisa for s0
 		self.s1 = np.cos(2*np.pi*self.frequency_center*self.t_array) 				#According to wikipedia for s1
 
@@ -22,8 +22,8 @@ class BPSK_Modulator:
 			elif(data[i]=='1'):
 				modulated_waveform.append(1)
 		#print(modulated_waveform)
-		print('mod_waveform:' + str(len(modulated_waveform)))
-		print('Oversample:' + str(oversample_factor))
+		#print('mod_waveform:' + str(len(modulated_waveform)))
+		#print('Oversample:' + str(oversample_factor))
 		#Return bitstream at Tb (t_samples) baud with rect pulse
 		#print('AI Length:' + str(len(ai)))
 		returned_waveform = []

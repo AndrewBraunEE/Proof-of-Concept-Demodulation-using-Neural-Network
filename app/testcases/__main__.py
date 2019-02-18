@@ -6,7 +6,7 @@ from encoder.conversions import *
 
 TestString = "Hello World! Hopefully this demodulates for everything"
 b_str = str_to_binary_str(TestString)
-print(b_str)
+print('b_str:' + b_str)
 TestFC = 1000
 TestSamples = 10000
 
@@ -27,21 +27,26 @@ qam_waveform = QAM_mod.modulate(b_str)
 
 bpsk_bin = BPSK_mod.demodulate(bpsk_waveform)
 qpsk_bin = QPSK_mod.demodulate(qpsk_waveform)
+'''
 qam_bin = QAM_mod.demodulate(qam_waveform)
 
 #print(bpsk_bin)
 #print(qam_bin)
 
-bpsk_str = binary_str_to_str(b_str)
 '''
-qpsk_str = binary_str_to_str(qpsk_bin)
-qam_str = binary_str_to_str(qam_bin)
+#print(bpsk_bin)
+print(qpsk_bin)
 
-print('BPSK:' + bpsk_str)
-print('QPSK:' + qpsk_str)
-print('QAM:' + qam_str)
+bpsk_str = binary_str_to_str(bpsk_bin)
+
+qpsk_str = binary_str_to_str(qpsk_bin)
+
+#qam_str = binary_str_to_str(None)
+
+#print('BPSK:' + bpsk_str)
+#print('QPSK:' + qpsk_str)
+#print('QAM:' + qam_str)
 
 assert qam_str == TestString
 assert qpsk_str == TestString
 assert bpsk_str == TestString
-'''
