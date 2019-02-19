@@ -54,7 +54,7 @@ def accuracy_prediction(self):
     learning_rate = self.learning_rate
     out_clipped = tf.clip_by_value(output,1e-10,0.9999999)#to avoid log(0) error
     #we will be using the cross entropy cost function of the form y*log(y)+(1+y)*log(1-y) to measure performance
-    cross_entropy = -tf.reduce_mean(tf.reduce_sum(self.Y * tf.log(out_clipped) + (1-self.Y)*tf.log(1-out_clipped), axis=1)
+    cross_entropy = -tf.reduce_mean(tf.reduce_sum(self.Y * tf.log(out_clipped) + (1-self.Y)*tf.log(1-out_clipped), axis=1))
     optimiser = tf.train.GradientDescentOptimizer(learning_rate=learning_rate).minimize(cross_entropy)
     init_op = tf.global_variables_initializer()
     correct_prediction = tf.equal(tf.argmax(self.Y,1), tf.argmax(output,1))
@@ -71,8 +71,8 @@ def accuracy_prediction(self):
         for self.training_epochs in range(self.training_epochs):
                 avg_cost = 0
                 for i in range(total_batch):
-                        X_train, y_train = mnist.train.next_batch(batch_size=batch_size)
-                        _, c = sess.run([optimiser, cross_entropy], feed_dict=[x: X_train, y:batch_y])
+                        X_train, y_train = mnist.train.next_batch(batch_size=100)
+                        _, c = sess.run([optimiser, cross_entropy], feed_dict={x: X_train, y:y_train})
                         avg_cost += c / total_batch
                 print("Epoch:",(self.training_epoch+1),"cost =", "{:.3f}".format(avg_cost))
         print(sess.run(accuracy, feed_dict={x: mnist.test.images, y: mnist.test.labels}))  
