@@ -7,8 +7,8 @@ from encoder.conversions import *
 TestString = "Hello World! Hopefully this demodulates for everything"
 b_str = str_to_binary_str(TestString)
 print('b_str:' + b_str)
-TestFC = 1000
-TestSamples = 10000
+TestFC = 10000
+TestSamples = 1000000
 
 
 BPSK_mod = BPSK_Modulator(TestFC, TestSamples, 10000, 1) #30 Hz, 100 Samples, 1 Volt
@@ -35,7 +35,7 @@ qam_bin = QAM_mod.demodulate(qam_waveform)
 
 '''
 #print(bpsk_bin)
-print(qpsk_bin)
+print('qpsk_bin:' + str(qpsk_bin))
 
 bpsk_str = binary_str_to_str(bpsk_bin)
 

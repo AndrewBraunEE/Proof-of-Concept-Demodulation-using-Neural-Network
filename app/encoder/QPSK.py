@@ -13,15 +13,15 @@ class QPSK_Modulator:
 		#print(self.s1)
 	def modulate(self, data):
 		#Demux
+		#print('DATA:' + data)
 		waveform = []
 		waveform2 = []
 		Out_Waveform = []
 		switch = True
 		cnt = 0
 		for element in data:
-			if element != '1' or element != '0':
-				cnt = cnt + 1 #Multiplex only for binary stream; not for any accidental spaces.
-				pass
+			if element != '1' and element != '0':
+				continue#Multiplex only for binary stream; not for any accidental spaces.
 			if switch == True:
 				if element == '1':
 					waveform.append(1*self.s1[cnt])
@@ -35,20 +35,18 @@ class QPSK_Modulator:
 					waveform2.append(-1*self.s2[cnt])
 				switch = True
 			cnt = cnt + 1
-		print('Waveforms: ' + str(waveform) + '\n' + str(waveform2))
+		#print('Waveforms: ' + str(waveform) + '\n' + str(waveform2))
 		if len(waveform) > len(waveform2): #Zero Pad the Waveforms when adding if an odd bit stream/
-			#waveform2.append(0)
-			pass
+			waveform2.append(0)
 		elif len(waveform2) > len(waveform):
-			#waveform.append(0)
-			pass
+			waveform.append(0)
 		cnt = 0
+		#print('len W1/W2:' + str(len(waveform)) + str(len(waveform2)))
 		for element in waveform:
 			Out_Waveform.append(waveform[cnt] + waveform2[cnt])
 			cnt = cnt + 1
 		#Add both signals from both bases
-		print('len W1/W2:' + str(len(waveform)) + str(len(waveform2)))
-		print('len out:' + str(len(Out_Waveform)))
+		#print('len out:' + str(len(Out_Waveform)))
 		return Out_Waveform * self.amplitude
 
 
@@ -57,10 +55,13 @@ class QPSK_Modulator:
 		for element in waveform:
 			normalized_waveform.append(element / self.amplitude)
 		data = []
+		bits1 = np.conv(normalized_waveform, self.s1, mode = 'same') #This is probably wrong. What is the best way to implement a matched filter in this regard?
+		bits2 = np.conv(normalized_waveform, self.s2, mode = 'same')
 		#bits = np.conv(normalized_waveform, ones(1, len(waveform)))
 		for i in range(0, len(normalized_waveform)):
-			bit1 = normalized_waveform[i]*self.s1[i]
-			bit2 = normalized_waveform[i]*self.s2[i]
+			bit1 = bits1[i]
+			bit2 = bits2[i]
+			print('b1/2:' + str(bit1)+ '  ' + str(bit2))
 			if bit1 >= 0:
 				bit1 = 1
 			else:

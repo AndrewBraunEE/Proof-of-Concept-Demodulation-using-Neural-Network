@@ -8,22 +8,45 @@ class QAM_Modulator:
 		self.amplitude = amplitude
 		self.sample_freq = sample_freq
 		self.t_array = np.linspace(0, 2*np.pi*frequency_center*self.t_samples, self.t_samples)
-		self.s00 = 0 * (self.t_array)
-		self.s01 = np.sin(2*np.pi*self.frequency_center * self.t_array)
-		self.s11 = np.cos(2* np.pi * self.frequency_center * self.t_array + np.pi) + np.sin(2*np.pi*self.frequency_center * self.t_array)		
-		self.s10 = np.cos(2* np.pi * self.frequency_center * self.t_array + np.pi)
+		self.s1 = np.cos(2*np.pi*self.frequency_center * self.t_array)
+		self.s2 = np.sin(2*np.pi*self.frequency_center * self.t_array)
 	def modulate(self, data):
-		#print(s00)
-		#print(s01)
-		#print(s11)
-		#print(s10)
-		modulated_waveform = []
-		for i in range(0, len(data)):
-			if(data[i]=='0'):
-				modulated_waveform.append(self.s00)
-			elif(data[i]=='1'):
-				modulated_waveform.append(self.s01)
-		return modulated_waveform * self.amplitude
+		#Demux
+		#print('DATA:' + data)
+		waveform = []
+		waveform2 = []
+		Out_Waveform = []
+		switch = True
+		cnt = 0
+		for element in data:
+			if element != '1' and element != '0':
+				continue #Multiplex only for binary stream; not for any accidental spaces.
+			if switch == True:
+				if element == '1':
+					waveform.append(1*self.s1[cnt])
+				elif element == '0':
+					waveform.append(-1*self.s1[cnt])
+				switch = False
+			elif switch == False:
+				if element == '1':
+					waveform2.append(1*self.s2[cnt])
+				elif element == '0':
+					waveform2.append(-1*self.s2[cnt])
+				switch = True
+			cnt = cnt + 1
+		#print('Waveforms: ' + str(waveform) + '\n' + str(waveform2))
+		if len(waveform) > len(waveform2): #Zero Pad the Waveforms when adding if an odd bit stream/
+			waveform2.append(0)
+		elif len(waveform2) > len(waveform):
+			waveform.append(0)
+		cnt = 0
+		#print('len W1/W2:' + str(len(waveform)) + str(len(waveform2)))
+		for element in waveform:
+			Out_Waveform.append(waveform[cnt] + waveform2[cnt])
+			cnt = cnt + 1
+		#Add both signals from both bases
+		#print('len out:' + str(len(Out_Waveform)))
+		return Out_Waveform * self.amplitude
 
 	def demodulate(self, waveform):
 		normalized_waveform = []
