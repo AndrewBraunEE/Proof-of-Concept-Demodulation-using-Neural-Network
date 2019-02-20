@@ -78,7 +78,7 @@ class QPSK_Modulator:
 			basis_sum_i = 0
 			basis_sum_q = 0
 			for k in range(len(signal_chunk)):
-				signal_sum = signal_sum + signal_chunk[k] #Sum up the points and average
+				signal_sum = signal_sum + signal_chunk[k] 
 			for k in range(len(signal_chunk)):
 				basis_sum_i = basis_sum_i + (signal_chunk[k]) * np.conjugate(self.s1[i + k]) #
 				basis_sum_q = basis_sum_i + (signal_chunk[k]) * np.conjugate(self.s2[i + k])
