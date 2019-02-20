@@ -57,10 +57,10 @@ class QPSK_Modulator:
 				returned_waveform.append(element)
 			cnt = cnt + 1
 		#print('Waveforms: ' + str(returned_waveform))
-		print('len W1/W2/input: ' + str(len(demux1)) + ' ' + str(len(demux2)) + ' ' + str(len(data.replace(' ', ''))))
+		#print('len W1/W2/input: ' + str(len(demux1)) + ' ' + str(len(demux2)) + ' ' + str(len(data.replace(' ', ''))))
 		#Add both signals from both bases
 		#print('len out:' + str(len(Out_Waveform)))
-		print(returned_waveform[0:8*self.tb])
+		#print(returned_waveform[0:8*self.tb])
 		return returned_waveform
 
 
@@ -80,13 +80,13 @@ class QPSK_Modulator:
 			for k in range(len(signal_chunk)):
 				signal_sum = signal_sum + signal_chunk[k] #Sum up the points and average
 			for k in range(len(signal_chunk)):
-				basis_sum_i = (signal_chunk[k]) * np.conjugate(self.s1[i + k]) #
-				basis_sum_q = (signal_chunk[k]) * np.conjugate(self.s2[i + k])
-			signal_sum = signal_sum / len(signal_chunk)
-			basis_sum_i = basis_sum_i / len(signal_chunk)
-			basis_sum_q = basis_sum_q / len(signal_chunk)
+				basis_sum_i = basis_sum_i + (signal_chunk[k]) * np.conjugate(self.s1[i + k]) #
+				basis_sum_q = basis_sum_i + (signal_chunk[k]) * np.conjugate(self.s2[i + k])
+			signal_sum = signal_sum
+			basis_sum_i = basis_sum_i
+			basis_sum_q = basis_sum_q
 			'''THIS IS WRONG SOMEHOW'''
-			if np.real(basis_sum_i) <= 0: #Bit1 is a 1
+			if np.real(basis_sum_i) >= 0: #Bit1 is a 1
 				data_str += '1'
 			else:
 				data_str += '0'

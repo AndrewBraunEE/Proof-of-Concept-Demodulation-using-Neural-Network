@@ -72,19 +72,21 @@ class QAM_Modulator:
 			basis_sum_q = 0
 			for k in range(len(signal_chunk)):
 				signal_sum = signal_sum + signal_chunk[k] #Sum up the points and average
-				basis_sum_i = basis_sum_i + self.s1[i + k] #Sum up the chunk in the basis
-				basis_sum_q = basis_sum_q + self.s2[i + k]
-			signal_sum = signal_sum / len(signal_chunk)
-			basis_sum_i = basis_sum_i / len(signal_chunk)
-			basis_sum_q = basis_sum_q / len(signal_chunk)
+				basis_sum_i = basis_sum_i + signal_chunk[k] * np.conjugate(self.s1[i + k]) #Sum up the chunk in the basis
+				basis_sum_q = basis_sum_q + signal_chunk[k] * np.conjugate(self.s2[i + k])
+			signal_sum = signal_sum
+			x_length = self.t_array.reshape(-1) #Construct a 1d view
+			x_length = x_length[self.tb] - x_length[self.tb]
+			basis_sum_i = basis_sum_i / (x_length)
+			basis_sum_q = basis_sum_q / (x_length)
 			'''THIS IS WRONG SOMEHOW'''
-			if abs(np.real(signal_sum)/np.real(basis_sum_i)) >= 0.5: #Bit1 is a 1
+			if np.abs(np.real(basis_sum_i)) >= 0.5: #Bit1 is a 1
 				data_str += '1'
 			else:
 				data_str += '0'
-			if abs(np.real(signal_sum)/np.real(basis_sum_q)) >= 0.5: #Bit2 is a 1
+			if np.abs(np.real(basis_sum_q)) >= 0.5: #Bit2 is a 1
 				data_str += '1'
 			else:
 				data_str += '0'
-		print(data_str)
+		#print(data_str)
 		return data_str
