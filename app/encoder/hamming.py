@@ -17,7 +17,7 @@ def HammingEncode(data):
                 c=c+1
 
             else:
-                h.append(int(data[j]))
+                h.append(str(data[j]))
                 j=j+1
 
         for parity in range(0,(len(h))):
@@ -37,7 +37,7 @@ def HammingEncode(data):
                 ch+=1
 
         h.reverse()
-        code = int(''.join(map(str, h)))
+        code = str(''.join(map(str, h)))
         return code
 
 def HammingCorrection(data):
@@ -48,7 +48,7 @@ def HammingCorrection(data):
 
     for k in range(0,len(data)):
         p=(2**c)
-        h.append(int(data[k]))
+        h.append(str(data[k]))
         h_copy.append(data[k])
         if(p==(k+1)):
             c=c+1
@@ -89,6 +89,6 @@ def HammingCorrection(data):
             h_copy[error-1]='0'
             print('After correction hamming code is:- ')
         h_copy.reverse()
-        code = int(''.join(map(str, h_copy))) 
+        code = str(''.join(map(str, h_copy))) 
         print(code)
         return code

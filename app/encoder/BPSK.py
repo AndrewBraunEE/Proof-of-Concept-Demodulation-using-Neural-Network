@@ -1,22 +1,21 @@
 import numpy as np
 import numpy.matlib
 class BPSK_Modulator:
-	def __init__(self, frequency_center, t_samples, sample_freq, amplitude):
+	def __init__(self, frequency_center, t_samples, t_baud, amplitude):
 		self.frequency_center = frequency_center
 		self.t_samples = t_samples #Sample Rate
 		self.amplitude = amplitude
-		self.sample_freq = sample_freq
-		self.t_array = np.linspace(0, 2*np.pi*frequency_center*self.t_samples, self.t_samples)
+		self.t_array = np.repeat(np.linspace(0, 2*np.pi, self.t_samples), 10)
 		#print('T_Array:' + str(len(self.t_array)))
-		self.s0 = np.cos(2* np.pi * self.frequency_center * self.t_array + np.pi) #According to wikipedisa for s0
 		self.s1 = np.cos(2*np.pi*self.frequency_center*self.t_array) 				#According to wikipedia for s1
+		self.tb = t_baud
 
 	def modulate(self, data):
 		#According to wikipedia for s1
 		modulated_waveform = []
 		N = len(data)
 		oversample_factor = int(self.t_samples/self.frequency_center)
-		for i in range(0, len(data)):
+		for i in range(0, len(data)): #For each element in the bitstream, translate into -1 or 1 to modulate phase
 			if(data[i]=='0'):
 				modulated_waveform.append(-1)
 			elif(data[i]=='1'):
@@ -28,20 +27,47 @@ class BPSK_Modulator:
 		#print('AI Length:' + str(len(ai)))
 		returned_waveform = []
 		cnt = 0
-		for element in modulated_waveform:
-			returned_waveform.append(element * self.s1[cnt] * self.amplitude)
+		#print('max:' + str(self.tb*(len(data) - 1)) + 'data_len: ' + str(len(data)) + 'tb: ' + str(self.tb) + 'mod_waveform_len: ' + str(len(modulated_waveform)))
+		for i in range(0, self.tb*(len(modulated_waveform)), self.tb):
+			signal_chunk = modulated_waveform[cnt] * self.s1[i:(i + self.tb)] * self.amplitude
+			#print(signal_chunk)
+			for element in signal_chunk:
+				returned_waveform.append(element)
+			#print(returned_waveform)
+			#print(cnt)
 			cnt = cnt + 1
+		#print('out_waveform: ' + str(len(returned_waveform)))
 		return returned_waveform
 
 	def demodulate(self, waveform):
+		#Implementation of demodulator for BPSK. We first normalize the waveform for our decision regions with a known amplitude.
+		#Afterwards, we use our matched filter (a moving average) to record the polarity of the sinusoid of our bit in our 'signal chunk' (the samples of our carrier that our bit lies in)
+		#We then compare this as a ratio to the moving average of our carrier signal to feed into our decision region to what we originally modulated our phase by (that is, multiplying by -1 or 1)
+		#This decision occurs at y = 0
 		normalized_waveform = []
 		for element in waveform:
 			normalized_waveform.append(element / self.amplitude)
 		data = []
-		for i in range(0, len(normalized_waveform)):
-			if normalized_waveform[i] / self.s1[i] >= 0:
+		cnt = 0
+		for i in range(0, self.tb*(len(normalized_waveform)), self.tb):
+			signal_chunk = normalized_waveform[i:(i + self.tb)]
+			#Moving Average:
+			#print(signal_chunk)
+			if len(signal_chunk) == 0:
+				break;
+			signal_sum = 0
+			basis_sum = 0
+			for k in range(len(signal_chunk)):
+				signal_sum = signal_sum + signal_chunk[k] #Sum up the points and average
+				basis_sum = basis_sum + self.s1[i + k] #Sum up the chunk in the basis
+			signal_sum = signal_sum / len(signal_chunk)
+			basis_sum = basis_sum / len(signal_chunk)
+			if signal_sum / basis_sum >= 0:
 				data.append('1')
 			else:
 				data.append('0')
+			cnt = cnt + 1
 		data_str = ''.join(map(str, data))
+		#print('data_str_len: ' + str(len(data_str)) + 'input_len: ' + str(len(normalized_waveform)))
+		#print('data_str: ' + str(data_str))
 		return data_str
