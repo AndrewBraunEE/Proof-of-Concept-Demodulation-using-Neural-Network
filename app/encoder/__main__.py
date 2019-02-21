@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import glob
+import pickle
+
 
 from encoder.BPSK import *
 from encoder.QPSK import *
@@ -58,11 +60,13 @@ class Encoder:
 	def encode_from_binary_str(self, input):
 		return self.encode_default(input) ##FIX ME
 
-	def save_to_file(self, input, filename): #Save an encoded message in a waveform to a file
-		return 0
+	def save_to_file(self, input, filename='training_waveform.txt'): #Save an encoded message in a waveform to a file
+		with open(filename, "wb") as file: #Serialized
+			pickle.dump(input, file)
 
-	def load_from_file(self, input): #Load an already encoded message in a waveform
-		return 0
+	def load_from_file(self, input, filename='training_waveform.txt'): #Load an already encoded message in a waveform
+		with open (filename, 'rb') as file: #Unserialize
+			return pickle.load(file)
 
 	def load_str_dir(self, input_dir = 'data/*.txt'):
 		list_txt_files = glob.glob(input_dir)
@@ -76,7 +80,7 @@ def main():
 	encoder = Encoder()
 	encoder.re_init(default_mod = 'BPSK_Modulator')
 	data = encoder.encode_from_str(encoder.load_str_dir())
-	encoder.save_to_file(data, 'waveform_samples')
+	encoder.save_to_file(data, 'waveform_samples.txt')
 	#print(data)
 
 if __name__ == '__main__':
