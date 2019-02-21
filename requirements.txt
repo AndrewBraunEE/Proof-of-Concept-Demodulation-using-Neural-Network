@@ -6,4 +6,6 @@ jupyter-console==5.2.0
 jupyter-core==4.4.0
 numpy
 scipy
+tensorflow==1.5
+protobuf==3.6.0
 matplotlib
