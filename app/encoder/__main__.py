@@ -75,9 +75,9 @@ class Encoder:
 def main():
 	encoder = Encoder()
 	encoder.re_init(default_mod = 'BPSK_Modulator')
-	data = encoder.encode_default(encoder.load_str_dir())
+	data = encoder.encode_from_str(encoder.load_str_dir())
 	encoder.save_to_file(data, 'waveform_samples')
-	print(data)
+	#print(data)
 
 if __name__ == '__main__':
 	try:
