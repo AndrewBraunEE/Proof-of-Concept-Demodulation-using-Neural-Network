@@ -10,11 +10,30 @@ class BPSK_Modulator:
 		self.s1 = np.cos(2*np.pi*self.frequency_center*self.t_array) 				#According to wikipedia for s1
 		self.tb = t_baud
 
+	def binary_pulse(self, data):
+		pulse = []
+		cnt = 0
+		print(len(data))
+		for i in range(0, self.tb*(len(data)), self.tb):
+			pulse_chunk = np.ones(self.tb) * int(data[cnt])
+			for element in pulse_chunk:
+				pulse.append(element)
+			cnt = cnt + 1
+		return pulse
+
 	def modulate(self, data):
 		#According to wikipedia for s1
+		data = data.replace(' ', '')
 		modulated_waveform = []
 		N = len(data)
+		print(str(N))
 		oversample_factor = int(self.t_samples/self.frequency_center)
+		while len(self.t_array) < len(data) * self.tb: #Extend carrier signal to match message size
+			t_array_new = np.repeat(self.t_array, 2)
+			self.t_array = t_array_new
+			#print('[DATA]: ' + str(len(data)) + ' t_array: ' + str(len(self.t_array)))
+		self.s1 = np.cos(2*np.pi*self.frequency_center*self.t_array) #Reindex the carrier based off of the resized vector to compensate for long message size
+
 		for i in range(0, len(data)): #For each element in the bitstream, translate into -1 or 1 to modulate phase
 			if(data[i]=='0'):
 				modulated_waveform.append(-1)
@@ -29,7 +48,7 @@ class BPSK_Modulator:
 		cnt = 0
 		#print('max:' + str(self.tb*(len(data) - 1)) + 'data_len: ' + str(len(data)) + 'tb: ' + str(self.tb) + 'mod_waveform_len: ' + str(len(modulated_waveform)))
 		for i in range(0, self.tb*(len(modulated_waveform)), self.tb):
-			signal_chunk = modulated_waveform[cnt] * self.s1[i:(i + self.tb)] * self.amplitude
+			signal_chunk = modulated_waveform[cnt] * self.s1[i:(i + self.tb)] * self.amplitude #Generate waveform by multiplying chunk of carrier with phase shift from binary pulse )-1 or 1)
 			#print(signal_chunk)
 			for element in signal_chunk:
 				returned_waveform.append(element)

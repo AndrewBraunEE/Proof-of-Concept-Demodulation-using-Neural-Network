@@ -12,9 +12,25 @@ class QAM_Modulator:
 		self.s1 = np.cos(2*np.pi*self.frequency_center * self.t_array) + j * np.sin(2*np.pi*self.frequency_center * self.t_array)
 		self.s2 = np.sin(2*np.pi*self.frequency_center * self.t_array) - j * np.cos(2*np.pi*self.frequency_center * self.t_array)
 		self.tb = t_baud
+	
+	def binary_pulse(self, data):
+		pulse = []
+		cnt = 0
+		for i in range(0, self.tb*(len(data)), self.tb):
+			pulse_chunk = np.ones(self.tb) * int(data[cnt])
+			for element in pulse_chunk:
+				pulse.append(element)
+			cnt = cnt + 1
+		return pulse
+
 	def modulate(self, data):
 		#Demux
-		#print('DATA:' + data)
+		while len(self.t_array) < len(data) * self.tb: #Extend carrier signal to match message size
+			t_array_new = np.repeat(self.t_array, 2)
+			self.t_array = t_array_new
+			#print('[DATA]: ' + str(len(data)) + ' t_array: ' + str(len(self.t_array)))
+		self.s1 = np.cos(2*np.pi*self.frequency_center * self.t_array) + j * np.sin(2*np.pi*self.frequency_center * self.t_array)
+		self.s2 = np.sin(2*np.pi*self.frequency_center * self.t_array) - j * np.cos(2*np.pi*self.frequency_center * self.t_array)
 		demux1 = []
 		demux2 = []
 		returned_waveform = []

@@ -17,12 +17,29 @@ class QPSK_Modulator:
 		self.s2 = np.cos(2*np.pi*self.frequency_center*self.t_array + np.pi/2) + 1*j*np.sin(2*np.pi*self.frequency_center*self.t_array + np.pi/2)
 		self.tb = t_baud
 		#print(self.s1)
+
+	def binary_pulse(self, data):
+		pulse = []
+		cnt = 0
+		for i in range(0, self.tb*(len(data)), self.tb):
+			pulse_chunk = np.ones(self.tb) * int(data[cnt])
+			for element in pulse_chunk:
+				pulse.append(element)
+			cnt = cnt + 1
+		return pulse
+
+
 	def modulate(self, data):
 		#Demux
 		#We multiplex our input binary stream into separate bitstreams: one for each orthonormal basis (we have two orthonormal bases here)
 		#We then modulate these streams by phase shift (multiplying by -1 or 1 for a rotation of 180 degrees or 0 rotation) and modulate using carrier signals in quadrature
 		#The sum is our modulated QPSK.
-		#print('DATA:' + data)
+		while len(self.t_array) < len(data) * self.tb: #Extend carrier signal to match message size
+			t_array_new = np.repeat(self.t_array, 2)
+			self.t_array = t_array_new
+			#print('[DATA]: ' + str(len(data)) + ' t_array: ' + str(len(self.t_array)))
+		self.s1 = np.cos(2* np.pi * self.frequency_center * self.t_array) + 1*j * np.sin(2* np.pi * self.frequency_center * self.t_array)
+		self.s2 = np.cos(2*np.pi*self.frequency_center*self.t_array + np.pi/2) + 1*j*np.sin(2*np.pi*self.frequency_center*self.t_array + np.pi/2)
 		demux1 = []
 		demux2 = []
 		returned_waveform = []
