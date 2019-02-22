@@ -1,5 +1,6 @@
 bitstring
 color
+itertools
 jupyter==1.0.0
 jupyter-client==5.2.1
 jupyter-console==5.2.0

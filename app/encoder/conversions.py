@@ -17,6 +17,9 @@ def binary_str_to_str(input=None):
 	#print(string)
 	return string
 
+def int_to_binary_str(input = None):
+	return bin(input)[2:]
+
 def binary_str_to_intarray(input = None):
 	input = input.replace(' ', '')
 	binary = wrap(input, 8)
@@ -26,11 +29,16 @@ def binary_str_to_intarray(input = None):
 	return int_list
 
 def binary_str_to_bytes(input = None):
-	v = int(input, 2)
 	b = bytearray()
-	while v:
-		b.append(v & 0xff)
-		v >>= 8
+	str_chunk = ''
+	for element in input: #Select each byte chunk from the string, interpret as a binary number; and convert to a byte sequence
+		str_chunk += element
+		if len(str_chunk) == 8:
+			v = int(str_chunk, 2)
+			while v:
+				b.append(v & 0xff)
+				v >>= 8
+			str_chunk = ''
 	return bytes(b[::-1])
 
 def bytes_to_binary_str(input = None):
