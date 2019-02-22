@@ -166,7 +166,10 @@ class RandomCodes:
 
 		list_values = []
 		for i in range(output_size):
-			list_values.append(int_to_binary_str(np.random.randint(0, 2**output_size - 1))) ##FIXME: What happens when I get the same random number twice?
+			myinteger_str = int_to_binary_str(np.random.randint(0, 2**output_size - 1))
+			while len(myinteger_str) < output_size:
+				myinteger_str += '0' #Zeropad
+			list_values.append(myinteger) ##FIXME: What happens when I get the same random number twice?
 		self.block = dict(zip(list_keys, list_values))
 		self.keys = list_keys
 		self.values = list_values
