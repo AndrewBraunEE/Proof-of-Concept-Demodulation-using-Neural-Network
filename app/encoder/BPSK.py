@@ -25,37 +25,27 @@ class BPSK_Modulator:
 		#According to wikipedia for s1
 		data = data.replace(' ', '')
 		modulated_waveform = []
-		N = len(data)
-		print(str(N))
 		oversample_factor = int(self.t_samples/self.frequency_center)
-		while len(self.t_array) < len(data) * self.tb: #Extend carrier signal to match message size
+		while len(self.t_array) < len(data) * self.tb: #Extend carrier signal to match message size (or larger)
 			t_array_new = np.repeat(self.t_array, 2)
 			self.t_array = t_array_new
-			#print('[DATA]: ' + str(len(data)) + ' t_array: ' + str(len(self.t_array)))
-		self.s1 = np.cos(2*np.pi*self.frequency_center*self.t_array) #Reindex the carrier based off of the resized vector to compensate for long message size
+		self.s1 = np.cos(2*np.pi*self.frequency_center*self.t_array) 
+		#Reindex the carrier based off of the resized vector to compensate for long message size
 
 		for i in range(0, len(data)): #For each element in the bitstream, translate into -1 or 1 to modulate phase
 			if(data[i]=='0'):
 				modulated_waveform.append(-1)
 			elif(data[i]=='1'):
 				modulated_waveform.append(1)
-		#print(modulated_waveform)
-		#print('mod_waveform:' + str(len(modulated_waveform)))
-		#print('Oversample:' + str(oversample_factor))
-		#Return bitstream at Tb (t_samples) baud with rect pulse
-		#print('AI Length:' + str(len(ai)))
 		returned_waveform = []
 		cnt = 0
-		#print('max:' + str(self.tb*(len(data) - 1)) + 'data_len: ' + str(len(data)) + 'tb: ' + str(self.tb) + 'mod_waveform_len: ' + str(len(modulated_waveform)))
 		for i in range(0, self.tb*(len(modulated_waveform)), self.tb):
-			signal_chunk = modulated_waveform[cnt] * self.s1[i:(i + self.tb)] * self.amplitude #Generate waveform by multiplying chunk of carrier with phase shift from binary pulse )-1 or 1)
-			#print(signal_chunk)
+			signal_chunk = modulated_waveform[cnt] * self.s1[i:(i + self.tb)] * self.amplitude 
+			#Generate waveform by multiplying chunk of carrier with phase shift from binary pulse (-1 or 1)
 			for element in signal_chunk:
 				returned_waveform.append(element)
-			#print(returned_waveform)
-			#print(cnt)
+			#Append the elements in the signal chunk to reform signal (Don't want an array of arrays)
 			cnt = cnt + 1
-		#print('out_waveform: ' + str(len(returned_waveform)))
 		return returned_waveform
 
 	def demodulate(self, waveform):
@@ -70,8 +60,7 @@ class BPSK_Modulator:
 		cnt = 0
 		for i in range(0, self.tb*(len(normalized_waveform)), self.tb):
 			signal_chunk = normalized_waveform[i:(i + self.tb)]
-			#Moving Average:
-			#print(signal_chunk)
+			#Correlator / Integrator Code
 			if len(signal_chunk) == 0:
 				break;
 			signal_sum = 0
@@ -87,6 +76,4 @@ class BPSK_Modulator:
 				data.append('0')
 			cnt = cnt + 1
 		data_str = ''.join(map(str, data))
-		#print('data_str_len: ' + str(len(data_str)) + 'input_len: ' + str(len(normalized_waveform)))
-		#print('data_str: ' + str(data_str))
 		return data_str

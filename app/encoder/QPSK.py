@@ -12,11 +12,9 @@ class QPSK_Modulator:
 		self.t_samples = t_samples #Sample Rate
 		self.amplitude = amplitude
 		self.t_array = np.repeat(np.linspace(0, 2*np.pi, self.t_samples), 10)
-		#print('T_Array:' + str(len(self.t_array)))
 		self.s1 = np.cos(2* np.pi * self.frequency_center * self.t_array) + 1*j * np.sin(2* np.pi * self.frequency_center * self.t_array)
 		self.s2 = np.cos(2*np.pi*self.frequency_center*self.t_array + np.pi/2) + 1*j*np.sin(2*np.pi*self.frequency_center*self.t_array + np.pi/2)
 		self.tb = t_baud
-		#print(self.s1)
 
 	def binary_pulse(self, data):
 		pulse = []
@@ -37,11 +35,13 @@ class QPSK_Modulator:
 		while len(self.t_array) < len(data) * self.tb: #Extend carrier signal to match message size
 			t_array_new = np.repeat(self.t_array, 2)
 			self.t_array = t_array_new
-			#print('[DATA]: ' + str(len(data)) + ' t_array: ' + str(len(self.t_array)))
 		self.s1 = np.cos(2* np.pi * self.frequency_center * self.t_array) + 1*j * np.sin(2* np.pi * self.frequency_center * self.t_array)
 		self.s2 = np.cos(2*np.pi*self.frequency_center*self.t_array + np.pi/2) + 1*j*np.sin(2*np.pi*self.frequency_center*self.t_array + np.pi/2)
+		#Reindex the carrier based off of the resized vector to compensate for long message size
 		demux1 = []
 		demux2 = []
+		#Demux: Separate the binary stream into the orthogonal carriers. We multiply our samples with our orthogonal basis set and add these together
+		#To form our waveform (which by definition is in quadrature)
 		returned_waveform = []
 		switch = True
 		cnt = 0
@@ -66,18 +66,14 @@ class QPSK_Modulator:
 			demux2.append(0)
 		elif len(demux2) > len(demux1):
 			demux1.append(0)
-		for i in range(0, self.tb*(len(demux1)), self.tb):
+		for i in range(0, self.tb*(len(demux1)), self.tb): #Modulate the binary data for self.tb samples.
 			signal_chunk_i = demux1[cnt] * self.s1[i:(i + self.tb)] * self.amplitude
 			signal_chunk_q = demux2[cnt] * self.s2[i:(i + self.tb)] * self.amplitude
 			signal_chunk = signal_chunk_i + signal_chunk_q
+			#Add both signals from both bases
 			for element in signal_chunk:
 				returned_waveform.append(element)
 			cnt = cnt + 1
-		#print('Waveforms: ' + str(returned_waveform))
-		#print('len W1/W2/input: ' + str(len(demux1)) + ' ' + str(len(demux2)) + ' ' + str(len(data.replace(' ', ''))))
-		#Add both signals from both bases
-		#print('len out:' + str(len(Out_Waveform)))
-		#print(returned_waveform[0:8*self.tb])
 		return returned_waveform
 
 
@@ -85,9 +81,10 @@ class QPSK_Modulator:
 		normalized_waveform = []
 		for element in waveform:
 			normalized_waveform.append(element / self.amplitude)
+		#Normalize our waveforms in order to normalize our decision regions.
 		data = []
 		data_str = ''
-		for i in range(0, self.tb*(len(normalized_waveform)), self.tb):
+		for i in range(0, self.tb*(len(normalized_waveform)), self.tb): #Select and correlate samples corresponding to a Binary 0 or 1
 			signal_chunk = normalized_waveform[i:(i + self.tb)]
 			if len(signal_chunk) == 0:
 				break;
@@ -97,12 +94,12 @@ class QPSK_Modulator:
 			for k in range(len(signal_chunk)):
 				signal_sum = signal_sum + signal_chunk[k] 
 			for k in range(len(signal_chunk)):
-				basis_sum_i = basis_sum_i + (signal_chunk[k]) * np.conjugate(self.s1[i + k]) #
+				basis_sum_i = basis_sum_i + (signal_chunk[k]) * np.conjugate(self.s1[i + k]) #Sum up the chunk in the basis
 				basis_sum_q = basis_sum_i + (signal_chunk[k]) * np.conjugate(self.s2[i + k])
+				#We multiply by the conjugate as a method to remove the s2 carrier from our sampled binary 0 or 1 (Division by a Complex Number = Multiplication by Conjugate)
 			signal_sum = signal_sum
 			basis_sum_i = basis_sum_i
-			basis_sum_q = basis_sum_q
-			'''THIS IS WRONG SOMEHOW'''
+			basis_sum_q = basis_sum_q #Averaging and correlating if a 1 or 0
 			if np.real(basis_sum_i) >= 0: #Bit1 is a 1
 				data_str += '1'
 			else:
@@ -111,9 +108,4 @@ class QPSK_Modulator:
 				data_str += '1'
 			else:
 				data_str += '0'
-			
-			#phase = np.arctan(np.imag(signal_sum * basis_sum_i)/np.real(signal_sum * basis_sum_q)) * (180 / np.pi)
-			#print(phase)
-		#print('QPSK Integrator Bits:' + str(bits))
-		#print('data_str: ' + str(data_str))
 		return data_str
