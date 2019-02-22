@@ -10,6 +10,8 @@ from encoder.QAM import *
 from encoder.conversions import *
 import tensorflow as tf
 
+
+
 #For good results, make the baud rate at least 2 times the frequency
 '''
 class NoisyChannel:
@@ -17,6 +19,9 @@ class NoisyChannel:
 		self.size = kwargs.get('size', 10000)
 	
 	def getNoise(self, **kwargs)
+		sigma = sqrt(N/2) #N is No.
+		
+
 '''
 class Encoder:
 	def __init__(self, **kwargs):
