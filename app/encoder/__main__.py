@@ -9,20 +9,10 @@ from encoder.QPSK import *
 from encoder.QAM import *
 from encoder.conversions import *
 import tensorflow as tf
-
+'''
 
 
 #For good results, make the baud rate at least 2 times the frequency
-'''
-class NoisyChannel:
-	def __init__(self, **kwargs):
-		self.size = kwargs.get('size', 10000)
-	
-	def getNoise(self, **kwargs)
-		sigma = sqrt(N/2) #N is No.
-		
-
-'''
 
 class LDPC:
 	def __init__(self, parameters):
@@ -200,7 +190,7 @@ class RandomCodes:
 			output_str += self.keys[index]
 
 		return output_str
-
+'''
 class Encoder:
 	def __init__(self, **kwargs):
 		self.re_init(**kwargs)
@@ -309,11 +299,12 @@ def load_to_tf_tests():
 def encoding_tests():
 	#For codeword length N = 16 and code rate r = 0.5, we have k = 8.
 	#N * r = k
+	return 0
 
 if __name__ == '__main__':
 	try:
-		#string_to_save_tests()
-		load_to_tf_tests()
+		string_to_save_tests()
+		#load_to_tf_tests()
 	except KeyboardInterrupt:
 		print("KeyboardInterrupt")
 		exit()
