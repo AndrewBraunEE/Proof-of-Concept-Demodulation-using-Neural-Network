@@ -296,6 +296,11 @@ class Encoder:
 			self.BPSK_Mod = BPSK_Modulator(self.freq, self.samples, self.baud, 1)
 			self.QPSK_Mod = BPSK_Modulator(self.freq, self.samples, self.baud, 1)
 			self.QAM_Mod =  QAM_Modulator(self.freq, self.samples, self.baud, 1)
+			self.invrate = kwargs.get('invrate', 1)
+			self.HammingEncoder = Hamming() #7, 4 Encoder
+			self.RandomEncoder = RandomCodes(1,2)
+			self.LDPCEncoder = LDPC(invrate = self.invrate)
+
 		except:
 			print("[ENCODER] Error in initialization of Modulators: Baudrate exceeds time-axis limit.")
 
@@ -332,6 +337,12 @@ class Encoder:
 
 	def encode_default(self, input):
 		#Operations here to encode. #FIX ME
+		if self.encoding == 'Hamming':
+			return self.Hamming.encode(input)
+		elif self.encoding =='Random':
+			return self.RandomEncoder.encode(input)
+		elif self.encoding == 'LDPC':
+			return self.LDPCEncoder.encode(self.LDPCEncoder.binstr_to_messagesize(input))
 		return self.get_raw_waveform_default(input)
 
 	def encode_from_str(self, input):
@@ -392,67 +403,9 @@ def encoding_tests():
 	#N * r = k
 	return 0
 
-def hamming_verification():
-	HammingEncoder = Hamming()
-	string_msg = 'hey_im_hamming'
-	binstr = str_to_binary_str(string_msg).replace(' ', '')
-	encoded_msg = HammingEncoder.encode(binstr)
-	decoded_msg = HammingEncoder.decode(encoded_msg)
-	decoded_str = binary_str_to_str(decoded_msg)
-	print('[UNENCODED]: ' + binstr +  ' [ENCODED MSG]: ' + encoded_msg + ' [DECODED MSG]: ' + decoded_msg)
-	print('[ENCODED MSG]: ' + string_msg + ' [DECODED MSG]: ' + decoded_str)
-
-def ldpc_verification(): 
-	Encoder = LDPC()
-	string_msg = 'hey_im_LDPC'
-	binstr = str_to_binary_str(string_msg).replace(' ', '')
-	print(len(binstr))
-	original_len = len(binstr)
-	d_v = 8
-	d_c = 16
-	rate = d_c
-	codeword_len = len(binstr)
-	print(codeword_len)
-	H = Encoder.construct_h_matrix(codeword_len, d_v, d_c)#7 chosen because char = 7 bits
-	tg = Encoder.construct_tg_matrix(H)
-	encoded_msg = Encoder.encode(binstr)
-	print(len(encoded_msg))
-	decoded_msg = Encoder.decode(encoded_msg, tg_matrix = tg)
-	decoded_str = binary_str_to_str(decoded_msg)
-	print('[UNENCODED]: ' + binstr +  ' [ENCODED MSG]: ' + encoded_msg + ' [DECODED MSG]: ' + decoded_msg)
-	print('[ENCODED MSG]: ' + string_msg + ' [DECODED MSG]: ' + decoded_str)
-
-def ldpc_verification_new():
-	Encoder = LDPC()
-	string_msg = 'hey_im_LDPC'
-	binstr = str_to_binary_str(string_msg).replace(' ', '')
-	##LDPC Parameters
-	invrate = 3
-	k = len(binstr)
-	h, tg = Encoder.construct_use_invrate(invrate, k)
-	encoded_msg = Encoder.encode(binstr)
-	#print(h, tg)
-	print(str(len(encoded_msg)) +'    ' + str(len(binstr)))
-	#print(len(encoded_msg))
-	decoded_msg = Encoder.decode(encoded_msg, tg_matrix = tg)
-	decoded_str = binary_str_to_str(decoded_msg)
-	print('[UNENCODED]: ' + str(binstr) +  ' [ENCODED MSG]: ' + str(encoded_msg) + ' [DECODED MSG]: ' + str(decoded_msg))
-	print('[ENCODED MSG]: ' + str(string_msg) + ' [DECODED MSG]: ' + str(decoded_str))
-
-def random_codes_verification():
-	string_msg = 'hey_im_random'
-	binstr = str_to_binary_str(string_msg).replace(' ', '')
-	RandomEncoder = RandomCodes(2, 3)
-	encoded_msg = RandomEncoder.encode(binstr)
-	decoded_msg = RandomEncoder.decode(encoded_msg)
-	decoded_str = binary_str_to_str(decoded_msg)
-	print('[UNENCODED]: ' + str(binstr) +  ' [ENCODED MSG]: ' + str(encoded_msg) + ' [DECODED MSG]: ' + str(decoded_msg))
-	print('[ENCODED MSG]: ' + str(string_msg) + ' [DECODED MSG]: ' + str(decoded_str))
-
 if __name__ == '__main__':
 	try:
-		random_codes_verification()
-		#string_to_save_tests()
+		string_to_save_tests()
 		#load_to_tf_tests()
 	except KeyboardInterrupt:
 		print("KeyboardInterrupt")
