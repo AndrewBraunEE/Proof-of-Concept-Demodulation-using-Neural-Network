@@ -1,4 +1,20 @@
-from encoder import *
+from encoder.__main__ import Hamming, LDPC, RandomCodes
+import numpy as np
+import matplotlib.pyplot as plt
+import glob
+import pickle
+import textwrap
+import pyldpc
+from pyldpc.ldpcalgebra import*
+__all__ = ['BinaryProduct', 'InCode', 'BinaryRank','Coding_random','Coding']
+import itertools
+
+from encoder.BPSK import *
+from encoder.QPSK import *
+from encoder.QAM import *
+from encoder.conversions import *
+import tensorflow as tf
+
 
 def hamming_verification():
 	HammingEncoder = Hamming()
@@ -56,3 +72,14 @@ def random_codes_verification():
 	decoded_str = binary_str_to_str(decoded_msg)
 	print('[UNENCODED]: ' + str(binstr) +  ' [ENCODED MSG]: ' + str(encoded_msg) + ' [DECODED MSG]: ' + str(decoded_msg))
 	print('[ENCODED MSG]: ' + str(string_msg) + ' [DECODED MSG]: ' + str(decoded_str))
+
+def main():
+	#hamming_verification()
+	#ldpc_verification_new()
+	random_codes_verification()
+
+if __name__ != 'main':
+	try:
+		main()
+	except KeyboardInterrupt:
+		exit()

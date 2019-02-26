@@ -92,6 +92,9 @@ class LDPC:
 		return return_str
 
 	def decode(self, input, tg_matrix = None):
+		#Decodes the encoded input using the tg_matrix that was previously constructed.
+		#pyldpc handles any error correction by calling DecodedMessage from the pyldpc library.
+
 		#if tg_matrix == None:
 		tg_matrix = self.current_tg_matrix
 
@@ -129,6 +132,20 @@ class LDPC:
 		return return_str
 
 class Hamming: #Implementation of Hamming 7, 4 Encoding scheme
+	def __flip(self, bit):
+		if bit == '1':
+			bit = '0'
+		elif bit == '0':
+			bit = '1'
+		elif bit == 1:
+			bit = 0
+		elif bit == 0:
+			bit = 1
+		return bit
+
+	def __replace_str_index(self, text,index=0,replacement=''):
+		return '%s%s%s'%(text[:index],replacement,text[index+1:])
+
 	def encode(self, bin_input):
 		##MAPPING OF BIN_INPUT (4 bits) to 7-BIT
 		#See page 14 @ https://courses.cs.washington.edu/courses/cse466/12au/calendar/09a-ErrorControlCodes.pdf?fbclid=IwAR0fVzwwdDOHNhzv0BJzjHGMhui3w9RMK-YeI6V6QFK2toiGQmDKpREuof0
@@ -147,7 +164,7 @@ class Hamming: #Implementation of Hamming 7, 4 Encoding scheme
 			'0101': '0101101',
 			'0110': '0110001',
 			'0111': '0111010',
-			'1000': '1000010',
+			'1000': '1000101',
 			'1001': '1001110',
 			'1010': '1010010',
 			'1011': '1011001',
@@ -163,13 +180,43 @@ class Hamming: #Implementation of Hamming 7, 4 Encoding scheme
 		return output_str
 
 	def decode(self, input):
+		#Credit for this specific function goes to xnor
 		#print(input)
 		if isinstance(input, str):
 			input = wrap(input, 7)
 
-		#while len(input[-1]) < 7: #Get the last element in the list; This shouldn't be necessary and if it's run; that means something is *likely* wrong
-		#	input[-1] = input[-1] + '0' #Zeropad if necessary
-		
+		corrected_elements = []
+
+		#Check for an error
+		for element in input:
+			p1 = (int(element[0]) + int(element[1]) + int(element[2]))%2
+			p2 = (int(element[1]) + int(element[2]) + int(element[3]))%2
+			p3 = (int(element[0]) + int(element[2]) + int(element[3]))%2
+			parity_bits = str(p1) + str(p2) + str(p3)
+			#Calculate the parity bits [b4:b6] and compare. 
+			if p1 != int(element[4]) and p2 == int(element[5]) and p3 == int(element[6]):
+				corrected_bit = self.__flip(str(p1))
+				element = self.__replace_str_index(element, index = 4, replacement = corrected_bit)
+			elif p1 == int(element[4]) and p2 != int(element[5]) and p3 == int(element[6]):
+				corrected_bit = self.__flip(str(p2))
+				element = self.__replace_str_index(element, index = 5, replacement = corrected_bit)
+			elif p1 != int(element[4]) and p2 != int(element[5]) and p3 == int(element[6]): #D1
+				corrected_bit = self.__flip(str(element[0]))
+				element = self.__replace_str_index(element, index = 0, replacement = corrected_bit)
+			elif p1 == int(element[4]) and p2 == int(element[5]) and p3 != int(element[6]):
+				corrected_bit = self.__flip(str(p3))
+				element = self.__replace_str_index(element, index = 6, replacement = corrected_bit)
+			elif int(p1) != int(element[4]) and int(p2) == int(element[5]) and int(p3) != int(element[6]):#Error here
+				corrected_bit = self.__flip(str(element[1]))
+				element = self.__replace_str_index(element, index = 1, replacement = corrected_bit)
+			elif p1 == int(element[4]) and p2 != int(element[5]) and p3 != int(element[6]):
+				corrected_bit = self.__flip(str(element[2]))
+				element = self.__replace_str_index(element, index = 2, replacement = corrected_bit)
+			elif p1 != int(element[4]) and p2 != int(element[5]) and p3 != int(element[6]):
+				corrected_bit = self.__flip(str(element[3]))
+				element = self.__replace_str_index(element, index = 3, replacement = corrected_bit)
+			corrected_elements.append(element)
+
 		ham_map_inverse = {
 			'0000000': '0000',
 			'0001011': '0001',
@@ -179,7 +226,7 @@ class Hamming: #Implementation of Hamming 7, 4 Encoding scheme
 			'0101101': '0101',
 			'0110001': '0110',
 			'0111010': '0111',
-			'1000010': '1000',
+			'1000101': '1000',
 			'1001110': '1001',
 			'1010010': '1010',
 			'1011001': '1011',
@@ -189,7 +236,7 @@ class Hamming: #Implementation of Hamming 7, 4 Encoding scheme
 			'1111111': '1111'
 		}
 		output_str = ''
-		for element in input:
+		for element in corrected_elements:
 			output_str += ham_map_inverse[element]
 
 		return output_str
@@ -197,6 +244,26 @@ class Hamming: #Implementation of Hamming 7, 4 Encoding scheme
 class RandomCodes:
 	def __init__(self, input_size = 0, output_size = 0):
 		self.generate_new_block(input_size, output_size)
+
+	def hamming_dmin(self, msg): #Calculate the minimum hamming distance for the given input
+		freq = len(msg) #Start at the max value. The frequency of differences is the Hamming Distance
+		index_min = None
+		#print(str(msg))
+		for index, element in enumerate(self.values):
+			#print('index: ' + str(index) + ' element: ' + str(element))
+			temp_freq = 0
+			cnt = 0
+			for character in element: #Find how many characters are different in each codeword compared to our input. Save the minimum
+				if msg[cnt] != element[cnt]:
+					temp_freq += 1
+					print(temp_freq)
+				cnt += 1
+			if temp_freq < freq:
+				freq = temp_freq
+				index_min = index
+		return (index_min, freq)
+
+	#def get_hamming_distance(self, msg, input):
 
 	def generate_frequency_table(self, input_list):
 		# Creating an empty dictionary  
@@ -228,9 +295,7 @@ class RandomCodes:
 		self.input_size = input_size
 		self.output_size = output_size
 		num_combinations = 2^input_size
-		#print(num_combinations)
 		list_keys = list(itertools.product([0, 1], repeat = input_size))
-		#print(list_keys)
 		for index, element in enumerate(list_keys):
 			string_to_use = ''
 			for number in element:
@@ -249,9 +314,8 @@ class RandomCodes:
 				while len(myinteger_str) < output_size:
 					myinteger_str += '0' #Zeropad
 					#print(myinteger_str)
-			list_values.append(myinteger_str) ##FIXME: What happens when I get the same random number twice?
+			list_values.append(myinteger_str)
 		self.block = dict(zip(list_keys, list_values))
-		#print(self.block)
 		self.keys = list_keys
 		self.values = list_values
 
@@ -275,9 +339,13 @@ class RandomCodes:
 		while len(input[-1]) < self.output_size: #Get the last element in the list; This shouldn't be necessary and if it's run; that means something is *likely* wrong
 			input[-1] = input[-1] + '0' #Zeropad if necessary
 		
+
+
 		output_str = ''
 		for element in input:
-			index = self.values.index(element)
+			index, hamming_distance = self.hamming_dmin(element) #Find the most probable message
+			print('index, h_distance: ' + str(index) + '  ' + str(hamming_distance))
+			#index = self.values.index(element)
 			output_str += self.keys[index]
 
 		return output_str
