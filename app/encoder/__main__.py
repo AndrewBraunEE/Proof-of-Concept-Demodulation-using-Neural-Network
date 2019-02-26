@@ -12,7 +12,6 @@ from encoder.BPSK import *
 from encoder.QPSK import *
 from encoder.QAM import *
 from encoder.conversions import *
-import tensorflow as tf
 
 #For good results, make the baud rate at least 2 times the frequency
 
@@ -263,8 +262,6 @@ class RandomCodes:
 				index_min = index
 		return (index_min, freq)
 
-	#def get_hamming_distance(self, msg, input):
-
 	def generate_frequency_table(self, input_list):
 		# Creating an empty dictionary  
 		freq = {} 
@@ -274,22 +271,6 @@ class RandomCodes:
 			else: 
 				freq[item] = 1
 		return freq
-
-	def replace_collisions(self):
-		return 0
-		'''
-		collisions_freq = self.generate_frequency_table(self.block)
-		collision_list = []
-		for key, value in collisions_freq:
-			if value >= 2:
-				collision_list.append(key) #Generate a list of colliding keys
-		myinteger_str = ''
-		for i in range(self.output_size):
-			myinteger_str = int_to_binary_str(np.random.randint(0, 2**output_size - 1))
-			while len(myinteger_str) < output_size:
-				myinteger_str += '0' #Zeropad
-			list_values.append(myinteger_str)
-		'''
 
 	def generate_new_block(self, input_size, output_size):
 		self.input_size = input_size

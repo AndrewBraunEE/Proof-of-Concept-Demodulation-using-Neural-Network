@@ -1,3 +1,9 @@
+from encoder.conversions import *
+from encoder.BPSK import *
+from encoder.QPSK import *
+from encoder.QAM import *
+import numpy as np
+import matplotlib.pyplot as plt
 
 #For good results, make the baud rate at least 2 times the frequency
 
@@ -5,9 +11,9 @@ TestString = "Hello World! Hopefully this demodulates for everything"
 b_str = str_to_binary_str(TestString)
 #b_str = HammingEncode(b_str)
 print('b_str:' + b_str.replace(' ', ''))
-TestFC = 60
-TBaud = 120 #How many samples each transmitted bit takes
-TestSamples = TBaud * 100
+TestFC = 420 #(s^-1)
+TBaud = 10*TestFC #How many samples each transmitted bit takes
+TestSamples = TBaud * 10
 
 BPSK_mod = BPSK_Modulator(TestFC, TestSamples, TBaud, 1) #30 Hz, 100 Samples, 1 Volt
 QPSK_mod = QPSK_Modulator(TestFC, TestSamples, TBaud, 1) # Number of Samples and Sampling Frequency should be the same. WOOPS 
@@ -57,9 +63,9 @@ qam_bin = QAM_mod.demodulate(qam_waveform)
 #print(qam_bin)
 
 '''
-#print(bpsk_bin)
+print('bpsk_bin:' + str(bpsk_bin))
 print('qpsk_bin:' + str(qpsk_bin))
-print('qam_bin: ' + str(qam_bin))
+print('qam_bin:' + str(qam_bin))
 bpsk_str = binary_str_to_str(bpsk_bin)
 
 qpsk_str = binary_str_to_str(qpsk_bin)
