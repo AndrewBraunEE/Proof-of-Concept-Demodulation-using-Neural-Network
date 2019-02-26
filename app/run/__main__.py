@@ -1,7 +1,7 @@
 import argparse
-import NeuralDemod.app.__main__
-from NeuralDemod.app.encoder import *
+from encoder.__main__ import Encoder
 import sys
+from run import functions
 
 def run():
 	argparser = argparse.ArgumentParser('Launch the EE132A Project')
@@ -16,11 +16,11 @@ def run():
 	args = argparser.parse_args()
 
 	try:
-		encoder = Encoder()
+		app_encoder = Encoder()
 		bit_stream = None
 		use_trainer = False #Train neural network?
-		sys.stderr.write(args)
-		print(args) 
+		sys.stderr.write(str(args))
+		#print(args) 
 		#todo, delete.
 		if args.m:
 			encoder.re_init(default_mod = args.m)
@@ -40,5 +40,5 @@ def run():
 	except KeyboardInterrupt:
 		exit()
 
-if __name__ == 'main':
+if __name__ == '__main__':
 	run()
