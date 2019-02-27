@@ -1,10 +1,14 @@
 
 import tensorflow as tf
 import numpy as np
+from numpy import array
 import pickle 
 import matplotlib.pyplot as plt
 
 import os
+
+N = 16
+r = .5
 
 
 #CREDIT TO CSM146 HW 2 CODE
@@ -66,7 +70,39 @@ def plot_data(X, Y, **kwargs) :
     data = Data(X, Y)
     data.plot(**kwargs)
 
-    
+epochs_completed = 0
+index_in_epoch = 0
+
+def next_batch(num, X_train, Y_train):
+    '''
+    #global X_train,y_train
+    global index_in_epoch, epochs_completed
+
+    start = index_in_epoch
+    index_in_epoch +=batch_size
+
+    if index_in_epoch > num_examples:
+        epochs_completed +=1
+        perm = np.arange(num_examples)
+        np.random.shuffle(perm)
+        X_train = X_train[perm]
+        y_train = y_train[perm]
+        start = 0
+        index_in_epoch = batch_size
+        assert batch_size <= num_examples
+    end = index_in_epoch
+    return X_train[start:end], y_train[start:end]
+    '''
+    '''
+    Return a total of `num` random samples and labels. 
+    '''
+    idx = np.arange(0 , len(X_train))
+    np.random.shuffle(idx)
+    idx = idx[:num]
+    data_shuffle = [X_train[ i] for i in idx]
+    labels_shuffle = [Y_train[ i] for i in idx]
+
+    return np.asarray(data_shuffle), np.asarray(labels_shuffle)
     
 
 class NND:
@@ -79,13 +115,14 @@ class NND:
         self.train_data = load_data('foo3.csv')
         self.X_train = self.train_data.X
         self.Y_train = self.train_data.Y
+        #print(self.Y_train)
+        #print(self.X_train)
         self.n_features = len(self.X_train)
-        self.n_classes = len(self.Y_train)
+        self.n_classes = len(self.X_train) #2**(N*r)#should be 2^(N*r)
         #self.n_features = n_f
         #self.n_classes = n_c
         self.X = tf.placeholder(tf.float32, [None, self.n_features], name='training')
-        self.Y = tf.placeholder(tf.float32, [None, self.n_classes], name='test')
-
+        self.Y = tf.placeholder(tf.float32, [self.n_classes], name='test')
         
     def Hidden_Layers(self):
         #inputs, will be arguments 
@@ -124,7 +161,7 @@ class NND:
         out_clipped = tf.clip_by_value(output,1e-10,0.9999999)#to avoid log(0) error
         #we will be using the cross entropy cost function of the form y*log(y)+(1+y)*log(1-y) to measure performance
         cross_entropy = -tf.reduce_mean(tf.reduce_sum(self.Y * tf.log(out_clipped) + (1-self.Y)*tf.log(1-out_clipped), axis=1))
-        print(cross_entropy)
+        #print('CO: ',cross_entropy)
         #Gradient Descent Optimizer 
         optimiser = tf.train.GradientDescentOptimizer(learning_rate=learning_rate).minimize(cross_entropy)
         init_op = tf.global_variables_initializer()
@@ -146,27 +183,37 @@ class NND:
         '''        
         #train_data = load_data('Wave_train')
         #test_data = load_data('Wave_test')
-
+    
 
         #train the model
         with tf.Session() as sess:
             sess.run(init_op)
-            total_batch = int(len(self.X_train) / 1)
-            print(len(self.X_train))
+            total_batch = int(len(self.X_train) / 3)
+            #print(len(self.train_data))
+            num_examples = self.X_train.shape[0]
+            print(num_examples)
+            #print(len(self.X_train))
             for self.training_epochs in range(self.training_epochs):
                     avg_cost = 0
-                    print(total_batch)
+                    #print(total_batch)
                     for i in range(total_batch):
-                            #X_train, y_train = mnist.train.next_batch(batch_size=100)
-                            _, c = sess.run([optimiser, cross_entropy], feed_dict={self.X: self.X_train, self.Y:self.Y_train}) #ERROR HERE
+                            X_train, y_train = next_batch(num_examples, self.X_train, self.Y_train)
+                            print(X_train)
+                            print(y_train)
+                            X_train = np.transpose(X_train)
+                            #y_train = np.reshape(y_train.shape[0],1)
+                            #y_train = np.concatenate((1-y_train,y_train),axis =1)
+                            #X_train_temp = array(X_train).reshape(3)
+                            _,c = sess.run([optimiser, cross_entropy], feed_dict={self.X: X_train, self.Y:y_train}) #ERROR HERE
+                            print(c)
                             avg_cost += c / total_batch
-                   #         print("AVG COST: ", avg_cost)
-                  #  print("Epoch:",(self.training_epochs+1),"cost =", "{:.3f}".format(avg_cost))
-          #  print(sess.run(accuracy, feed_dict={self.X: mnist.test.images, self.Y: mnist.test.labels}))  
-
+                            print("AVG COST: ", avg_cost)
+                    print("Epoch:",(self.training_epochs+1),"cost =", "{:.3f}".format(avg_cost))
+            #print(sess.run(accuracy, feed_dict={self.X: mnist.test.images, self.Y: mnist.test.labels}))  
+    
 if __name__ == '__main__':
     try:
-        s = NND(3, 128, 64, 3, 0.01)
+        s = NND(10, 128, 64, 3, 0.01)
         s.Hidden_Layers()
     except KeyboardInterrupt:
         print("KeyboardInterrupt")
