@@ -46,8 +46,9 @@ class Data :
             data = np.loadtxt(fid, delimiter=",")
         
         # separate features and labels
-        self.X = data[:,:-1]
-        self.Y = data[:,-1]
+        self.X = data[0]
+        self.Y = data[1]
+        #self.Z = data[3]
     
     def plot(self, **kwargs) :
         """Plot data."""
@@ -115,14 +116,15 @@ class NND:
         self.train_data = load_data('foo3.csv')
         self.X_train = self.train_data.X
         self.Y_train = self.train_data.Y
-        #print(self.Y_train)
-        #print(self.X_train)
+        print(self.Y_train)
+        print(self.X_train)
+        print(len(self.X_train))
         self.n_features = len(self.X_train)
         self.n_classes = len(self.X_train) #2**(N*r)#should be 2^(N*r)
         #self.n_features = n_f
         #self.n_classes = n_c
         self.X = tf.placeholder(tf.float32, [None, self.n_features], name='training')
-        self.Y = tf.placeholder(tf.float32, [self.n_classes], name='test')
+        self.Y = tf.placeholder(tf.float32, [None, self.n_classes], name='test')
         
     def Hidden_Layers(self):
         #inputs, will be arguments 
@@ -132,7 +134,7 @@ class NND:
         #W1 = tf.Variable(tf.truncated_normal([self.n_neurons_in_h1, self.n_features],mean=0,stddev=1/np.sqrt(self.n_neurons_in_h1)), name='weights1')
         #B1 = tf.Variable(tf.truncated_normal([self.n_features],mean=0,stddev=1/np.sqrt(self.n_features)), name='biases1')
         W1 = tf.Variable(tf.random_normal([self.n_features, self.n_neurons_in_h1], stddev=1), name = 'W1')
-        B1 = tf.Variable(tf.random_normal([self.n_neurons_in_h1]),name ='B2')
+        B1 = tf.Variable(tf.random_normal([self.n_neurons_in_h1]),name ='B1')
         #activation layer for H1, used as input for activation layer 2
         sig1 = tf.nn.sigmoid((tf.matmul(self.X,W1)+B1),name ='activationLayer1')
 
@@ -188,8 +190,8 @@ class NND:
         #train the model
         with tf.Session() as sess:
             sess.run(init_op)
-            total_batch = int(len(self.X_train) / 3)
-            #print(len(self.train_data))
+            total_batch = int(len(self.X_train) / 32)
+            #print(len(self.X_train))
             num_examples = self.X_train.shape[0]
             print(num_examples)
             #print(len(self.X_train))
@@ -197,15 +199,16 @@ class NND:
                     avg_cost = 0
                     #print(total_batch)
                     for i in range(total_batch):
-                            X_train, y_train = next_batch(num_examples, self.X_train, self.Y_train)
-                            print(X_train)
-                            print(y_train)
-                            X_train = np.transpose(X_train)
+                            X_, y_ = next_batch(num_examples, self.X_train, self.Y_train)
+                            #print(X_)
+                            #print(y_)
+                            #X_ = np.transpose(X_)
+                            #y_ = np.transpose(y_)
                             #y_train = np.reshape(y_train.shape[0],1)
                             #y_train = np.concatenate((1-y_train,y_train),axis =1)
                             #X_train_temp = array(X_train).reshape(3)
-                            _,c = sess.run([optimiser, cross_entropy], feed_dict={self.X: X_train, self.Y:y_train}) #ERROR HERE
-                            print(c)
+                            _,c = sess.run([optimiser, cross_entropy], feed_dict={self.X: X_, self.Y: y_}) #ERROR HERE
+                            #print(c)
                             avg_cost += c / total_batch
                             print("AVG COST: ", avg_cost)
                     print("Epoch:",(self.training_epochs+1),"cost =", "{:.3f}".format(avg_cost))
@@ -213,7 +216,7 @@ class NND:
     
 if __name__ == '__main__':
     try:
-        s = NND(10, 128, 64, 3, 0.01)
+        s = NND(10, 128, 64, 68640, 0.01)
         s.Hidden_Layers()
     except KeyboardInterrupt:
         print("KeyboardInterrupt")
