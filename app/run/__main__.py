@@ -17,7 +17,7 @@ def run():
 	argparser.add_argument('-o', '--source', const = str, action = 'store_const', dest = 'source', default = None, help = 'Use the parameter after -k as the source directory as a pipe')
 	argparser.add_argument('-l', '--sink', const = str, action = 'store_const', dest = 'sink', default = None, help = 'Use the parameter after -l as the sink directory as a pipe')
 	argparser.add_argument('-m', '--modulator', const = str, action = 'store_const', dest = 'modulator', default = 'BPSK_Modulator', help = 'Specify the modulation type for the encoded data')
-	argparser.add_argument('-s', '--save', const = str, action = 'store_const', dest = 'save', default = None, help = 'Store the waveform samples to a file')
+	argparser.add_argument('-s', '--save', const = str, action = 'store_const', dest = 'save', default = True, help = 'Store the waveform samples to a file')
 	argparser.add_argument('-u', '--snr', const = int, action = 'store_const', dest = 'snr', default = 15, help = 'Transmit the bitsequence over a noisy channel with the specified SNR')
 	argparser.add_argument('-c', '--channel', const = str, action = 'store_const', dest = 'channel', default = 'noise', help = 'Specify whether the noisy channel is only noisy (PARAM: noise) or is noisy and fading (PARAM: fade)')
 	argparser.add_argument('-e', '--encoder', const = str, action = 'store_const', dest = 'encoder', default = 'LDPC', help = 'Specify which encoding scheme to use, or to use all three in serial. By default, uses random codes, ldpc codes, and hamming code in series.')
@@ -32,9 +32,7 @@ def run():
 		if args.train: #Train
 			use_trainer = args.train
 		else:
-			if args.save:
-				encoder.save_to_file(args.s)
-			elif args.sink and not args.source:
+			if args.sink and not args.source:
 				run_file_to_sink(bit_stream, args.source)
 			elif args.sink and args.source:
 				run_source_to_sink(args.sink, args.source)

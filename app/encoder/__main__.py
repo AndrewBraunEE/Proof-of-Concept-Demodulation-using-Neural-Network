@@ -427,12 +427,14 @@ class Encoder:
 	def save_to_file(self, input, filename='training_waveform.txt'): #Save an encoded message in a waveform to a file
 		with open(filename, "wb") as file: #Serialized
 			#pickle.dump(input, file)
-			np.save(file, input, allow_pickle = True)
+			#np.save(file, input, allow_pickle = True)
+			np.savetxt(filename, input, delimiter=",")
 
 	def load_from_file(self, filename='training_waveform.txt'): #Load an already encoded message in a waveform
 		with open (filename, 'rb') as file: #Unserialize
 			#return pickle.load(file)
-			return np.load(file)
+			#return np.load(file)
+			return np.loadtxt(file)
 
 	def load_str_dir(self, input_dir = 'data/*.txt'):
 		list_txt_files = glob.glob(input_dir)
