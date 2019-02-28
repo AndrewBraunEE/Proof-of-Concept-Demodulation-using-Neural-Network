@@ -74,7 +74,7 @@ def plot_data(X, Y, **kwargs) :
 epochs_completed = 0
 index_in_epoch = 0
 
-def next_batch(num, X_train, Y_train):
+def next_batch(num_X, num_Y, X_train, Y_train):
     '''
     #global X_train,y_train
     global index_in_epoch, epochs_completed
@@ -97,11 +97,14 @@ def next_batch(num, X_train, Y_train):
     '''
     Return a total of `num` random samples and labels. 
     '''
-    idx = np.arange(0 , len(X_train))
+    idx = np.arange(0 ,len(X_train))
+    idy = np.arange(0,len(Y_train))
     np.random.shuffle(idx)
-    idx = idx[:num]
-    data_shuffle = [X_train[ i] for i in idx]
-    labels_shuffle = [Y_train[ i] for i in idx]
+    np.random.shuffle(idy)
+    idx = idx[:num_X]
+    idy = idy[:num_Y]
+    data_shuffle = X_train[idx]
+    labels_shuffle = Y_train[idy]
 
     return np.asarray(data_shuffle), np.asarray(labels_shuffle)
     
@@ -124,7 +127,7 @@ class NND:
         #self.n_features = n_f
         #self.n_classes = n_c
         self.X = tf.placeholder(tf.float32, [None, self.n_features], name='training')
-        self.Y = tf.placeholder(tf.float32, [None, self.n_classes], name='test')
+        self.Y = tf.placeholder(tf.float32, [None, 32], name='test')
         
     def Hidden_Layers(self):
         #inputs, will be arguments 
@@ -191,15 +194,16 @@ class NND:
         with tf.Session() as sess:
             sess.run(init_op)
             total_batch = int(len(self.X_train) / 32)
-            #print(len(self.X_train))
-            num_examples = self.X_train.shape[0]
-            print(num_examples)
+            print(len(self.X_train))
+            print(total_batch)
             #print(len(self.X_train))
             for self.training_epochs in range(self.training_epochs):
                     avg_cost = 0
                     #print(total_batch)
-                    for i in range(total_batch):
-                            X_, y_ = next_batch(num_examples, self.X_train, self.Y_train)
+                    for i in range(32):
+                            X_, y_ = next_batch(68640, 32, self.X_train, self.Y_train)
+                            X_ = np.expand_dims(X_, axis = 0)
+                            y_ = np.expand_dims(y_, axis = 0)
                             #print(X_)
                             #print(y_)
                             #X_ = np.transpose(X_)
@@ -207,16 +211,17 @@ class NND:
                             #y_train = np.reshape(y_train.shape[0],1)
                             #y_train = np.concatenate((1-y_train,y_train),axis =1)
                             #X_train_temp = array(X_train).reshape(3)
-                            _,c = sess.run([optimiser, cross_entropy], feed_dict={self.X: X_, self.Y: y_}) #ERROR HERE
+                           # X_ = np.swapaxes(X_, 1, 0)
+                            _, c = sess.run([optimiser, cross_entropy], feed_dict={self.X: X_, self.Y: y_}) #ERROR HERE
                             #print(c)
                             avg_cost += c / total_batch
-                            print("AVG COST: ", avg_cost)
+                            #print("AVG COST: ", avg_cost)
                     print("Epoch:",(self.training_epochs+1),"cost =", "{:.3f}".format(avg_cost))
             #print(sess.run(accuracy, feed_dict={self.X: mnist.test.images, self.Y: mnist.test.labels}))  
     
 if __name__ == '__main__':
     try:
-        s = NND(10, 128, 64, 68640, 0.01)
+        s = NND(50, 128, 64, 32, 0.001)
         s.Hidden_Layers()
     except KeyboardInterrupt:
         print("KeyboardInterrupt")
