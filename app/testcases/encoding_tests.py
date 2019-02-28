@@ -75,10 +75,10 @@ def random_codes_verification():
 
 def main():
 	#hamming_verification()
-	#ldpc_verification_new()
-	random_codes_verification()
+	ldpc_verification_new()
+	#random_codes_verification()
 
-if __name__ != 'main':
+if __name__ == 'main':
 	try:
 		main()
 	except KeyboardInterrupt:

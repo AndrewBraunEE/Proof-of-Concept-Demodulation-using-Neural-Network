@@ -20,7 +20,10 @@ class LDPC:
 	def __init__(self, **kwargs):
 		self.current_tg_matrix = None
 		self.current_h_matrix = None
-		self.k = kwargs.get('k', None)
+		self.k = kwargs.get('k', 2)
+		self.invrate = kwargs.get('invrate', None)
+		if self.invrate != None:
+			self.construct_use_invrate(self.invrate, self.k)
 ##Deprecated. Use construct_use_invrate to generate h and g matrices for better and more consistent results.
 	def construct_h_matrix(self, col_num, ones_per_col, ones_per_row):
 		#assert any(guess % ones_per_row == 0) == True
@@ -44,8 +47,8 @@ class LDPC:
 		return self.current_h_matrix, self.current_tg_matrix
 
 	def binstr_to_messagesize(self, bin_input):
-		bin_input = wrap(bin_input, k)
-		while len(bin_input[-1]) < k:
+		bin_input = wrap(bin_input, self.k)
+		while len(bin_input[-1]) < self.k:
 			bin_input[-1] += '0' #Zeropad last element
 		return bin_input
 
@@ -54,11 +57,25 @@ class LDPC:
 		#If bitarray: Do the same
 		#if tg_matrix.any == None:
 		tg_matrix = self.current_tg_matrix
-		
+		#print(bin_input)
 		n,k = tg_matrix.shape
 		EncodedArray = None
-
-		if isinstance(bin_input, str):
+		return_str = ''
+		if isinstance(bin_input, list):
+			#raw_str = ''.join(bin_input)
+			for element in bin_input: #bin_input is an array of smaller frames that need to be encoded
+				index = 0
+				array = np.zeros((1, len(element)))
+				for char in element:
+					array[(0, index)] = int(char, 2)
+					index += 1
+				array = array.transpose()
+				EncodedArray = BinaryProduct(tg_matrix, array)
+				for ele in EncodedArray:
+					return_str += str(EncodedArray).replace('[', '').replace(']', '').replace('.','').replace(' ', '').replace('\n', '')
+			#print(return_str)
+			return return_str
+		if isinstance(bin_input, str): #bin_input is a single frame that needs to be encoded
 			bin_input = bin_input.replace(' ', '')
 			array = np.zeros((1, len(bin_input)))
 			index = 0
@@ -66,39 +83,27 @@ class LDPC:
 				array[(0, index)] = int(element, 2)
 				index += 1
 			array = array.transpose()
-			x_size, y_size = array.shape
-			'''if y_size != k:
-				print('[n,k]: ' + str(tg_matrix.shape) + ' [array_len]: '+ str(array.shape))
-				raise ValueError(" Size of message v must be equal to number of Coding Matrix G's rows " )  '''
+			#x_size, y_size = array.shape
 			EncodedArray = BinaryProduct(tg_matrix, array)
-		elif isinstance(bin_input, bytes):
+		elif isinstance(bin_input, bytes): #todo: check if this works
 			array = np.zeros((1, len(bin_input)))
 			index = 0
 			for element in bin_input:
 				array[(0, index)] = int(element, 2)
 				index += 1
 			array = array.transpose()
-			x_size, y_size = array.shape
-			'''if y_size != k:
-				print('[n,k]: ' + str(tg_matrix.shape) + ' [array_len]: '+ str(array.shape)) 
-				raise ValueError(" Size of message v must be equal to number of Coding Matrix G's rows " ) '''
+			#x_size, y_size = array.shape
 			EncodedArray = BinaryProduct(tg_matrix, array)
-		return_str = ''
-		EncodedArray
 		for element in EncodedArray:
 			return_str += str(element)
 		return_str = return_str.replace('[', '').replace(']', '').replace('.','')
 		return return_str
 
-	def decode(self, input, tg_matrix = None):
+	def decode(self, input, tg_matrix = None): #Fixme, let any tg_matrix be an argument
 		#Decodes the encoded input using the tg_matrix that was previously constructed.
 		#pyldpc handles any error correction by calling DecodedMessage from the pyldpc library.
 
-		#if tg_matrix == None:
 		tg_matrix = self.current_tg_matrix
-
-		#assert(tg_matrix != None)
-		#print(input)
 		DecodedArray = None
 		if isinstance(input, str):
 			input = input.replace(' ', '')
@@ -148,6 +153,7 @@ class Hamming: #Implementation of Hamming 7, 4 Encoding scheme
 	def encode(self, bin_input):
 		##MAPPING OF BIN_INPUT (4 bits) to 7-BIT
 		#See page 14 @ https://courses.cs.washington.edu/courses/cse466/12au/calendar/09a-ErrorControlCodes.pdf?fbclid=IwAR0fVzwwdDOHNhzv0BJzjHGMhui3w9RMK-YeI6V6QFK2toiGQmDKpREuof0
+		#print(bin_input)
 		if isinstance(bin_input, str):
 			bin_input = wrap(bin_input, 4)
 
@@ -255,7 +261,7 @@ class RandomCodes:
 			for character in element: #Find how many characters are different in each codeword compared to our input. Save the minimum
 				if msg[cnt] != element[cnt]:
 					temp_freq += 1
-					print(temp_freq)
+					#print(temp_freq)
 				cnt += 1
 			if temp_freq < freq:
 				freq = temp_freq
@@ -325,7 +331,7 @@ class RandomCodes:
 		output_str = ''
 		for element in input:
 			index, hamming_distance = self.hamming_dmin(element) #Find the most probable message
-			print('index, h_distance: ' + str(index) + '  ' + str(hamming_distance))
+			#print('index, h_distance: ' + str(index) + '  ' + str(hamming_distance))
 			#index = self.values.index(element)
 			output_str += self.keys[index]
 
@@ -336,22 +342,23 @@ class Encoder:
 		self.re_init(**kwargs)
 
 	def re_init(self, **kwargs):
-		try:
-			self.freq = kwargs.get('freq', 60)
-			self.encoding = kwargs.get('encoding', None)
-			self.baud = kwargs.get('baud', 2*self.freq)
-			self.samples = kwargs.get('samples', 100*self.baud) # The amount of samples to use over the period of the carrier wave. (2pi)
-			self.default_mod = kwargs.get('default_mod', 'BPSK_Modulator')
-			self.BPSK_Mod = BPSK_Modulator(self.freq, self.samples, self.baud, 1)
-			self.QPSK_Mod = BPSK_Modulator(self.freq, self.samples, self.baud, 1)
-			self.QAM_Mod =  QAM_Modulator(self.freq, self.samples, self.baud, 1)
-			self.invrate = kwargs.get('invrate', 1)
-			self.HammingEncoder = Hamming() #7, 4 Encoder
-			self.RandomEncoder = RandomCodes(1,2)
-			self.LDPCEncoder = LDPC(invrate = self.invrate)
+		#try:
+		self.freq = kwargs.get('freq', 20)
+		self.encoding = kwargs.get('encoding', 'all')
+		self.baud = kwargs.get('baud', 10*self.freq)
+		self.samples = kwargs.get('samples', 10*self.baud) # The amount of samples to use over the period of the carrier wave. (2pi)
+		self.default_mod = kwargs.get('default_mod', 'BPSK_Modulator')
+		self.BPSK_Mod = BPSK_Modulator(self.freq, self.samples, self.baud, 1)
+		self.QPSK_Mod = BPSK_Modulator(self.freq, self.samples, self.baud, 1)
+		self.QAM_Mod =  QAM_Modulator(self.freq, self.samples, self.baud, 1)
+		self.invrate = kwargs.get('invrate', 3)
+		self.HammingEncoder = Hamming() #7, 4 Encoder
+		self.RandomEncoder = RandomCodes(2,4)
+		self.LDPC_msg_size = kwargs.get('LDPC_msg_size', 8)
+		self.LDPCEncoder = LDPC(invrate = self.invrate, k = self.LDPC_msg_size)
 
-		except:
-			print("[ENCODER] Error in initialization of Modulators: Baudrate exceeds time-axis limit.")
+		#except:
+		#print("[ENCODER] Error in initialization of Modulators: Baudrate exceeds time-axis limit.")
 
 	def get_time_axis(input):
 		return self.BPSK_Mod.t_array[0:len(input)]
@@ -387,12 +394,29 @@ class Encoder:
 	def encode_default(self, input):
 		#Operations here to encode. #FIX ME
 		if self.encoding == 'Hamming':
-			return self.Hamming.encode(input)
-		elif self.encoding =='Random':
-			return self.RandomEncoder.encode(input)
+			input = self.HammingEncoder.encode(input)
+		elif self.encoding == 'Random':
+			input = self.RandomEncoder.encode(input)
 		elif self.encoding == 'LDPC':
-			return self.LDPCEncoder.encode(self.LDPCEncoder.binstr_to_messagesize(input))
+			input = self.LDPCEncoder.binstr_to_messagesize(input)
+			input = self.LDPCEncoder.encode(input)
+		elif self.encoding == 'all':
+			input = self.HammingEncoder.encode(self.LDPCEncoder.encode(self.LDPCEncoder.binstr_to_messagesize((self.RandomEncoder.encode(input)))))
+		self.last_input = input
 		return self.get_raw_waveform_default(input)
+
+
+
+	def decode_default(self, input):
+		if self.encoding == 'Hamming':
+			input = self.HammingEncoder.decode(input)
+		elif self.encoding == 'Random':
+			input = self.RandomEncoder.decode(input)
+		elif self.encoding == 'LDPC':
+			input = self.LDPCEncoder.decode(input)
+		elif self.encoding == 'all':
+			input = self.RandomEncoder.decode(self.LDPCEncoder.decode(self.HammingEncoder.decode(input)))
+		return self.get_modulator_default().demodulate()
 
 	def encode_from_str(self, input):
 		return self.encode_default(str_to_binary_str(input))
@@ -402,11 +426,13 @@ class Encoder:
 
 	def save_to_file(self, input, filename='training_waveform.txt'): #Save an encoded message in a waveform to a file
 		with open(filename, "wb") as file: #Serialized
-			pickle.dump(input, file)
+			#pickle.dump(input, file)
+			np.save(file, input, allow_pickle = True)
 
 	def load_from_file(self, filename='training_waveform.txt'): #Load an already encoded message in a waveform
 		with open (filename, 'rb') as file: #Unserialize
-			return pickle.load(file)
+			#return pickle.load(file)
+			return np.load(file)
 
 	def load_str_dir(self, input_dir = 'data/*.txt'):
 		list_txt_files = glob.glob(input_dir)
@@ -423,22 +449,29 @@ class Encoder:
 		saver.save(session, 'my-checkpoints', global_step = step)
 	
 										  
-def string_to_save_tests():
-	encoder = Encoder()
-	encoder.re_init(default_mod = 'BPSK_Modulator')
-	raw_data_string = encoder.load_str_dir()
+def save_for_training_input(time_axis, data, binary_pulse, encoder, file_dir = None):
+	matrix = numpy.array([time_axis, data, binary_pulse])
+	encoder.save_to_file(matrix, 'waveform_samples.txt')
+
+def save_to_file(file_dir = None, encoder_object = None):
+	if encoder_object == None:
+		encoder = Encoder()
+		encoder.re_init(default_mod = 'BPSK_Modulator', encoding = 'LDPC')
+	else:
+		encoder = encoder_object
+	if file_dir != None:
+		raw_data_string = encoder.load_str_dir(file_dir)
+	else:
+		raw_data_string = encoder.load_str_dir()
 	binary_str = str_to_binary_str(raw_data_string).replace(' ', '')
-	data = encoder.encode_from_str(raw_data_string) # Waveform samples
+	data = encoder.encode_from_str(binary_str) # Waveform samples
 	time_axis = encoder.get_modulator_default().t_array[0:len(data)]
 	binary_pulse = encoder.get_modulator_default().binary_pulse(binary_str)
-	#print(binary_pulse)
 	print('[LENS]: Time: ' + str(len(time_axis)) + ' Data: ' + str(len(data)) + ' Pulse: ' + str(len(binary_pulse)) + ' String: ' + str(len(binary_str)))
 	#matrix = np.row_stack((time_axis, data))
 	matrix = numpy.array([time_axis, data, binary_pulse])
 	encoder.save_to_file(matrix, 'waveform_samples.txt')
-	print(matrix)
-	#print(data)
-	#print(encoder.load_from_file('waveform_samples.txt'))
+	print('DONE')
 
 def load_to_tf_tests():
 	encoder = Encoder()
@@ -454,8 +487,7 @@ def encoding_tests():
 
 if __name__ == '__main__':
 	try:
-		string_to_save_tests()
-		#load_to_tf_tests()
+		save_to_file()
 	except KeyboardInterrupt:
 		print("KeyboardInterrupt")
 		exit()
