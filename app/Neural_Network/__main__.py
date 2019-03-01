@@ -166,7 +166,7 @@ class NND:
         learning_rate = self.learning_rate
         out_clipped = tf.clip_by_value(output,1e-10,0.9999999)#to avoid log(0) error
         #we will be using the cross entropy cost function of the form y*log(y)+(1+y)*log(1-y) to measure performance
-        cross_entropy = -tf.reduce_mean(tf.reduce_sum(self.Y * tf.log(out_clipped) + (1+self.Y)*tf.log(1-out_clipped), axis=1))
+        cross_entropy = -tf.reduce_mean(tf.reduce_sum(self.Y * tf.log(out_clipped) + (1-self.Y)*tf.log(1-out_clipped), axis=1))
         #print('CO: ',cross_entropy)
         #Gradient Descent Optimizer 
         optimiser = tf.train.GradientDescentOptimizer(learning_rate=learning_rate).minimize(cross_entropy)
