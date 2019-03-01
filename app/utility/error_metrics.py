@@ -18,5 +18,5 @@ class ErrorMetrics:
 			ber = BER(data, output_data)
 			ber_map = self.demodulator.demodulate()
 			NVE = NVE + (ber/ber_map)
-		NVE = NVE / enumerate(data_SNR_array)
+		NVE = NVE / len(data_SNR_array)
 		return NVE
