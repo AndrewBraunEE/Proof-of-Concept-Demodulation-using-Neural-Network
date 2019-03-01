@@ -70,9 +70,9 @@ def run():
 				training_epochs = []
 				nve_array = []
 				ber_array = []
+				plt.title("NVE and BER as a function of Epoch Indices")
 				plt.plot(training_epochs, nve_array, 'b-', label = 'NVE')
 				plot.plot(training_epochs, ber_array, 'r-', label = 'BER')
-				plt.title("NVE and BER as a function of Epoch Indices")
 				plt.xlabel("Training Epochs")
 				plt.ylabel("NVE")
 				plt.legend(loc = 'upper_left')
