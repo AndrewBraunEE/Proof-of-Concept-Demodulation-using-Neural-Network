@@ -1,3 +1,4 @@
+
 import tensorflow as tf
 import numpy as np
 from numpy import array
@@ -45,7 +46,7 @@ class Data :
             data = np.loadtxt(fid, delimiter=",")
         
         # separate features and labels
-        self.X = data[0]
+        self.X = data[1]
         self.Y = data[1]
         #self.Z = data[3]
     
@@ -126,11 +127,9 @@ class NND:
         #self.n_features = n_f
         #self.n_classes = n_c
         self.X = tf.placeholder(tf.float32, [None, self.n_features], name='training')
-        self.Y = tf.placeholder(tf.float32, [None, 32], name='Y')
+        self.Y = tf.placeholder(tf.float32, [None, 32], name='test')
         
-    def Hidden_Layers(self, **kwargs):
-        decoded_output = kwargs.get('decoded_waveform', None)
-        ErrorObject = kwargs.get('ErrorObject', None)
+    def Hidden_Layers(self):
         #inputs, will be arguments 
 
 
@@ -143,13 +142,13 @@ class NND:
         sig1 = tf.nn.sigmoid((tf.matmul(self.X,W1)+B1),name ='activationLayer1')
 
         #weights and bias for hidden layer 2
-        W2 = tf.Variable(tf.random_normal([self.n_neurons_in_h1, self.n_neurons_in_h2], stddev=1), name = 'W2')
+        W2 = tf.Variable(tf.random_normal([self.n_neurons_in_h1, self.n_neurons_in_h2], stddev=1), name = 'W1')
         B2 = tf.Variable(tf.random_normal([self.n_neurons_in_h2]),name ='B2')
         #activation layer for H2, used as input for activation layer 3
         sig2 = tf.nn.sigmoid((tf.matmul(sig1,W2)+B2),name ='activationLayer2')
 
         #weights and bias for hidden layer 3
-        W3 = tf.Variable(tf.random_normal([self.n_neurons_in_h2, self.n_neurons_in_h3], stddev=1), name = 'W3')
+        W3 = tf.Variable(tf.random_normal([self.n_neurons_in_h2, self.n_neurons_in_h3], stddev=1), name = 'W1')
         B3 = tf.Variable(tf.random_normal([self.n_neurons_in_h3]),name ='B3')
         #activation layer for H3, output of NN
         sig3 = tf.nn.sigmoid((tf.matmul(sig2,W3)+B3),name ='activationLayer3')
@@ -165,8 +164,8 @@ class NND:
         output = sig3
         learning_rate = self.learning_rate
         out_clipped = tf.clip_by_value(output,1e-10,0.9999999)#to avoid log(0) error
-        #we will be using the cross entropy cost function of the form y*log(y)+(1+y)*log(1-y) to measure performance
-        cross_entropy = -tf.reduce_mean(tf.reduce_sum(self.Y * tf.log(out_clipped) + (1+self.Y)*tf.log(1-out_clipped), axis=1))
+        #we will be using the cross entropy cost function of the form y*log(y)+(1-y)*log(1-y) to measure performance
+        cross_entropy = -tf.reduce_mean(tf.reduce_sum(self.Y * tf.log(out_clipped) + (1-self.Y)*tf.log(1-out_clipped), axis=1))
         #print('CO: ',cross_entropy)
         #Gradient Descent Optimizer 
         optimiser = tf.train.GradientDescentOptimizer(learning_rate=learning_rate).minimize(cross_entropy)
@@ -192,33 +191,33 @@ class NND:
     
 
         #train the model
-
         with tf.Session() as sess:
             sess.run(init_op)
             total_batch = int(len(self.X_train) / 32)
             print(len(self.X_train))
             print(total_batch)
             #print(len(self.X_train))
-            BER_Array = []
-            NVE_Array = []
             for self.training_epochs in range(self.training_epochs):
                     avg_cost = 0
+                    #print(total_batch)
                     for i in range(32):
                             X_, y_ = next_batch(68640, 32, self.X_train, self.Y_train)
                             X_ = np.expand_dims(X_, axis = 0)
                             y_ = np.expand_dims(y_, axis = 0)
-                            print(self.x)
-                            print(self.Y)
-                            if decoded_waveform != None and ErrorObject != None:
-                                NVE_Val = ErrorObject.NVE(decoded_waveform,self.Y)
-                                NVE_Array.append(NVE_Val)
-                                BER_Val = ErrorObject.BER(decoded_waveform,self.Y)
-                                BER_Array.append(BER_Val)
+                            #print(X_)
+                            #print(y_)
+                            #X_ = np.transpose(X_)
+                            #y_ = np.transpose(y_)
+                            #y_train = np.reshape(y_train.shape[0],1)
+                            #y_train = np.concatenate((1-y_train,y_train),axis =1)
+                            #X_train_temp = array(X_train).reshape(3)
+                           # X_ = np.swapaxes(X_, 1, 0)
                             _, c = sess.run([optimiser, cross_entropy], feed_dict={self.X: X_, self.Y: y_}) #ERROR HERE
+                            #print(c)
                             avg_cost += c / total_batch
-                            print("AVG COST: ", avg_cost)
+                            #print("AVG COST: ", avg_cost)
                     print("Epoch:",(self.training_epochs+1),"cost =", "{:.3f}".format(avg_cost))
-        return list(range(self.training_epochs)), BER_Array, NVE_Array
+            #print(sess.run(accuracy, feed_dict={self.X: mnist.test.images, self.Y: mnist.test.labels}))  
     
 if __name__ == '__main__':
     try:
