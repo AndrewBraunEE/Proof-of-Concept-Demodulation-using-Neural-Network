@@ -5,6 +5,8 @@ import sys
 from run import functions
 from encoder.conversions import *
 import matplotlib.pyplot as plt
+from Neural_Network.__main__ import *
+from utility.error_metrics import ErrorMetrics
 
 def run():
 	argparser = argparse.ArgumentParser('Launch the EE132A Project')
@@ -62,10 +64,9 @@ def run():
 			plt.plot(app_encoder.get_modulator_default().t_array[0:len(bin_pulse)], bin_pulse, 'r')
 			plt.show()
 		if args.train:
-			decoded_output = neural_network.decode(waveform_samples)
-			ErrorObject = ErrorMetric(app_encoder.get_modulator_default())
-			NVE = ErrorObject.NVE(app_encoder.decode(waveform_samples),decoded_output)
-			BER = ErrorObject.BER(binary_str, decoded_output)
+			ErrorObject = ErrorMetrics(app_encoder.get_modulator_default())
+			s = NND(50, 128, 64, 32, 0.001)
+			training_epochs, nve_array, ber_array = s.Hidden_Layers(decoded_waveform = binary_str, ErrorObject = ErrorObject)
 			if args.plot == 'plot_error':
 				training_epochs = []
 				nve_array = []
