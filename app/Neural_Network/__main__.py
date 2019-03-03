@@ -129,7 +129,7 @@ class NND:
         self.X = tf.placeholder(tf.float32, [None, self.n_features], name='training')
         self.Y = tf.placeholder(tf.float32, [None, 32], name='test')
         
-   def Hidden_Layers(self):
+   
     def Hidden_Layers(self, **kwargs):
         decoded_output = kwargs.get('decoded_waveform', None)
         ErrorObject = kwargs.get('ErrorObject', None)
