@@ -116,7 +116,7 @@ class NND:
         self.n_neurons_in_h2 = n_h2
         self.n_neurons_in_h3 = n_h3
         self.learning_rate = lr
-        self.train_data = load_data('foo3.csv')
+        self.train_data = load_data('csv/foo.csv')
         self.X_train = self.train_data.X
         self.Y_train = self.train_data.Y
         print(self.Y_train)
@@ -129,9 +129,10 @@ class NND:
         self.X = tf.placeholder(tf.float32, [None, self.n_features], name='training')
         self.Y = tf.placeholder(tf.float32, [None, self.n_classes], name='test')
 
-    def Hidden_Layers(self):
+    def Hidden_Layers(self, **kwargs):
         #inputs, will be arguments 
-
+        decoded_waveform = kwargs.get('decoded_waveform', None)
+        ErrorObject = kwargs.get('ErrorObject', None)      
 
         #Weights and bias for hidden layer 1xzd232wee
         #W1 = tf.Variable(tf.truncated_normal([self.n_neurons_in_h1, self.n_features],mean=0,stddev=1/np.sqrt(self.n_neurons_in_h1)), name='weights1')
