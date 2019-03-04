@@ -143,13 +143,13 @@ class NND:
         sig1 = tf.nn.sigmoid((tf.matmul(self.X,W1)+B1),name ='activationLayer1')
 
         #weights and bias for hidden layer 2
-        W2 = tf.Variable(tf.random_normal([self.n_neurons_in_h1, self.n_neurons_in_h2], stddev=1), name = 'W1')
+        W2 = tf.Variable(tf.random_normal([self.n_neurons_in_h1, self.n_neurons_in_h2], stddev=1), name = 'W2')
         B2 = tf.Variable(tf.random_normal([self.n_neurons_in_h2]),name ='B2')
         #activation layer for H2, used as input for activation layer 3
         sig2 = tf.nn.sigmoid((tf.matmul(sig1,W2)+B2),name ='activationLayer2')
 
         #weights and bias for hidden layer 3
-        W3 = tf.Variable(tf.random_normal([self.n_neurons_in_h2, self.n_neurons_in_h3], stddev=1), name = 'W1')
+        W3 = tf.Variable(tf.random_normal([self.n_neurons_in_h2, self.n_neurons_in_h3], stddev=1), name = 'W3')
         B3 = tf.Variable(tf.random_normal([self.n_neurons_in_h3]),name ='B3')
         #activation layer for H3, output of NN
         sig3 = tf.nn.sigmoid((tf.matmul(sig2,W3)+B3),name ='activationLayer3')
