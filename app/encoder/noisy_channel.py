@@ -53,7 +53,7 @@ class Channel:
 		attenuation_matrix = np.random.random_sample((1,len(input_signal)))
 		cnt = 0
 		for element in input_signal:
-			print(self.w[cnt])
+			#print(self.w[cnt])
 			attenuation_matrix[(0,cnt)] = attenuation_matrix[(0,cnt)] * element
 			attenuation_matrix[(0, cnt)] += self.w[cnt]
 			cnt += 1

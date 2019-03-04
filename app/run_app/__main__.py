@@ -56,7 +56,7 @@ def run():
 			if args.save:
 				sys.stderr.write(" \n Saving...")
 				save_for_training_input(app_encoder.get_modulator_default().t_array[0:len(waveform_samples)], waveform_samples, app_encoder.get_modulator_default().binary_pulse(binary_str), app_encoder, file_dir = args.filedir)
-				save_to_csv('waveform_samples.txt', 'csv/foo.csv') #Change the 3.2.csv to be modular		
+				save_to_csv('waveform_samples.txt', 'csv/foo.csv') #Change the 3.2.csv to be modular	
 
 		if args.plot == 'plot_channel':
 			plt.plot(app_encoder.get_modulator_default().t_array[0:len(waveform_samples)], waveform_samples, 'b')
@@ -64,6 +64,7 @@ def run():
 			plt.plot(app_encoder.get_modulator_default().t_array[0:len(bin_pulse)], bin_pulse, 'r')
 			plt.show()
 		if args.train:
+			sys.stderr.write(" \n Training our NN \n")
 			ErrorObject = ErrorMetrics(app_encoder.get_modulator_default())
 			s = NND(50, 128, 64, 32, 0.001)
 			training_epochs, nve_array, ber_array = s.Hidden_Layers(decoded_waveform = binary_str, ErrorObject = ErrorObject)
@@ -73,7 +74,7 @@ def run():
 				ber_array = []
 				plt.title("NVE and BER as a function of Epoch Indices")
 				plt.plot(training_epochs, nve_array, 'b-', label = 'NVE')
-				plot.plot(training_epochs, ber_array, 'r-', label = 'BER')
+				plt.plot(training_epochs, ber_array, 'r-', label = 'BER')
 				plt.xlabel("Training Epochs")
 				plt.ylabel("NVE")
 				plt.legend(loc = 'upper_left')
