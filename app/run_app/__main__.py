@@ -2,7 +2,7 @@ import argparse
 from encoder.__main__ import Encoder, save_for_training_input
 from encoder.noisy_channel import *
 import sys
-from run_app import functions
+from run_app.functions import *
 from encoder.conversions import *
 import matplotlib.pyplot as plt
 from Neural_Network.__main__ import *
@@ -19,7 +19,7 @@ def run():
 	argparser.add_argument('-o', '--source', type = str, dest = 'source', default = None, help = 'Use the parameter after -k as the source directory as a pipe')
 	argparser.add_argument('-l', '--sink', type = str, dest = 'sink', default = None, help = 'Use the parameter after -l as the sink directory as a pipe')
 	argparser.add_argument('-m', '--modulator', type = str, dest = 'modulator', default = 'BPSK_Modulator', help = 'Specify the modulation type for the encoded data')
-	argparser.add_argument('-s', '--save', type = str, dest = 'save', default = True, help = 'Store the waveform samples to a file')
+	argparser.add_argument('-s', '--save', action = 'store_true', dest = 'save', default = True, help = 'Store the waveform samples to a file')
 	argparser.add_argument('-u', '--snr', type = int, dest = 'snr', default = 15, help = 'Transmit the bitsequence over a noisy channel with the specified SNR')
 	argparser.add_argument('-c', '--channel', type = str, dest = 'channel', default = 'noise', help = 'Specify whether the noisy channel is only noisy (PARAM: noise) or is noisy and fading (PARAM: fade)')
 	argparser.add_argument('-e', '--encoder', type = str, dest = 'encoder', default = 'LDPC', help = 'Specify which encoding scheme to use, or to use all three in serial. By default, uses random codes, ldpc codes, and hamming code in series.')
@@ -56,7 +56,7 @@ def run():
 			if args.save:
 				sys.stderr.write(" \n Saving...")
 				save_for_training_input(app_encoder.get_modulator_default().t_array[0:len(waveform_samples)], waveform_samples, app_encoder.get_modulator_default().binary_pulse(binary_str), app_encoder, file_dir = args.filedir)
-			
+				save_to_csv('waveform_samples.txt', 'csv/foo.csv') #Change the 3.2.csv to be modular		
 
 		if args.plot == 'plot_channel':
 			plt.plot(app_encoder.get_modulator_default().t_array[0:len(waveform_samples)], waveform_samples, 'b')

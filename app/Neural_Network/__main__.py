@@ -116,12 +116,12 @@ class NND:
         self.n_neurons_in_h2 = n_h2
         self.n_neurons_in_h3 = n_h3
         self.learning_rate = lr
-        self.train_data = load_data('foo3.csv')
+        self.train_data = load_data('csv/foo.csv')
         self.X_train = self.train_data.X
         self.Y_train = self.train_data.Y
-        print(self.Y_train)
-        print(self.X_train)
-        print(len(self.X_train))
+        #print(self.Y_train)
+        #print(self.X_train)
+        #print(len(self.X_train))
         self.n_features = len(self.X_train)
         self.n_classes = 32 #2**(N*r)#should be 2^(N*r)
         #self.n_features = n_f
@@ -164,7 +164,7 @@ class NND:
         output = sig3
         learning_rate = self.learning_rate
         out_clipped = tf.clip_by_value(output,1e-10,0.9999999)#to avoid log(0) error
-        print(out_clipped)
+        #print(out_clipped)
         #we will be using the cross entropy cost function of the form y*log(y)+(1-y)*log(1-y) to measure performance
         cross_entropy = -tf.reduce_mean(tf.reduce_sum(self.Y * tf.log(out_clipped) + (1-self.Y)*tf.log(1-out_clipped), axis=1))
         #print('CO: ',cross_entropy)
@@ -195,8 +195,8 @@ class NND:
         with tf.Session() as sess:
             sess.run(init_op)
             total_batch = int(len(self.X_train) / 32)
-            print(len(self.X_train))
-            print(total_batch)
+            #print(len(self.X_train))
+            #print(total_batch)
             #print(len(self.X_train))
             for self.training_epochs in range(self.training_epochs):
                     avg_cost = 0

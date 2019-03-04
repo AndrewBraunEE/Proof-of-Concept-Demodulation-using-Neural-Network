@@ -1,4 +1,16 @@
 from pipes import *
+import numpy as np
+import matplotlib.pyplot as plt
+import glob
+import pickle
+
+def save_to_csv(input_filename = 'waveform_samples.txt', output_filename = 'csv/foo.csv'):
+	file = open(input_filename,'rb')
+	data = pickle.load(file)
+	file.close()
+
+	a = np.asarray([ data[0], data[1], data[2] ])
+	np.savetxt(output_filename,a)
 
 #The OFDM Module they will provide will have 32 carriers in a single channel.
 #Meaning that 
