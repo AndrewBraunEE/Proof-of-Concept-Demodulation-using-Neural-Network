@@ -109,7 +109,7 @@ def next_batch(num_X, num_Y, X_train, Y_train):
     
 
 class NND:
-    def __init__(self,training_epochs, n_h1, n_h2, n_h3, lr):      
+    def __init__(self,training_epochs, n_h1, n_h2, n_h3, lr, **kwargs):
         self.training_epochs =  training_epochs #number of iterations
         self.n_neurons_in_h1 = n_h1
         self.n_neurons_in_h2 = n_h2
@@ -128,9 +128,10 @@ class NND:
         self.X = tf.placeholder(tf.float32, [None, self.n_features], name='training')
         self.Y = tf.placeholder(tf.float32, [None, 32], name='test')
 
-    def Hidden_Layers(self):
+    def Hidden_Layers(self, **kwargs):
+        decoded_waveform = kwargs.get('decoded_waveform', None)
+        ErrorObject = kwargs.get('ErrorObject', None)      
         #inputs, will be arguments 
-
 
         #Weights and bias for hidden layer 1xzd232wee
         #W1 = tf.Variable(tf.truncated_normal([self.n_neurons_in_h1, self.n_features],mean=0,stddev=1/np.sqrt(self.n_neurons_in_h1)), name='weights1')
