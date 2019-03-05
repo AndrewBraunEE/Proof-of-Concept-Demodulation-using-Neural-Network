@@ -1,4 +1,3 @@
-
 import tensorflow as tf
 import numpy as np
 from numpy import array
@@ -134,7 +133,8 @@ class NND:
     def Hidden_Layers(self, **kwargs):
         #inputs, will be arguments 
         decoded_waveform = kwargs.get('decoded_waveform', None) #This should be the binary pulse, not the binary string
-        ErrorObject = kwargs.get('ErrorObject', None)      
+        ErrorObject = kwargs.get('ErrorObject', None) 
+        batch_size = kwargs.get('batch_size', None)
 
         #Weights and bias for hidden layer 1xzd232wee
         #W1 = tf.Variable(tf.truncated_normal([self.n_neurons_in_h1, self.n_features],mean=0,stddev=1/np.sqrt(self.n_neurons_in_h1)), name='weights1')
