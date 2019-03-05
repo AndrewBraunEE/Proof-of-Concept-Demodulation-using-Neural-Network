@@ -56,6 +56,7 @@ def run():
 
 			if args.save:
 				sys.stderr.write(" \n Saving...")
+				print("decoded array:" + str(app_encoder.decoded_binary_pulse(binary_str_unencoded)))
 				save_for_training_input(app_encoder.get_modulator_default().t_array[0:len(waveform_samples)], waveform_samples, app_encoder.decoded_binary_pulse(binary_str_unencoded), app_encoder, file_dir = args.filedir)
 				save_to_csv('waveform_samples.txt', 'csv/foo.csv') #Change the 3.2.csv to be modular	
 		bin_pulse = app_encoder.get_modulator_default().binary_pulse(binary_str)
