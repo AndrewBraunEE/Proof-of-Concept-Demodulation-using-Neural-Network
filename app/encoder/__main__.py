@@ -445,17 +445,20 @@ class Encoder:
 		return data
 
 	def numpy_array_to_tfdata(self, input): #Input: Numpy array in the format [(timeaxis), (waveformsamples)]^T with timeaxis on first row, waveform samples on second row with N samples for N columns
-		data_tf = tf.convert_to_tensor(input, np.float64)
+		data_tf = tf.convert_to_tensor(input, np.float32)
 		saver = tf.train.Saver(input)
 		sess = tf.InteractiveSession()  
 		saver.save(session, 'my-checkpoints', global_step = step)
 
 	def decoded_binary_pulse(self, input):
-		return np.fromiter(input, dtype=np.float64, count=len(input))
+		return np.fromiter(input, dtype=np.float32, count=len(input))
 	
 										  
 def save_for_training_input(time_axis, data, binary_pulse, encoder, file_dir = None):
-	matrix = numpy.array([time_axis, data, binary_pulse])
+	matrix = []
+	matrix.append(time_axis)
+	matrix.append(data)
+	matrix.append(binary_pulse)
 	encoder.save_to_file(matrix, 'waveform_samples.txt')
 
 def save_to_file(file_dir = None, encoder_object = None):

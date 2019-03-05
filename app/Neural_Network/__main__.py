@@ -9,9 +9,6 @@ import os
 N = 16
 r = .5
 
-tf.enable_eager_execution(
-)
-
 #CREDIT TO CSM146 HW 2 CODE
 class Data :
     
