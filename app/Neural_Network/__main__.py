@@ -10,6 +10,8 @@ import os
 N = 16
 r = .5
 
+tf.enable_eager_execution(
+)
 
 #CREDIT TO CSM146 HW 2 CODE
 class Data :
@@ -47,7 +49,7 @@ class Data :
         
         # separate features and labels
         self.X = data[1]
-        self.Y = data[1]
+        self.Y = data[2]
         #self.Z = data[3]
     
     def plot(self, **kwargs) :
@@ -131,7 +133,7 @@ class NND:
 
     def Hidden_Layers(self, **kwargs):
         #inputs, will be arguments 
-        decoded_waveform = kwargs.get('decoded_waveform', None)
+        decoded_waveform = kwargs.get('decoded_waveform', None) #This should be the binary pulse, not the binary string
         ErrorObject = kwargs.get('ErrorObject', None)      
 
         #Weights and bias for hidden layer 1xzd232wee
@@ -165,7 +167,7 @@ class NND:
         output = sig3
         learning_rate = self.learning_rate
         out_clipped = tf.clip_by_value(output,1e-10,0.9999999)#to avoid log(0) error
-        print(out_clipped)
+        #print("out_clip: " + str(out_clipped))
         #we will be using the cross entropy cost function of the form y*log(y)+(1-y)*log(1-y) to measure performance
         cross_entropy = -tf.reduce_mean(tf.reduce_sum(self.Y * tf.log(out_clipped) + (1-self.Y)*tf.log(1-out_clipped), axis=1))
         #print('CO: ',cross_entropy)
@@ -173,6 +175,7 @@ class NND:
         optimiser = tf.train.GradientDescentOptimizer(learning_rate=learning_rate).minimize(cross_entropy)
         init_op = tf.global_variables_initializer()
         correct_prediction = tf.equal(tf.argmax(self.Y,1), tf.argmax(output,1))
+        #print(correct_prediction)
         accuracy = tf.reduce_mean(tf.cast(correct_prediction,tf.float32))
 
         #Using to test the neural network
@@ -190,8 +193,9 @@ class NND:
         '''        
         #train_data = load_data('Wave_train')
         #test_data = load_data('Wave_test')
-    
-
+        BER_Array = []
+        NVE_Array = []
+        epochs_array = []
         #train the model
         with tf.Session() as sess:
             sess.run(init_op)
@@ -199,6 +203,7 @@ class NND:
             print(len(self.X_train))
             print(total_batch)
             #print(len(self.X_train))
+            print("self.y: " + str(self.Y))
             for self.training_epochs in range(self.training_epochs):
                     avg_cost = 0
                     #print(total_batch)
@@ -210,20 +215,20 @@ class NND:
                             #print(c)
                             avg_cost += c / total_batch
                             #print("AVG COST: ", avg_cost)
-                            '''
-                            if decoded_waveform != None and ErrorObject != None:
-                                NVE_Val = ErrorObject.NVE(decoded_waveform,self.Y)
-                                NVE_Array.append(NVE_Val)
-                                BER_Val = ErrorObject.BER(decoded_waveform,self.Y)
-                                BER_Array.append(BER_Val)
-                            '''
                             #print("AVG COST: ", avg_cost)
+                    if decoded_waveform != None and ErrorObject != None:
+                        BER_Val = ErrorObject.BER(decoded_waveform,self.Y.numpy())
+                        BER_Array.append(BER_Val)
+                        NVE_Val = ErrorObject.NVE(decoded_waveform,self.Y.numpy())
+                        NVE_Array.append(NVE_Val)
                     print("Epoch:",(self.training_epochs+1),"cost =", "{:.3f}".format(avg_cost))
-            #print(sess.run(accuracy, feed_dict={self.X: mnist.test.images, self.Y: mnist.test.labels}))  
+            #print(sess.run(accuracy, feed_dict={self.X: mnist.test.images, self.Y: mnist.test.labels})) 
+        return epochs_array, NVE_Array, BER_Array 
+
     
 if __name__ == '__main__':
     try:
-        s = NND(50, 128, 64, 32, 0.001)
+        s = NND(5, 128, 64, 32, 0.001)
         s.Hidden_Layers()
     except KeyboardInterrupt:
         print("KeyboardInterrupt")
