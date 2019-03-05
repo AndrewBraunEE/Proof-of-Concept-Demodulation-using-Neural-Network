@@ -192,7 +192,9 @@ class NND:
 
     def Hidden_Layers(self, **kwargs):
         #inputs, will be arguments 
-        
+        self.decoded_waveform = kwargs.get('decoded_waveform', None) #This should be the binary pulse, not the binary string
+        self.ErrorObject = kwargs.get('ErrorObject', None) 
+        self.batch_size = kwargs.get('batch_size', None)
 
         
         #Weights and bias for hidden layer 1xzd232wee
