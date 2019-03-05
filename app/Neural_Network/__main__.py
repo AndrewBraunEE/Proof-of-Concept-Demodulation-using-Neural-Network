@@ -9,6 +9,7 @@ import os
 N = 16
 r = .5
 
+
 #CREDIT TO CSM146 HW 2 CODE
 class Data :
     
@@ -46,8 +47,7 @@ class Data :
         # separate features and labels
         self.X = data[1]
         self.Y = data[2]
-        #self.Z = data[3]
-    
+        
     def plot(self, **kwargs) :
         """Plot data."""
         
@@ -72,8 +72,9 @@ def plot_data(X, Y, **kwargs) :
 epochs_completed = 0
 index_in_epoch = 0
 
+'''
 def next_batch(num_X, num_Y, X_train, Y_train):
-    '''
+    
     #global X_train,y_train
     global index_in_epoch, epochs_completed
 
@@ -91,12 +92,10 @@ def next_batch(num_X, num_Y, X_train, Y_train):
         assert batch_size <= num_examples
     end = index_in_epoch
     return X_train[start:end], y_train[start:end]
-    '''
-    '''
+ 
     Return a total of `num` random samples and labels. 
-    '''
     idx = np.arange(0 ,len(X_train))
-    idy = np.arange(0,len(Y_train))
+    idy = np.arange(0, len(Y_train))
     np.random.shuffle(idx)
     np.random.shuffle(idy)
     idx = idx[:num_X]
@@ -105,23 +104,87 @@ def next_batch(num_X, num_Y, X_train, Y_train):
     labels_shuffle = Y_train[idy]
 
     return np.asarray(data_shuffle), np.asarray(labels_shuffle)
-    
+'''
+def next_batch(num, data, labels):
+    '''
+    Return a total of `num` random samples and labels. 
+    '''
+    idx = np.arange(0 , len(data))
+    np.random.shuffle(idx)
+    idx = idx[:num]
+    data_shuffle = [data[ i] for i in idx]
+    labels_shuffle = [labels[ i] for i in idx]
 
+    return np.asarray(data_shuffle), np.asarray(labels_shuffle)
+
+'''
+def next_batch(self, batch_size, fake_data=False, shuffle=True):
+    """Return the next `batch_size` examples from this data set."""
+    if fake_data:
+      fake_image = [1] * 784
+      if self.one_hot:
+        fake_label = [1] + [0] * 9
+      else:
+        fake_label = 0
+      return [fake_image for _ in xrange(batch_size)], [
+          fake_label for _ in xrange(batch_size)
+      ]
+    start = self._index_in_epoch
+    # Shuffle for the first epoch
+    if self._epochs_completed == 0 and start == 0 and shuffle:
+      perm0 = numpy.arange(self._num_examples)
+      numpy.random.shuffle(perm0)
+      self._images = self.images[perm0]
+      self._labels = self.labels[perm0]
+    # Go to the next epoch
+    if start + batch_size > self._num_examples:
+      # Finished epoch
+      self._epochs_completed += 1
+      # Get the rest examples in this epoch
+      rest_num_examples = self._num_examples - start
+      images_rest_part = self._images[start:self._num_examples]
+      labels_rest_part = self._labels[start:self._num_examples]
+      # Shuffle the data
+      if shuffle:
+        perm = numpy.arange(self._num_examples)
+        numpy.random.shuffle(perm)
+        self._images = self.images[perm]
+        self._labels = self.labels[perm]
+      # Start next epoch
+      start = 0
+      self._index_in_epoch = batch_size - rest_num_examples
+      end = self._index_in_epoch
+      images_new_part = self._images[start:end]
+      labels_new_part = self._labels[start:end]
+      return numpy.concatenate(
+          (images_rest_part, images_new_part), axis=0), numpy.concatenate(
+              (labels_rest_part, labels_new_part), axis=0)
+    else:
+      self._index_in_epoch += batch_size
+      end = self._index_in_epoch
+      return self._images[start:end], self._labels[start:end]
+'''
 class NND:
-    def __init__(self,training_epochs, n_h1, n_h2, n_h3, lr):      
+    def __init__(self,training_epochs, n_h1, n_h2, n_h3, lr,**kwargs):
+        self.decoded_waveform = kwargs.get('decoded_waveform', None) #This should be the binary pulse, not the binary string
+        self.ErrorObject = kwargs.get('ErrorObject', None) 
+        self.batch_size = kwargs.get('batch_size', None)
+        
+        
+        #self.savefile = savefile 
         self.training_epochs =  training_epochs #number of iterations
         self.n_neurons_in_h1 = n_h1
         self.n_neurons_in_h2 = n_h2
         self.n_neurons_in_h3 = n_h3
         self.learning_rate = lr
-        self.train_data = load_data('csv/foo.csv')
+        self.train_data = load_data('foo3.csv')
         self.X_train = self.train_data.X
         self.Y_train = self.train_data.Y
         print(self.Y_train)
         print(self.X_train)
         print(len(self.X_train))
-        self.n_features = len(self.X_train)
-        self.n_classes = n_h3 #2**(N*r)#should be 2^(N*r)
+        self.n_features = 200
+        self.n_classes = len(self.decoded_waveform) #2**(N*r)#should be 2^(N*r)
         #self.n_features = n_f
         #self.n_classes = n_c
         self.X = tf.placeholder(tf.float32, [None, self.n_features], name='training')
@@ -129,10 +192,9 @@ class NND:
 
     def Hidden_Layers(self, **kwargs):
         #inputs, will be arguments 
-        decoded_waveform = kwargs.get('decoded_waveform', None) #This should be the binary pulse, not the binary string
-        ErrorObject = kwargs.get('ErrorObject', None) 
-        batch_size = kwargs.get('batch_size', None)
+        
 
+        
         #Weights and bias for hidden layer 1xzd232wee
         #W1 = tf.Variable(tf.truncated_normal([self.n_neurons_in_h1, self.n_features],mean=0,stddev=1/np.sqrt(self.n_neurons_in_h1)), name='weights1')
         #B1 = tf.Variable(tf.truncated_normal([self.n_features],mean=0,stddev=1/np.sqrt(self.n_features)), name='biases1')
@@ -142,13 +204,13 @@ class NND:
         sig1 = tf.nn.sigmoid((tf.matmul(self.X,W1)+B1),name ='activationLayer1')
 
         #weights and bias for hidden layer 2
-        W2 = tf.Variable(tf.random_normal([self.n_neurons_in_h1, self.n_neurons_in_h2], stddev=1), name = 'W2')
+        W2 = tf.Variable(tf.random_normal([self.n_neurons_in_h1, self.n_neurons_in_h2], stddev=1), name = 'W1')
         B2 = tf.Variable(tf.random_normal([self.n_neurons_in_h2]),name ='B2')
         #activation layer for H2, used as input for activation layer 3
         sig2 = tf.nn.sigmoid((tf.matmul(sig1,W2)+B2),name ='activationLayer2')
 
         #weights and bias for hidden layer 3
-        W3 = tf.Variable(tf.random_normal([self.n_neurons_in_h2, self.n_neurons_in_h3], stddev=1), name = 'W3')
+        W3 = tf.Variable(tf.random_normal([self.n_neurons_in_h2, self.n_neurons_in_h3], stddev=1), name = 'W1')
         B3 = tf.Variable(tf.random_normal([self.n_neurons_in_h3]),name ='B3')
         #activation layer for H3, output of NN
         sig3 = tf.nn.sigmoid((tf.matmul(sig2,W3)+B3),name ='activationLayer3')
@@ -164,7 +226,7 @@ class NND:
         output = sig3
         learning_rate = self.learning_rate
         out_clipped = tf.clip_by_value(output,1e-10,0.9999999)#to avoid log(0) error
-        #print("out_clip: " + str(out_clipped))
+        print(output)
         #we will be using the cross entropy cost function of the form y*log(y)+(1-y)*log(1-y) to measure performance
         cross_entropy = -tf.reduce_mean(tf.reduce_sum(self.Y * tf.log(out_clipped) + (1-self.Y)*tf.log(1-out_clipped), axis=1))
         #print('CO: ',cross_entropy)
@@ -172,7 +234,6 @@ class NND:
         optimiser = tf.train.GradientDescentOptimizer(learning_rate=learning_rate).minimize(cross_entropy)
         init_op = tf.global_variables_initializer()
         correct_prediction = tf.equal(tf.argmax(self.Y,1), tf.argmax(output,1))
-        #print(correct_prediction)
         accuracy = tf.reduce_mean(tf.cast(correct_prediction,tf.float32))
 
         #Using to test the neural network
@@ -190,44 +251,41 @@ class NND:
         '''        
         #train_data = load_data('Wave_train')
         #test_data = load_data('Wave_test')
-        BER_Array = []
-        NVE_Array = []
-        epochs_array = []
+    
+
         #train the model
         with tf.Session() as sess:
             sess.run(init_op)
-            total_batch = int(self.n_features / self.n_classes)
+            total_batch = int(self.n_features/batch_size)
             print(len(self.X_train))
             print(total_batch)
             #print(len(self.X_train))
-            print("self.y: " + str(self.Y))
             for self.training_epochs in range(self.training_epochs):
                     avg_cost = 0
                     #print(total_batch)
-                    for i in range(32):
-                            X_, y_ = next_batch(self.n_features, self.n_classes, self.X_train, self.Y_train)
+                    for i in range(total_batch):
+                            #X_, y_ = next_batch(self.n_features, self.n_classes, self.X_train, self.Y_train)
+                            X_,y_ = next_batch(batch_size, self.X_train, self.Y_train)
                             X_ = np.expand_dims(X_, axis = 0)
                             y_ = np.expand_dims(y_, axis = 0)
                             _, c = sess.run([optimiser, cross_entropy], feed_dict={self.X: X_, self.Y: y_}) #ERROR HERE
-                            #print(c)
                             avg_cost += c / total_batch
                             #print("AVG COST: ", avg_cost)
+                            '''
+                            if decoded_waveform != None and ErrorObject != None:
+                                NVE_Val = ErrorObject.NVE(decoded_waveform,self.Y)
+                                NVE_Array.append(NVE_Val)
+                                BER_Val = ErrorObject.BER(decoded_waveform,self.Y)
+                                BER_Array.append(BER_Val)
+                            '''
                             #print("AVG COST: ", avg_cost)
-                    if decoded_waveform != None and ErrorObject != None:
-                        BER_Val = ErrorObject.BER(decoded_waveform,self.Y.numpy())
-                        BER_Array.append(BER_Val)
-                        NVE_Val = ErrorObject.NVE(decoded_waveform,self.Y.numpy())
-                        NVE_Array.append(NVE_Val)
                     print("Epoch:",(self.training_epochs+1),"cost =", "{:.3f}".format(avg_cost))
-            #print(sess.run(accuracy, feed_dict={self.X: mnist.test.images, self.Y: mnist.test.labels})) 
-        return epochs_array, NVE_Array, BER_Array 
-
+            #print(sess.run(accuracy, feed_dict={self.X: mnist.test.images, self.Y: mnist.test.labels}))  
     
 if __name__ == '__main__':
     try:
-        s = NND(5, 128, 64, 32, 0.001)
-        s.Hidden_Layers()
+        s = NND(100, 128, 64, 32, 0.5)
+        s.Hidden_Layers(batch_size = 200)
     except KeyboardInterrupt:
         print("KeyboardInterrupt")
         exit()
-
