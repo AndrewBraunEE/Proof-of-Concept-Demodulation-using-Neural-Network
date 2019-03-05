@@ -42,6 +42,7 @@ def run():
 			waveform_samples = []
 			if args.filedir:
 				binary_str = str_to_binary_str(app_encoder.load_str_dir(args.filedir)).replace(' ', '')
+				binary_str_unencoded = binary_str
 				waveform_samples = app_encoder.encode_default(binary_str)
 				binary_str = app_encoder.last_input #The encoded message
 			ChannelObject = Channel(SNRdB = args.snr, signal = waveform_samples)
@@ -55,7 +56,7 @@ def run():
 
 			if args.save:
 				sys.stderr.write(" \n Saving...")
-				save_for_training_input(app_encoder.get_modulator_default().t_array[0:len(waveform_samples)], waveform_samples, app_encoder.get_modulator_default().binary_pulse(binary_str), app_encoder, file_dir = args.filedir)
+				save_for_training_input(app_encoder.get_modulator_default().t_array[0:len(waveform_samples)], waveform_samples, app_encoder.decoded_binary_pulse(binary_str_unencoded), app_encoder, file_dir = args.filedir)
 				save_to_csv('waveform_samples.txt', 'csv/foo.csv') #Change the 3.2.csv to be modular	
 		bin_pulse = app_encoder.get_modulator_default().binary_pulse(binary_str)
 		if args.plot == 'plot_channel':

@@ -449,6 +449,9 @@ class Encoder:
 		saver = tf.train.Saver(input)
 		sess = tf.InteractiveSession()  
 		saver.save(session, 'my-checkpoints', global_step = step)
+
+	def decoded_binary_pulse(self, input):
+		return np.fromiter(input, dtype=np.float64, count=len(input))
 	
 										  
 def save_for_training_input(time_axis, data, binary_pulse, encoder, file_dir = None):
