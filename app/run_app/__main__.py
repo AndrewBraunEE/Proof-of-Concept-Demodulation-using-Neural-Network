@@ -71,7 +71,8 @@ def run():
 		if args.train:
 			sys.stderr.write(" \n Training our NN \n")
 			ErrorObject = ErrorMetrics(app_encoder.get_modulator_default())
-			s = NND(10000, 128, 64, 32, 0.01, decoded_waveform = app_encoder.decoded_binary_pulse(binary_str_unencoded), ErrorObject = ErrorObject, batch_size = app_encoder.get_modulator_default().tb)
+			s = NND("./tf.model",1000, 128, 64, 32, 0.01, decoded_waveform = app_encoder.decoded_binary_pulse(binary_str_unencoded), ErrorObject = ErrorObject, batch_size = app_encoder.get_modulator_default().tb)
+			#s.save("my_trained_model.json")
 			training_epochs, nve_array, ber_array = s.Hidden_Layers() 
 			if args.plot == 'plot_error':
 				plt.title("NVE and BER as a function of Epoch Indices")

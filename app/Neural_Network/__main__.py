@@ -3,6 +3,7 @@ import numpy as np
 from numpy import array
 import pickle 
 import matplotlib.pyplot as plt
+import json
 
 import os
 
@@ -176,13 +177,14 @@ def next_batch(self, batch_size, fake_data=False, shuffle=True):
       return self._images[start:end], self._labels[start:end]
 '''
 class NND:
-    def __init__(self,training_epochs, n_h1, n_h2, n_h3, lr,**kwargs):
+    def __init__(self, savefile,training_epochs, n_h1, n_h2, n_h3, lr,D=None,K=None,**kwargs):
         self.decoded_waveform = kwargs.get('decoded_waveform', None) #This should be the binary pulse, not the binary string
         self.ErrorObject = kwargs.get('ErrorObject', None) 
         self.batch_size = kwargs.get('batch_size', None)
         
         
-        #self.savefile = savefile 
+        self.savefile = savefile
+        
         self.training_epochs =  training_epochs #number of iterations
         self.n_neurons_in_h1 = n_h1
         self.n_neurons_in_h2 = n_h2
@@ -196,11 +198,25 @@ class NND:
         #print(len(self.X_train))
         self.n_features = 200
         self.n_classes =  len(self.decoded_waveform) #2**(N*r)#should be 2^(N*r)
+        self.D = self.n_features
+        self.K = self.n_classes
+
         print("The length is: ", len(self.decoded_waveform))
         #self.n_features = n
         #self.n_classes = n_c
         self.X = tf.placeholder(tf.float32, [None, self.n_features], name='training')
         self.Y = tf.placeholder(tf.float32, [None, self.n_classes], name='test')
+
+    '''
+    def save(self, filename):
+        j = {
+          'D': self.D,
+          'K': self.K,
+          'model': self.savefile
+        }
+        with open(filename, 'w') as f:
+          json.dump(j, f)
+    '''
 
     def Hidden_Layers(self, **kwargs):
         #inputs, will be arguments 
@@ -264,6 +280,7 @@ class NND:
         #train the model
         with tf.Session() as sess:
             sess.run(init_op)
+            saver = tf.train.Saver()
             total_batch = int(self.n_features/self.batch_size)
             print(len(self.X_train))
             print(total_batch)
@@ -289,6 +306,7 @@ class NND:
                             #print("AVG COST: ", avg_cost)
                     print("Epoch:",(self.training_epochs+1),"cost =", "{:.3f}".format(avg_cost))
             #print(sess.run(accuracy, feed_dict={self.X: mnist.test.images, self.Y: mnist.test.labels}))  
+            saver.save(sess, self.savefile)
         return ([],[],[])
     
 if __name__ == '__main__':
