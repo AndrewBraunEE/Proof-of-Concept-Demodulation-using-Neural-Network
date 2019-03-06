@@ -10,6 +10,7 @@ N = 16
 r = .5
 
 
+
 #CREDIT TO CSM146 HW 2 CODE
 class Data :
     
@@ -27,6 +28,15 @@ class Data :
         self.X = X
         self.Y = Y
     
+    def load_from_data(self, input_filename = 'waveform_samples.txt'):
+        file = open(input_filename,'rb')
+        data = pickle.load(file)
+        file.close()
+        a = np.asarray([ data[0], data[1], data[2] ])
+        self.X = data[1]
+        self.Y = data[2]
+        return a
+
     def load(self, filename) :
         """
         Load csv file into X array of features and y array of labels.
@@ -61,8 +71,10 @@ class Data :
 
 # wrapper functions around Data class
 def load_data(filename) :
+    #data = Data()
+    #data.load(filename)
     data = Data()
-    data.load(filename)
+    data.load_from_data()
     return data
 
 def plot_data(X, Y, **kwargs) :
@@ -177,7 +189,7 @@ class NND:
         self.n_neurons_in_h2 = n_h2
         self.n_neurons_in_h3 = n_h3
         self.learning_rate = lr
-        self.train_data = load_data('foo3.csv')
+        self.train_data = load_data('csv/foo.csv')
         self.X_train = self.train_data.X
         self.Y_train = self.train_data.Y
         print(self.Y_train)
@@ -192,10 +204,6 @@ class NND:
 
     def Hidden_Layers(self, **kwargs):
         #inputs, will be arguments 
-        self.decoded_waveform = kwargs.get('decoded_waveform', None) #This should be the binary pulse, not the binary string
-        self.ErrorObject = kwargs.get('ErrorObject', None) 
-        self.batch_size = kwargs.get('batch_size', None)
-
         
         #Weights and bias for hidden layer 1xzd232wee
         #W1 = tf.Variable(tf.truncated_normal([self.n_neurons_in_h1, self.n_features],mean=0,stddev=1/np.sqrt(self.n_neurons_in_h1)), name='weights1')
@@ -258,7 +266,7 @@ class NND:
         #train the model
         with tf.Session() as sess:
             sess.run(init_op)
-            total_batch = int(self.n_features/batch_size)
+            total_batch = int(self.n_features/self.batch_size)
             print(len(self.X_train))
             print(total_batch)
             #print(len(self.X_train))
@@ -267,7 +275,7 @@ class NND:
                     #print(total_batch)
                     for i in range(total_batch):
                             #X_, y_ = next_batch(self.n_features, self.n_classes, self.X_train, self.Y_train)
-                            X_,y_ = next_batch(batch_size, self.X_train, self.Y_train)
+                            X_,y_ = next_batch(self.batch_size, self.X_train, self.Y_train)
                             X_ = np.expand_dims(X_, axis = 0)
                             y_ = np.expand_dims(y_, axis = 0)
                             _, c = sess.run([optimiser, cross_entropy], feed_dict={self.X: X_, self.Y: y_}) #ERROR HERE
