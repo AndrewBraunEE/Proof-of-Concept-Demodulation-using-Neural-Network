@@ -120,10 +120,11 @@ def next_batch(num, data, labels):
     Return a total of `num` random samples and labels. 
     '''
     idx = np.arange(0 , len(data))
-    np.random.shuffle(idx)
+    idy = np.arange(0, len(labels))
     idx = idx[:num]
+    idy = idy[:num]
     data_shuffle = [data[ i] for i in idx]
-    labels_shuffle = [labels[ i] for i in idx]
+    labels_shuffle = [labels[ i] for i in idy]
 
     return np.asarray(data_shuffle), np.asarray(labels_shuffle)
 
@@ -194,8 +195,9 @@ class NND:
         #print(self.X_train)
         #print(len(self.X_train))
         self.n_features = 200
-        self.n_classes = len(self.decoded_waveform) #2**(N*r)#should be 2^(N*r)
-        #self.n_features = n_f
+        self.n_classes =  len(self.decoded_waveform) #2**(N*r)#should be 2^(N*r)
+        print("The length is: ", len(self.decoded_waveform))
+        #self.n_features = n
         #self.n_classes = n_c
         self.X = tf.placeholder(tf.float32, [None, self.n_features], name='training')
         self.Y = tf.placeholder(tf.float32, [None, self.n_classes], name='test')
@@ -225,16 +227,14 @@ class NND:
 
         #Wo = tf.Variable(tf.random_normal([self.n_ner]))
 
-        #Wo = tf.Variable(tf.random_normal([self.n_features, self.n_classes], mean=0,stddev=1/np.sqrt(self.n_neurons_in_h3)), name='weightsOut')
-        #Bo = tf.Variable(tf.random_normal([self.n_classes], mean=0, stddev=1/np.sqrt(self.n_features)),name='biasesOut')
-        #a = tf.nn.softmax((tf.matmul(sig3,W3)+B3), name='activationOutputLayer')
-   #     return sig3
+        Wo = tf.Variable(tf.random_normal([self.n_neurons_in_h3, self.n_classes], stddev=1), name='weightsOut')
+        Bo = tf.Variable(tf.random_normal([self.n_classes]), name='biasesOut')
+        output = tf.nn.sigmoid((tf.matmul(sig3,Wo)+Bo),name ='Output_Layer')
 
-  #  def accuracy_prediction(self):
-        output = sig3
+        #output = sig3
         learning_rate = self.learning_rate
         out_clipped = tf.clip_by_value(output,1e-10,0.9999999)#to avoid log(0) error
-        #print(output)
+        print("Size of outclipped: ", output)
         #we will be using the cross entropy cost function of the form y*log(y)+(1-y)*log(1-y) to measure performance
         cross_entropy = -tf.reduce_mean(tf.reduce_sum(self.Y * tf.log(out_clipped) + (1-self.Y)*tf.log(1-out_clipped), axis=1))
         #print('CO: ',cross_entropy)
@@ -289,11 +289,12 @@ class NND:
                             #print("AVG COST: ", avg_cost)
                     print("Epoch:",(self.training_epochs+1),"cost =", "{:.3f}".format(avg_cost))
             #print(sess.run(accuracy, feed_dict={self.X: mnist.test.images, self.Y: mnist.test.labels}))  
+        return ([],[],[])
     
 if __name__ == '__main__':
     try:
-        s = NND(100, 128, 64, 32, 0.5)
-        s.Hidden_Layers(batch_size = 200)
+        s = NND(100, 128, 64, 32, 0.01)
+        s.Hidden_Layers(batch_size = 100)
     except KeyboardInterrupt:
         print("KeyboardInterrupt")
         exit()
