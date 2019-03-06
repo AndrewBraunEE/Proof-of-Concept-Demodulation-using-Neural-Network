@@ -192,9 +192,9 @@ class NND:
         self.train_data = load_data('csv/foo.csv')
         self.X_train = self.train_data.X
         self.Y_train = self.train_data.Y
-        print(self.Y_train)
-        print(self.X_train)
-        print(len(self.X_train))
+        #print(self.Y_train)
+        #print(self.X_train)
+        #print(len(self.X_train))
         self.n_features = 200
         self.n_classes = len(self.decoded_waveform) #2**(N*r)#should be 2^(N*r)
         #self.n_features = n_f
@@ -236,7 +236,7 @@ class NND:
         output = sig3
         learning_rate = self.learning_rate
         out_clipped = tf.clip_by_value(output,1e-10,0.9999999)#to avoid log(0) error
-        print(output)
+        #print(output)
         #we will be using the cross entropy cost function of the form y*log(y)+(1-y)*log(1-y) to measure performance
         cross_entropy = -tf.reduce_mean(tf.reduce_sum(self.Y * tf.log(out_clipped) + (1-self.Y)*tf.log(1-out_clipped), axis=1))
         #print('CO: ',cross_entropy)
