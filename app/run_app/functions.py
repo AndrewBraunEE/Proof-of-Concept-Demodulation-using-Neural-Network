@@ -9,7 +9,7 @@ def save_to_csv(input_filename = 'waveform_samples.txt', output_filename = 'csv/
 	data = pickle.load(file)
 	file.close()
 	a = np.asarray([ data[0], data[1], data[2] ])
-	print('numpy_array:' + str(a))
+	#print('numpy_array:' + str(a))
 	np.savetxt(output_filename,a, delimiter = ',', fmt = "%s")
 
 #The OFDM Module they will provide will have 32 carriers in a single channel.

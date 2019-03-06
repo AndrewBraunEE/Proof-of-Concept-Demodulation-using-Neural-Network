@@ -48,16 +48,22 @@ def ldpc_verification():
 
 def ldpc_verification_new():
 	Encoder = LDPC()
-	string_msg = 'hey_im_LDPC'
+	string_msg = 'hey_im_LDPCTESTTTIN     WHOA'
 	binstr = str_to_binary_str(string_msg).replace(' ', '')
+	print("binstr: " + binstr)
 	##LDPC Parameters
 	invrate = 3
-	k = len(binstr)
+	#k = len(binstr)
+	k = 8
 	h, tg = Encoder.construct_use_invrate(invrate, k)
+	binstr = Encoder.binstr_to_messagesize(binstr)
 	encoded_msg = Encoder.encode(binstr)
 	#print(h, tg)
-	print(str(len(encoded_msg)) +'    ' + str(len(binstr)))
+	#print(str(len(encoded_msg)) +'    ' + str(len(binstr)))
 	#print(len(encoded_msg))
+	#print("encoded_msg: " + str(encoded_msg))
+	encoded_msg = Encoder.binstr_to_messagesize_inverse(encoded_msg)
+	#print("encoded_msg: " + str(encoded_msg))
 	decoded_msg = Encoder.decode(encoded_msg, tg_matrix = tg)
 	decoded_str = binary_str_to_str(decoded_msg)
 	print('[UNENCODED]: ' + str(binstr) +  ' [ENCODED MSG]: ' + str(encoded_msg) + ' [DECODED MSG]: ' + str(decoded_msg))
@@ -78,8 +84,9 @@ def main():
 	ldpc_verification_new()
 	#random_codes_verification()
 
-if __name__ == 'main':
+if __name__ != 'main':
 	try:
+		print("MAIN")
 		main()
 	except KeyboardInterrupt:
 		exit()

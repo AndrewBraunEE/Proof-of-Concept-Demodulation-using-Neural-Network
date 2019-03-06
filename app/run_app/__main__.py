@@ -45,6 +45,10 @@ def run():
 				binary_str_unencoded = binary_str
 				waveform_samples = app_encoder.encode_default(binary_str)
 				binary_str = app_encoder.last_input #The encoded message
+				#print("bin0:" + binary_str + "\nbin1: " + binary_str_unencoded)
+				#sys.stderr.write("encoded:" + binary_str)
+				#print(str((app_encoder.decode(waveform_samples))))
+				#sys.stderr.write("unencoded: " + app_encoder.load_str_dir(args.filedir) + "\ndecoded: " + str(binary_str_to_str(app_encoder.decode(waveform_samples))))
 			ChannelObject = Channel(SNRdB = args.snr, signal = waveform_samples)
 			if args.channel == 'noise':
 				noisy_channel = ChannelObject.w

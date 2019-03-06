@@ -20,7 +20,7 @@ class LDPC:
 	def __init__(self, **kwargs):
 		self.current_tg_matrix = None
 		self.current_h_matrix = None
-		self.k = kwargs.get('k', 2)
+		self.k = kwargs.get('k', 7)
 		self.invrate = kwargs.get('invrate', None)
 		if self.invrate != None:
 			self.construct_use_invrate(self.invrate, self.k)
@@ -44,12 +44,17 @@ class LDPC:
 	def construct_use_invrate(self, invrate, k, systematic=True):
 		self.k = k
 		self.current_h_matrix, self.current_tg_matrix = pyldpc.HtG(invrate, k, systematic)
+		self.n, self.k = self.current_tg_matrix.shape
 		return self.current_h_matrix, self.current_tg_matrix
 
 	def binstr_to_messagesize(self, bin_input):
 		bin_input = wrap(bin_input, self.k)
 		while len(bin_input[-1]) < self.k:
 			bin_input[-1] += '0' #Zeropad last element
+		return bin_input
+
+	def binstr_to_messagesize_inverse(self, bin_input):
+		bin_input = wrap(bin_input, self.n)
 		return bin_input
 
 	def encode(self, bin_input, tg_matrix = None):
@@ -59,6 +64,7 @@ class LDPC:
 		tg_matrix = self.current_tg_matrix
 		#print(bin_input)
 		n,k = tg_matrix.shape
+		#print("n, k" + str(n) +"  " + str(k))
 		EncodedArray = None
 		return_str = ''
 		if isinstance(bin_input, list):
@@ -71,9 +77,9 @@ class LDPC:
 					index += 1
 				array = array.transpose()
 				EncodedArray = BinaryProduct(tg_matrix, array)
-				for ele in EncodedArray:
-					return_str += str(EncodedArray).replace('[', '').replace(']', '').replace('.','').replace(' ', '').replace('\n', '')
-			#print(return_str)
+				#print("EncodedArray: " + str(EncodedArray))
+				return_str += str(EncodedArray).replace('[', '').replace(']', '').replace('.','').replace(' ', '').replace('\n', '')
+			#print('return_str_encode:' + return_str)
 			return return_str
 		if isinstance(bin_input, str): #bin_input is a single frame that needs to be encoded
 			bin_input = bin_input.replace(' ', '')
@@ -102,10 +108,27 @@ class LDPC:
 	def decode(self, input, tg_matrix = None): #Fixme, let any tg_matrix be an argument
 		#Decodes the encoded input using the tg_matrix that was previously constructed.
 		#pyldpc handles any error correction by calling DecodedMessage from the pyldpc library.
-
 		tg_matrix = self.current_tg_matrix
 		DecodedArray = None
-		if isinstance(input, str):
+		if isinstance(input, list):
+			#raw_str = ''.join(bin_input)
+			return_str = ''
+			DecodedArray = []
+			#print("input:" + str(input))
+			for element in input: #bin_input is an array of smaller frames that need to be encoded
+				#print("decode_input:" + str(element))
+				#print('element: ' + str(element))
+				array = np.zeros((1, len(element)))
+				index = 0
+				for char in element:
+					array[(0, index)] = int(char, 2)
+					index += 1
+				array = array.transpose()
+				#print(array)
+				return_str += str(pyldpc.DecodedMessage(tg_matrix, array)).replace('[', '').replace(']', '').replace('.','').replace(' ', '').replace('\n', '')
+			#print("return_str_decode:" + return_str)
+			return return_str
+		elif isinstance(input, str):
 			input = input.replace(' ', '')
 			array = np.zeros((1, len(input)))
 			index = 0
@@ -405,18 +428,22 @@ class Encoder:
 		self.last_input = input
 		return self.get_raw_waveform_default(input)
 
+	def decode(self, waveform):
+		return self.decode_default(self.get_modulator_default().demodulate(waveform))
 
-
-	def decode_default(self, input):
+	def decode_default(self, input): #input is a binary string
 		if self.encoding == 'Hamming':
 			input = self.HammingEncoder.decode(input)
 		elif self.encoding == 'Random':
 			input = self.RandomEncoder.decode(input)
 		elif self.encoding == 'LDPC':
+			#print(input)
+			input = self.LDPCEncoder.binstr_to_messagesize_inverse(input)
+			#print(input)
 			input = self.LDPCEncoder.decode(input)
 		elif self.encoding == 'all':
-			input = self.RandomEncoder.decode(self.LDPCEncoder.decode(self.HammingEncoder.decode(input)))
-		return self.get_modulator_default().demodulate()
+			input = self.RandomEncoder.decode(self.LDPCEncoder.decode(self.LDPCEncoder.binstr_to_messagesiz0_inverse(self.HammingEncoder.decode(input))))
+		return input
 
 	def encode_from_str(self, input):
 		return self.encode_default(str_to_binary_str(input))

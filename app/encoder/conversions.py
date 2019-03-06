@@ -6,7 +6,13 @@ def linear_snr_from_db(snrdb):
     return 10.0 ** (snrdb/10.0)
 
 def str_to_binary_str(input=None):
-	return ' '.join(format(ord(x), 'b') for x in input).replace(' ', '')
+	the_str = ' '.join(format(ord(x), 'b') for x in input).replace(' ', '')
+	appended_front_zeroes = 7 - len(the_str)
+	#print('the_str:' + the_str)
+	for i in range(appended_front_zeroes):
+		the_str = '0' + the_str
+	#print(the_str)
+	return the_str
 
 def binary_str_to_str(input=None):
 	string = ''

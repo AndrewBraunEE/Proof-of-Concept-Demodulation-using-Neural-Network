@@ -32,10 +32,8 @@ class Data :
         file = open(input_filename,'rb')
         data = pickle.load(file)
         file.close()
-        a = np.asarray([ data[0], data[1], data[2] ])
         self.X = data[1]
         self.Y = data[2]
-        return a
 
     def load(self, filename) :
         """
