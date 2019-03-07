@@ -281,6 +281,7 @@ class NND:
         with tf.Session() as sess:
             sess.run(init_op)
             saver = tf.train.Saver()
+            saver.restore(sess,self.savefile)
             total_batch = int(self.n_features/self.batch_size)
             print(len(self.X_train))
             print(total_batch)
