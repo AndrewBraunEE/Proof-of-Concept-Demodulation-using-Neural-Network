@@ -177,7 +177,7 @@ def next_batch(self, batch_size, fake_data=False, shuffle=True):
       return self._images[start:end], self._labels[start:end]
 '''
 class NND:
-    def __init__(self, savefile,training_epochs, n_h1, n_h2, n_h3, lr,D=None,K=None,**kwargs):
+    def __init__(self,savefile,training_epochs, n_h1, n_h2, n_h3, lr,D=None,K=None,**kwargs):
         self.decoded_waveform = kwargs.get('decoded_waveform', None) #This should be the binary pulse, not the binary string
         self.ErrorObject = kwargs.get('ErrorObject', None) 
         self.batch_size = kwargs.get('batch_size', None)
