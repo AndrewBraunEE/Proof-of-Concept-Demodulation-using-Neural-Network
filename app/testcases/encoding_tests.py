@@ -80,9 +80,9 @@ def random_codes_verification():
 	print('[ENCODED MSG]: ' + str(string_msg) + ' [DECODED MSG]: ' + str(decoded_str))
 
 def main():
-	#hamming_verification()
-	ldpc_verification_new()
-	#random_codes_verification()
+	hamming_verification()
+	#ldpc_verification_new()
+	random_codes_verification()
 
 if __name__ != 'main':
 	try:

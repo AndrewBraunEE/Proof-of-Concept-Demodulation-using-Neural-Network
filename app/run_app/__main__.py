@@ -12,9 +12,9 @@ def run():
 	argparser = argparse.ArgumentParser('Launch the EE132A Project')
 	argparser.add_argument('-v', '--verbose', action='store_true', dest = 'verbose', help='Increase output and log verbosity')
 	argparser.add_argument('-t', '--train', action='store_true', dest = 'train', default = False, help = 'Train the neural network from either a piped source or a file.')
-	argparser.add_argument('-n', '--num_input_bits', type = int, dest = 'num_input_bits', default = 1, help = 'The number of bits per input WORD')
+	argparser.add_argument('-n', '--num_input_bits', type = int, dest = 'num_input_bits', default = 7, help = 'The number of bits per input WORD')
 	argparser.add_argument('-k', '--num_output_bits', type = int, dest = 'num_output_bits', default = 1, help = 'The number of bits per output WORD')
-	argparser.add_argument('-i', '--inverse_rate', type = int, dest = 'inv_rate', default = 3, help = 'The ratio of CodedWordLength / UncodedWordLength used in the LDPC Encoder')
+	argparser.add_argument('-i', '--inverse_rate', type = int, dest = 'inv_rate', default = 4, help = 'The ratio of CodedWordLength / UncodedWordLength used in the LDPC Encoder')
 	argparser.add_argument('-d', '--filedir', type = str, dest = 'filedir', default = 'data/*.txt', help = 'Use textfiles (UTF-8 Encoded) from a file directory as source')
 	argparser.add_argument('-o', '--source', type = str, dest = 'source', default = None, help = 'Use the parameter after -k as the source directory as a pipe')
 	argparser.add_argument('-l', '--sink', type = str, dest = 'sink', default = None, help = 'Use the parameter after -l as the sink directory as a pipe')
@@ -28,7 +28,7 @@ def run():
 	args = argparser.parse_args()
 
 	try:
-		app_encoder = Encoder(default_mod = args.modulator, encoding = args.encoder, invrate = args.inv_rate)
+		app_encoder = Encoder(default_mod = args.modulator, encoding = args.encoder, invrate = args.inv_rate, LDPC_msg_size = args.num_input_bits)
 		bit_stream = None
 		use_trainer = False #Train neural network?
 		if args.sink and not args.source:
@@ -71,8 +71,7 @@ def run():
 		if args.train:
 			sys.stderr.write(" \n Training our NN \n")
 			ErrorObject = ErrorMetrics(app_encoder.get_modulator_default())
-			s = NND("./tf.model",1000, 128, 64, 32, 0.01, decoded_waveform = app_encoder.decoded_binary_pulse(binary_str_unencoded), ErrorObject = ErrorObject, batch_size = app_encoder.get_modulator_default().tb)
-			#s.save("my_trained_model.json")
+			s = NND(5, 128, 64, 32, 0.001, decoded_waveform = app_encoder.decoded_binary_pulse(binary_str_unencoded), ErrorObject = ErrorObject, batch_size = app_encoder.get_modulator_default().tb)
 			training_epochs, nve_array, ber_array = s.Hidden_Layers() 
 			if args.plot == 'plot_error':
 				plt.title("NVE and BER as a function of Epoch Indices")

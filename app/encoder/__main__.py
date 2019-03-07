@@ -377,7 +377,7 @@ class Encoder:
 		self.invrate = kwargs.get('invrate', 3)
 		self.HammingEncoder = Hamming() #7, 4 Encoder
 		self.RandomEncoder = RandomCodes(2,4)
-		self.LDPC_msg_size = kwargs.get('LDPC_msg_size', 8)
+		self.LDPC_msg_size = kwargs.get('LDPC_msg_size', 7)
 		self.LDPCEncoder = LDPC(invrate = self.invrate, k = self.LDPC_msg_size)
 
 		#except:
