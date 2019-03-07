@@ -178,9 +178,10 @@ def next_batch(self, batch_size, fake_data=False, shuffle=True):
 '''
 class NND:
     def __init__(self,savefile,training_epochs, n_h1, n_h2, n_h3, lr,D=None,K=None,**kwargs):
-        self.decoded_waveform = kwargs.get('decoded_waveform', None) #This should be the binary pulse, not the binary string
+        self.decoded_waveform = kwargs.get('decoded_waveform', []) #This should be the binary pulse, not the binary string
         self.ErrorObject = kwargs.get('ErrorObject', None) 
         self.batch_size = kwargs.get('batch_size', None)
+        self.waveform_samples = kwargs.get('waveform', None)
         
         
         self.savefile = savefile
@@ -218,6 +219,8 @@ class NND:
     def Hidden_Layers(self, **kwargs):
         #inputs, will be arguments 
         
+        epoch_iteration = kwargs.get('epoch_iteration', 0)
+
         #Weights and bias for hidden layer 1xzd232wee
         #W1 = tf.Variable(tf.truncated_normal([self.n_neurons_in_h1, self.n_features],mean=0,stddev=1/np.sqrt(self.n_neurons_in_h1)), name='weights1')
         #B1 = tf.Variable(tf.truncated_normal([self.n_features],mean=0,stddev=1/np.sqrt(self.n_features)), name='biases1')
@@ -282,6 +285,9 @@ class NND:
             print(len(self.X_train))
             print(total_batch)
             #print(len(self.X_train))
+            BER_Array = []
+            NVE_Array = []
+            Epochs = []
             for self.training_epochs in range(self.training_epochs):
                     avg_cost = 0
                     #print(total_batch)
@@ -293,13 +299,14 @@ class NND:
                             _, c = sess.run([optimiser, cross_entropy], feed_dict={self.X: X_, self.Y: y_}) #ERROR HERE
                             avg_cost += c / total_batch
                             #print("AVG COST: ", avg_cost)
-                            '''
-                            if decoded_waveform != None and ErrorObject != None:
-                                NVE_Val = ErrorObject.NVE(decoded_waveform,self.Y)
+                            Epochs.append(self.training_epochs)
+                            if self.decoded_waveform != [] and self.ErrorObject != None:
+                                NeuralNetOutput = np.squeeze(np.asarray(self.Y.eval(session = sess, feed_dict={self.X: X_, self.Y: y_})))
+                                print("NeuralNetOutput: " + str(NeuralNetOutput))
+                                NVE_Val = self.ErrorObject.NVE(self.decoded_waveform,NeuralNetOutput, self.waveform_samples)
                                 NVE_Array.append(NVE_Val)
-                                BER_Val = ErrorObject.BER(decoded_waveform,self.Y)
+                                BER_Val = self.ErrorObject.BER(self.decoded_waveform,NeuralNetOutput)
                                 BER_Array.append(BER_Val)
-                            '''
                             #print("AVG COST: ", avg_cost)
                     print("Epoch:",(self.training_epochs+1),"cost =", "{:.3f}".format(avg_cost))
                     saver.save(sess, self.savefile, global_step = 1+self.training_epochs)
