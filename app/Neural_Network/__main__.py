@@ -193,9 +193,6 @@ class NND:
         self.train_data = load_data('csv/foo.csv')
         self.X_train = self.train_data.X
         self.Y_train = self.train_data.Y
-        #print(self.Y_train)
-        #print(self.X_train)
-        #print(len(self.X_train))
         self.n_features = 200
         self.n_classes =  len(self.decoded_waveform) #2**(N*r)#should be 2^(N*r)
         self.D = self.n_features
@@ -276,13 +273,12 @@ class NND:
         #train_data = load_data('Wave_train')
         #test_data = load_data('Wave_test')
     
-
+        saver = tf.train.Saver()
         #train the model
         with tf.Session() as sess:
             sess.run(init_op)
-            saver = tf.train.Saver()
-            saver.restore(sess,self.savefile)
             total_batch = int(self.n_features/self.batch_size)
+            saver.restore(sess, self.savefile)
             print(len(self.X_train))
             print(total_batch)
             #print(len(self.X_train))
@@ -306,8 +302,9 @@ class NND:
                             '''
                             #print("AVG COST: ", avg_cost)
                     print("Epoch:",(self.training_epochs+1),"cost =", "{:.3f}".format(avg_cost))
+                    saver.save(sess, self.savefile, global_step = 1+self.training_epochs)
+
             #print(sess.run(accuracy, feed_dict={self.X: mnist.test.images, self.Y: mnist.test.labels}))  
-            saver.save(sess, self.savefile)
         return ([],[],[])
     
 if __name__ == '__main__':
