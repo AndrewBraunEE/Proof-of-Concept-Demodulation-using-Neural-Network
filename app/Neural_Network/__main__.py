@@ -194,7 +194,7 @@ class NND:
         self.train_data = load_data('csv/foo.csv')
         self.X_train = self.train_data.X
         self.Y_train = self.train_data.Y
-        self.n_features = 200
+        self.n_features = 
         self.n_classes =  len(self.decoded_waveform) #2**(N*r)#should be 2^(N*r)
         self.D = self.n_features
         self.K = self.n_classes
