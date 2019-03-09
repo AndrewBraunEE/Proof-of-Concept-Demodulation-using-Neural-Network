@@ -182,7 +182,7 @@ class NND:
         self.ErrorObject = kwargs.get('ErrorObject', None) 
         self.batch_size = kwargs.get('batch_size', None)
         self.waveform_samples = kwargs.get('waveform', None)
-        
+        self.freq = kwargs.get('freq', None)
         
         self.savefile = savefile
         
@@ -194,7 +194,7 @@ class NND:
         self.train_data = load_data('csv/foo.csv')
         self.X_train = self.train_data.X
         self.Y_train = self.train_data.Y
-        self.n_features = 
+        self.n_features = len(self.freq * self.batch_size)
         self.n_classes =  len(self.decoded_waveform) #2**(N*r)#should be 2^(N*r)
         self.D = self.n_features
         self.K = self.n_classes
@@ -302,7 +302,6 @@ class NND:
                             Epochs.append(self.training_epochs)
                             if self.decoded_waveform != [] and self.ErrorObject != None:
                                 NeuralNetOutput = np.squeeze(np.asarray(self.Y.eval(session = sess, feed_dict={self.X: X_, self.Y: y_})))
-                                print("NeuralNetOutput: " + str(NeuralNetOutput))
                                 NVE_Val = self.ErrorObject.NVE(self.decoded_waveform,NeuralNetOutput, self.waveform_samples)
                                 NVE_Array.append(NVE_Val)
                                 BER_Val = self.ErrorObject.BER(self.decoded_waveform,NeuralNetOutput)
@@ -310,9 +309,8 @@ class NND:
                             #print("AVG COST: ", avg_cost)
                     print("Epoch:",(self.training_epochs+1),"cost =", "{:.3f}".format(avg_cost))
                     saver.save(sess, self.savefile, global_step = 1+self.training_epochs)
-
             #print(sess.run(accuracy, feed_dict={self.X: mnist.test.images, self.Y: mnist.test.labels}))  
-        return ([],[],[])
+        return (Epochs,NVE_Array,BER_Array)
     
 if __name__ == '__main__':
     try:

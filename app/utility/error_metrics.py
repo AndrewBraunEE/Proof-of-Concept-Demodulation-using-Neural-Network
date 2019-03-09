@@ -16,18 +16,19 @@ class ErrorMetrics:
 
 	def NVE(self, data_BER_array, output_data_BER_array, waveform): #This is the normalized validation error
 		NVE = 0.0
-		print(data_BER_array, output_data_BER_array)
+		#print(data_BER_array, output_data_BER_array)
 		if len(data_BER_array) != len(output_data_BER_array):
 			sys.stderr.write("Wrong length")
 		ber = self.BER(data_BER_array, output_data_BER_array)
 		observed_demod = self.demodulator.demodulate(waveform)
 		ber_map = 0.0
-		index = 1
-		for element in output_data_BER_array:
-			element1 = int(data_BER_array[index], 2)
+		index = 0
+		for element in observed_demod:
+			element1 = int(waveform[index])
 			if element1 != element:
 				ber_map += 1.0
 			index += 1
-		NVE = NVE + (ber/ber_map)
+		if ber_map != 0:
+			NVE = NVE + (ber/ber_map)
 		NVE = NVE / len(data_BER_array)
 		return NVE
