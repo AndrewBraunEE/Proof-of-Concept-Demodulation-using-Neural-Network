@@ -9,9 +9,12 @@ def str_to_binary_str(input=None):
 	the_str = ' '.join(format(ord(x), 'b') for x in input).replace(' ', '')
 	appended_front_zeroes = 7 - len(the_str)
 	#print('the_str:' + the_str)
-	for i in range(appended_front_zeroes):
-		the_str = '0' + the_str
-	#print(the_str)
+	#for i in range(appended_front_zeroes):
+	#	the_str = '0' + the_str
+	remainder_bits = len(the_str) % 8
+	for i in range(8 - remainder_bits):
+		the_str += '0'
+	print('the_str:' + the_str)
 	return the_str
 
 def binary_str_to_str(input=None):
