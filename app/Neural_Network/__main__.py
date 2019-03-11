@@ -204,16 +204,11 @@ class NND:
         self.train_data = load_data('csv/foo.csv')
         self.X_train = self.train_data.X
         self.Y_train = self.train_data.Y
-<<<<<<< HEAD
         print(self.Y_train)
         #print(self.X_train)
         #print(len(self.X_train))
         self.n_features = int(self.batch_size*self.invrate*8) #Each X-bit
         self.n_classes = 8 #2**(N*r)#should be 2^(N*r) #This is each Y-bit
-=======
-        self.n_features = len(self.freq * self.batch_size)
-        self.n_classes =  len(self.decoded_waveform) #2**(N*r)#should be 2^(N*r)
->>>>>>> 24a70edd87cfb56c855fa1a04eadc8f87c09d818
         self.D = self.n_features
         self.K = self.n_classes
         #Each encoded bit is represented by:
