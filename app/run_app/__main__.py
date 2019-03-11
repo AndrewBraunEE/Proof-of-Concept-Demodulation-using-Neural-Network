@@ -20,7 +20,7 @@ def run():
 	argparser.add_argument('-m', '--modulator', type = str, dest = 'modulator', default = 'BPSK_Modulator', help = 'Specify the modulation type for the encoded data')
 	argparser.add_argument('-s', '--save', action = 'store_true', dest = 'save', default = True, help = 'Store the waveform samples to a file')
 	argparser.add_argument('-v', '--load', action = 'store_true', dest = 'load', default = False, help = 'Load the previous session')
-	argparser.add_argument('-u', '--snr', type = int, dest = 'snr', default = 20, help = 'Transmit the bitsequence over a noisy channel with the specified SNR')
+	argparser.add_argument('-u', '--snr', type = int, dest = 'snr', default = 40, help = 'Transmit the bitsequence over a noisy channel with the specified SNR')
 	argparser.add_argument('-c', '--channel', type = str, dest = 'channel', default = 'noise', help = 'Specify whether the noisy channel is only noisy (PARAM: noise) or is noisy and fading (PARAM: fade)')
 	argparser.add_argument('-e', '--encoder', type = str, dest = 'encoder', default = 'LDPC', help = 'Specify which encoding scheme to use, or to use all three in serial. By default, uses random codes, ldpc codes, and hamming code in series.')
 	argparser.add_argument('-p', '--plot', type = str, dest = 'plot', default = 'plot_all', help = 'Specify which encoding scheme to use, or to use all three in serial. By default, uses random codes, ldpc codes, and hamming code in series.')
@@ -73,7 +73,7 @@ def run():
 			sys.stderr.write(" \n Training our NN \n")
 			ErrorObject = ErrorMetrics(app_encoder.get_modulator_default())
 			#original_waveform = binary_str_to_intarray(original_str)
-			s = NND("./tf.model", 100 , 128, 64, 32, 0.1, decoded_waveform = app_encoder.decoded_binary_pulse(binary_str_unencoded), ErrorObject = ErrorObject, batch_size = app_encoder.get_modulator_default().tb, waveform = waveform_samples, freq = app_encoder.freq,
+			s = NND("./tf.model", 20 , 128, 64, 32, 0.3, decoded_waveform = app_encoder.decoded_binary_pulse(binary_str_unencoded), ErrorObject = ErrorObject, batch_size = app_encoder.get_modulator_default().tb, waveform = waveform_samples, freq = app_encoder.freq,
 				will_load = args.load, num_chars = len(original_str), invrate = args.inv_rate, original_bin_array = binary_str_unencoded)
 			training_epochs, nve_array, ber_array = s.Hidden_Layers() 
 			if args.plot == 'plot_error' or args.plot == 'plot_all':

@@ -194,7 +194,7 @@ class NND:
         self.num_chars = kwargs.get('num_chars', 1)
         self.invrate = kwargs.get('invrate', 1)
         self.savefile = savefile
-        self.original_bin_array = kwargs.get('original_bin_array', []) #This is the binary string but as an int array
+        self.original_bin_array = kwargs.get('original_bin_array', []) #This is the binary string
 
         self.training_epochs =  training_epochs #number of iterations
         self.n_neurons_in_h1 = n_h1
@@ -278,8 +278,8 @@ class NND:
         #Gradient Descent Optimizer 
         optimiser = tf.train.GradientDescentOptimizer(learning_rate=learning_rate).minimize(cross_entropy)
         init_op = tf.global_variables_initializer()
-        correct_prediction = tf.equal(tf.argmax(self.Y,1), tf.argmax(output,1))
-        accuracy = tf.reduce_mean(tf.cast(correct_prediction,tf.float32))
+        #correct_prediction = tf.equal(tf.argmax(self.Y,1), tf.argmax(output,1))
+        
 
         #Using to test the neural network
         #The dimenstions of this is 784 pixels- picture data
@@ -331,12 +331,18 @@ class NND:
                                 x_start = self.batch_size*self.invrate*8*i, y_start = (self.n_classes*i))
                             X_ = np.expand_dims(X_, axis = 0)
                             y_ = np.expand_dims(y_, axis = 0)
-                            _, c = sess.run([optimiser, cross_entropy], feed_dict={self.X: X_, self.Y: y_}) #ERROR HERE
+                            correct_prediction = (tf.argmax(self.Y,1), tf.argmax(y_, 1))
+                            accuracy = tf.reduce_mean(tf.cast(correct_prediction,tf.float32))
+                            _, c, nn_output = sess.run([optimiser, cross_entropy, output], feed_dict={self.X: X_, self.Y: y_}) #ERROR HERE
                             avg_cost += c / total_batch
                             #print("AVG COST: ", avg_cost)
+                            print('output:' + str(nn_output))
+                            #for element in output:
+                            #    print(element)
                             if self.decoded_waveform != [] and self.ErrorObject != None:
-                                NeuralNetOutput = np.squeeze(np.asarray(self.Y.eval(session = sess, feed_dict={self.X: X_, self.Y: Y_})))
-                                NVE_Val = self.ErrorObject.NVE(self.decoded_waveform[i:i+8],NeuralNetOutput, self.waveform_samples) #Doesn't chunk correctly for waveform_samples is the reason why not working
+                                #NeuralNetOutput = np.squeeze(np.asarray(self.Y.eval(session = sess, feed_dict={self.X: X_, self.Y: Y_})))
+                                NeuralNetOutput = np.squeeze(np.asarray(nn_output))
+                                NVE_Val = self.ErrorObject.NVE(self.decoded_waveform[i:i+8],NeuralNetOutput, self.waveform_samples[i:i*8]) #Doesn't chunk correctly for waveform_samples is the reason why not working
                                 NVE_Array.append(NVE_Val)
                                 BER_Val = self.ErrorObject.BER(self.decoded_waveform[i:i+8],NeuralNetOutput)
                                 BER_Array.append(BER_Val)
