@@ -116,18 +116,25 @@ def next_batch(num_X, num_Y, X_train, Y_train):
 
     return np.asarray(data_shuffle), np.asarray(labels_shuffle)
 '''
-def next_batch(num, data, labels):
+def next_batch(data, labels, **kwargs):
     '''
     Return a total of `num` random samples and labels. 
     '''
-    idx = np.arange(0 , len(data))
-    idy = np.arange(0, len(labels))
-    idx = idx[:num]
-    idy = idy[:num]
-    data_shuffle = [data[ i] for i in idx]
-    labels_shuffle = [labels[ i] for i in idy]
+    x_start = kwargs.get('x_start', 0)
+    y_start = kwargs.get('y_start', 0)
+    iterator_index = kwargs.get('iterator_index', 0) #Index for Y_labels
+    x_batch_size = kwargs.get('x_batch_size', 0)
+    y_batch_size = kwargs.get('x_batch_size', 0)
+    #idx = np.arange(0 , len(data))
+    #idy = np.arange(0, len(labels))
 
-    return np.asarray(data_shuffle), np.asarray(labels_shuffle)
+
+
+    idx = data[x_start:(x_start+x_batch_size)]
+    idy = labels[y_start:(y_start+8)]
+    print('\nidy:' + str(idy))
+    #print('idx:' + str(len(idx)) + '\nidy:' + str(len(idy)))
+    return np.asarray(idx), np.asarray(idy)
 
 '''
 def next_batch(self, batch_size, fake_data=False, shuffle=True):
@@ -183,9 +190,12 @@ class NND:
         self.batch_size = kwargs.get('batch_size', None)
         self.waveform_samples = kwargs.get('waveform', None)
         self.freq = kwargs.get('freq', None)
-        
+        self.will_load = kwargs.get('will_load', True)
+        self.num_chars = kwargs.get('num_chars', 1)
+        self.invrate = kwargs.get('invrate', 1)
         self.savefile = savefile
-        
+        self.original_bin_array = kwargs.get('original_bin_array', []) #This is the binary string but as an int array
+
         self.training_epochs =  training_epochs #number of iterations
         self.n_neurons_in_h1 = n_h1
         self.n_neurons_in_h2 = n_h2
@@ -194,16 +204,32 @@ class NND:
         self.train_data = load_data('csv/foo.csv')
         self.X_train = self.train_data.X
         self.Y_train = self.train_data.Y
+<<<<<<< HEAD
+        print(self.Y_train)
+        #print(self.X_train)
+        #print(len(self.X_train))
+        self.n_features = int(self.batch_size*self.invrate*8) #Each X-bit
+        self.n_classes = 8 #2**(N*r)#should be 2^(N*r) #This is each Y-bit
+=======
         self.n_features = len(self.freq * self.batch_size)
         self.n_classes =  len(self.decoded_waveform) #2**(N*r)#should be 2^(N*r)
+>>>>>>> 24a70edd87cfb56c855fa1a04eadc8f87c09d818
         self.D = self.n_features
         self.K = self.n_classes
+        #Each encoded bit is represented by:
+        #self.freq (10) * self.tb (symbols per bit) (20) * self.invrate (3)
+        #We want to decode by character, so then our chunk_size = 
+        #self.freq*self.tb*self.invrate
+
 
         print("The length is: ", len(self.decoded_waveform))
         #self.n_features = n
         #self.n_classes = n_c
         self.X = tf.placeholder(tf.float32, [None, self.n_features], name='training')
         self.Y = tf.placeholder(tf.float32, [None, self.n_classes], name='test')
+
+        self.Original_X = self.X
+        self.Original_Y = self.Y
 
     '''
     def save(self, filename):
@@ -230,13 +256,13 @@ class NND:
         sig1 = tf.nn.sigmoid((tf.matmul(self.X,W1)+B1),name ='activationLayer1')
 
         #weights and bias for hidden layer 2
-        W2 = tf.Variable(tf.random_normal([self.n_neurons_in_h1, self.n_neurons_in_h2], stddev=1), name = 'W1')
+        W2 = tf.Variable(tf.random_normal([self.n_neurons_in_h1, self.n_neurons_in_h2], stddev=1), name = 'W2')
         B2 = tf.Variable(tf.random_normal([self.n_neurons_in_h2]),name ='B2')
         #activation layer for H2, used as input for activation layer 3
         sig2 = tf.nn.sigmoid((tf.matmul(sig1,W2)+B2),name ='activationLayer2')
 
         #weights and bias for hidden layer 3
-        W3 = tf.Variable(tf.random_normal([self.n_neurons_in_h2, self.n_neurons_in_h3], stddev=1), name = 'W1')
+        W3 = tf.Variable(tf.random_normal([self.n_neurons_in_h2, self.n_neurons_in_h3], stddev=1), name = 'W3')
         B3 = tf.Variable(tf.random_normal([self.n_neurons_in_h3]),name ='B3')
         #activation layer for H3, output of NN
         sig3 = tf.nn.sigmoid((tf.matmul(sig2,W3)+B3),name ='activationLayer3')
@@ -280,36 +306,49 @@ class NND:
         #train the model
         with tf.Session() as sess:
             sess.run(init_op)
-            total_batch = int(self.n_features/self.batch_size)
-            saver.restore(sess, self.savefile)
-            print(len(self.X_train))
-            print(total_batch)
+            total_batch = int(self.n_features/(8*self.batch_size))
+            if self.will_load == True:
+                saver.restore(sess, self.savefile)
+            print('x_train_len:' + str(len(self.X_train)))
+            print('y_train_len:' + str(len(self.Y_train)))
+            print('total_batch:' + str(total_batch))
+            print('self_batch_size:' + str(self.batch_size))
+            print('self_freq:' + str(self.freq))
+            print('n_features:' + str(self.n_features))
+            print('n_classes:' + str(self.n_classes))
+            print('len_original_waveform:' + str(len(self.original_bin_array)))
+            print('original_bin_str:' + str(self.original_bin_array))
+
             #print(len(self.X_train))
             BER_Array = []
             NVE_Array = []
             Epochs = []
+            for epoch_per_word in range(self.training_epochs * total_batch):
+                Epochs.append(epoch_per_word)
+
+
             for self.training_epochs in range(self.training_epochs):
                     avg_cost = 0
                     #print(total_batch)
                     for i in range(total_batch):
                             #X_, y_ = next_batch(self.n_features, self.n_classes, self.X_train, self.Y_train)
-                            X_,y_ = next_batch(self.batch_size, self.X_train, self.Y_train)
+                            X_,y_ = next_batch(self.X_train, self.Y_train, x_batch_size = self.batch_size*self.invrate*8, y_batch_size = 8, 
+                                x_start = self.batch_size*self.invrate*8*i, y_start = (self.n_classes*i))
                             X_ = np.expand_dims(X_, axis = 0)
                             y_ = np.expand_dims(y_, axis = 0)
                             _, c = sess.run([optimiser, cross_entropy], feed_dict={self.X: X_, self.Y: y_}) #ERROR HERE
                             avg_cost += c / total_batch
                             #print("AVG COST: ", avg_cost)
-                            Epochs.append(self.training_epochs)
                             if self.decoded_waveform != [] and self.ErrorObject != None:
                                 NeuralNetOutput = np.squeeze(np.asarray(self.Y.eval(session = sess, feed_dict={self.X: X_, self.Y: y_})))
-                                NVE_Val = self.ErrorObject.NVE(self.decoded_waveform,NeuralNetOutput, self.waveform_samples)
+                                NVE_Val = self.ErrorObject.NVE(self.decoded_waveform[i:i+8],NeuralNetOutput, self.waveform_samples)
                                 NVE_Array.append(NVE_Val)
-                                BER_Val = self.ErrorObject.BER(self.decoded_waveform,NeuralNetOutput)
+                                BER_Val = self.ErrorObject.BER(self.decoded_waveform[i:i+8],NeuralNetOutput)
                                 BER_Array.append(BER_Val)
                             #print("AVG COST: ", avg_cost)
                     print("Epoch:",(self.training_epochs+1),"cost =", "{:.3f}".format(avg_cost))
                     saver.save(sess, self.savefile, global_step = 1+self.training_epochs)
-            #print(sess.run(accuracy, feed_dict={self.X: mnist.test.images, self.Y: mnist.test.labels}))  
+                #print(sess.run(accuracy, feed_dict={self.X: mnist.test.images, self.Y: mnist.test.labels}))  
         return (Epochs,NVE_Array,BER_Array)
     
 if __name__ == '__main__':
