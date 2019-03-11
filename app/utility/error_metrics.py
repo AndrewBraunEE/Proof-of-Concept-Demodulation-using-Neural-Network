@@ -6,9 +6,10 @@ class ErrorMetrics:
 
 	def BER(self, data, output_data):
 		wrong_bits = 0
+		print('nn_output:' + str(data) + '\ndecoded_output:' + str(output_data))
 		for index, element in np.ndenumerate(data):
 			#print('element: ' + str(element))
-			#print('element2: ' + str(output_data))
+			#print('element2: ' + str(output_data[index]))
 			if element != output_data[index]:
 				wrong_bits = wrong_bits + 1
 		ber = wrong_bits / len(data)

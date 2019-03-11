@@ -1,0 +1,1829 @@
+
+Showb@MSI /cygdrive/d/Repos/EE3EC/NeuralDemod/app
+$ python -m run_app -t
+2019-03-11 21:31:25.968030: I C:\tf_jenkins\workspace\rel-win\M\windows\PY\36\tensorflow\core\platform\cpu_feature_guard.cc:137] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX AVX2
+the_str:110100011001011101100110110011011111011111111011111011111110010110110011001001101001100111000000110001100011110111000000
+324
+[1. 1. 0. 1. 0. 0. 0. 1. 1. 0. 0. 1. 0. 1. 1. 1. 0. 1. 1. 0. 0. 1. 1. 0.
+ 1. 1. 0. 0. 1. 1. 0. 1. 1. 1. 1. 1. 0. 1. 1. 1. 1. 1. 1. 1. 1. 0. 1. 1.
+ 1. 1. 1. 0. 1. 1. 1. 1. 1. 1. 1. 0. 0. 1. 0. 1. 1. 0. 1. 1. 0. 0. 1. 1.
+ 0. 0. 1. 0. 0. 1. 1. 0. 1. 0. 0. 1. 1. 0. 0. 1. 1. 1. 0. 0. 0. 0. 0. 0.
+ 1. 1. 0. 0. 0. 1. 1. 0. 0. 0. 1. 1. 1. 1. 0. 1. 1. 1. 0. 0. 0. 0. 0. 0.]
+The length is:  120
+Size of outclipped:  Tensor("Output_Layer:0", shape=(?, 8), dtype=float32)
+x_train_len:64800
+y_train_len:120
+total_batch:3
+self_batch_size:200
+self_freq:20
+n_features:4800
+n_classes:8
+len_original_waveform:120
+original_bin_str:110100011001011101100110110011011111011111111011111011111110010110110011001001101001100111000000110001100011110111000000
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 1 cost = 11.974
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 2 cost = 5.710
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 3 cost = 3.074
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 4 cost = 1.947
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 5 cost = 1.380
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 6 cost = 1.049
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 7 cost = 0.916
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 8 cost = 0.819
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 9 cost = 0.747
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 10 cost = 0.690
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 11 cost = 0.641
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 12 cost = 0.599
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 13 cost = 0.565
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 14 cost = 0.536
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 15 cost = 0.510
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 16 cost = 0.487
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 17 cost = 0.466
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 18 cost = 0.448
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 19 cost = 0.430
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 20 cost = 0.414
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 21 cost = 0.399
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 22 cost = 0.386
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 23 cost = 0.373
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 24 cost = 0.361
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 25 cost = 0.349
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 26 cost = 0.339
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 27 cost = 0.329
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 28 cost = 0.319
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 29 cost = 0.310
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 30 cost = 0.302
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 31 cost = 0.294
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 32 cost = 0.286
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 33 cost = 0.279
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 34 cost = 0.272
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 35 cost = 0.265
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 36 cost = 0.258
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 37 cost = 0.252
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 38 cost = 0.246
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 39 cost = 0.241
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 40 cost = 0.235
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 41 cost = 0.230
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 42 cost = 0.225
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 43 cost = 0.220
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 44 cost = 0.215
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 45 cost = 0.211
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 46 cost = 0.207
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 47 cost = 0.203
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 48 cost = 0.199
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 49 cost = 0.195
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 50 cost = 0.191
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 51 cost = 0.188
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 52 cost = 0.184
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 53 cost = 0.181
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 54 cost = 0.178
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 55 cost = 0.175
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 56 cost = 0.171
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 57 cost = 0.169
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 58 cost = 0.166
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 59 cost = 0.163
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 60 cost = 0.160
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 61 cost = 0.158
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 62 cost = 0.155
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 63 cost = 0.153
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 64 cost = 0.150
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 65 cost = 0.148
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 66 cost = 0.146
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 67 cost = 0.143
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 68 cost = 0.141
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 69 cost = 0.139
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 70 cost = 0.137
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 71 cost = 0.135
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 72 cost = 0.133
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 73 cost = 0.131
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 74 cost = 0.129
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 75 cost = 0.128
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 76 cost = 0.126
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 77 cost = 0.124
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 78 cost = 0.123
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 79 cost = 0.121
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 80 cost = 0.119
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 81 cost = 0.118
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 82 cost = 0.116
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 83 cost = 0.115
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 84 cost = 0.113
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 85 cost = 0.112
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 86 cost = 0.111
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 87 cost = 0.109
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 88 cost = 0.108
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 89 cost = 0.107
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 90 cost = 0.106
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 91 cost = 0.104
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 92 cost = 0.103
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 93 cost = 0.102
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 94 cost = 0.101
+
+idy:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+nn_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+decoded_output:[1. 1. 0. 1. 0. 0. 0. 1.]
+
+idy:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+nn_output:[1. 0. 1. 0. 0. 0. 1. 1.]
+decoded_output:[1. 0. 0. 1. 0. 1. 1. 1.]
+
+idy:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+nn_output:[0. 1. 0. 0. 0. 1. 1. 0.]
+decoded_output:[0. 1. 1. 0. 0. 1. 1. 0.]
+element: 0.0
+element2: [0. 1. 1. 0. 0. 1. 1. 0.]
+Epoch: 95 cost = 0.105

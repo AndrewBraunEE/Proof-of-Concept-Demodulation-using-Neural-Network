@@ -335,8 +335,8 @@ class NND:
                             avg_cost += c / total_batch
                             #print("AVG COST: ", avg_cost)
                             if self.decoded_waveform != [] and self.ErrorObject != None:
-                                NeuralNetOutput = np.squeeze(np.asarray(self.Y.eval(session = sess, feed_dict={self.X: X_, self.Y: y_})))
-                                NVE_Val = self.ErrorObject.NVE(self.decoded_waveform[i:i+8],NeuralNetOutput, self.waveform_samples)
+                                NeuralNetOutput = np.squeeze(np.asarray(self.Y.eval(session = sess, feed_dict={self.X: X_, self.Y: Y_})))
+                                NVE_Val = self.ErrorObject.NVE(self.decoded_waveform[i:i+8],NeuralNetOutput, self.waveform_samples) #Doesn't chunk correctly for waveform_samples is the reason why not working
                                 NVE_Array.append(NVE_Val)
                                 BER_Val = self.ErrorObject.BER(self.decoded_waveform[i:i+8],NeuralNetOutput)
                                 BER_Array.append(BER_Val)

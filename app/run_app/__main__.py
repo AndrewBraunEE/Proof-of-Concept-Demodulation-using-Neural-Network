@@ -73,7 +73,7 @@ def run():
 			sys.stderr.write(" \n Training our NN \n")
 			ErrorObject = ErrorMetrics(app_encoder.get_modulator_default())
 			#original_waveform = binary_str_to_intarray(original_str)
-			s = NND("./tf.model",5, 128, 64, 32, 0.001, decoded_waveform = app_encoder.decoded_binary_pulse(binary_str_unencoded), ErrorObject = ErrorObject, batch_size = app_encoder.get_modulator_default().tb, waveform = waveform_samples, freq = app_encoder.freq,
+			s = NND("./tf.model", 100 , 128, 64, 32, 0.1, decoded_waveform = app_encoder.decoded_binary_pulse(binary_str_unencoded), ErrorObject = ErrorObject, batch_size = app_encoder.get_modulator_default().tb, waveform = waveform_samples, freq = app_encoder.freq,
 				will_load = args.load, num_chars = len(original_str), invrate = args.inv_rate, original_bin_array = binary_str_unencoded)
 			training_epochs, nve_array, ber_array = s.Hidden_Layers() 
 			if args.plot == 'plot_error' or args.plot == 'plot_all':
