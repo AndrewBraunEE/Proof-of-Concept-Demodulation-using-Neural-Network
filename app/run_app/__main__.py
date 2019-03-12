@@ -11,8 +11,7 @@ from utility.error_metrics import ErrorMetrics
 def run():
 	argparser = argparse.ArgumentParser('Launch the EE132A Project')
 	argparser.add_argument('-t', '--train', action='store_true', dest = 'train', default = False, help = 'Train the neural network from either a piped source or a file.')
-	argparser.add_argument('-n', '--num_input_bits', type = int, dest = 'num_input_bits', default = 7, help = 'The number of bits per input WORD')
-	argparser.add_argument('-k', '--num_output_bits', type = int, dest = 'num_output_bits', default = 1, help = 'The number of bits per output WORD')
+	argparser.add_argument('-n', '--num_input_bits', type = int, dest = 'num_input_bits', default = 8, help = 'The number of bits per input WORD')
 	argparser.add_argument('-i', '--inverse_rate', type = int, dest = 'inv_rate', default = 3, help = 'The ratio of CodedWordLength / UncodedWordLength used in the LDPC Encoder')
 	argparser.add_argument('-d', '--filedir', type = str, dest = 'filedir', default = 'data/*.txt', help = 'Use textfiles (UTF-8 Encoded) from a file directory as source')
 	argparser.add_argument('-o', '--source', type = str, dest = 'source', default = None, help = 'Use the parameter after -k as the source directory as a pipe')
@@ -20,7 +19,7 @@ def run():
 	argparser.add_argument('-m', '--modulator', type = str, dest = 'modulator', default = 'BPSK_Modulator', help = 'Specify the modulation type for the encoded data')
 	argparser.add_argument('-s', '--save', action = 'store_true', dest = 'save', default = True, help = 'Store the waveform samples to a file')
 	argparser.add_argument('-v', '--load', action = 'store_true', dest = 'load', default = False, help = 'Load the previous session')
-	argparser.add_argument('-u', '--snr', type = int, dest = 'snr', default = 40, help = 'Transmit the bitsequence over a noisy channel with the specified SNR')
+	argparser.add_argument('-u', '--snr', type = int, dest = 'snr', default = -20, help = 'Transmit the bitsequence over a noisy channel with the specified SNR')
 	argparser.add_argument('-c', '--channel', type = str, dest = 'channel', default = 'noise', help = 'Specify whether the noisy channel is only noisy (PARAM: noise) or is noisy and fading (PARAM: fade)')
 	argparser.add_argument('-e', '--encoder', type = str, dest = 'encoder', default = 'LDPC', help = 'Specify which encoding scheme to use, or to use all three in serial. By default, uses random codes, ldpc codes, and hamming code in series.')
 	argparser.add_argument('-p', '--plot', type = str, dest = 'plot', default = 'plot_all', help = 'Specify which encoding scheme to use, or to use all three in serial. By default, uses random codes, ldpc codes, and hamming code in series.')
@@ -74,7 +73,7 @@ def run():
 			ErrorObject = ErrorMetrics(app_encoder.get_modulator_default())
 			#original_waveform = binary_str_to_intarray(original_str)
 			s = NND("./tf.model", 50 , 128, 64, 32, 0.01, decoded_waveform = app_encoder.decoded_binary_pulse(binary_str_unencoded), ErrorObject = ErrorObject, batch_size = app_encoder.get_modulator_default().tb, waveform = waveform_samples, freq = app_encoder.freq,
-				will_load = args.load, num_chars = len(original_str), invrate = args.inv_rate, original_bin_array = binary_str_unencoded)
+				will_load = args.load, num_chars = len(original_str), invrate = args.inv_rate, original_bin_array = binary_str_unencoded, num_classes = args.num_input_bits)
 			training_epochs, nve_array, ber_array, ber_map = s.Hidden_Layers()
 			#Normalize these arrays for inverse_rate * original_byte_length (8)
 			sum_training_epochs = []

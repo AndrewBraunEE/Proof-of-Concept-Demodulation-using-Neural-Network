@@ -191,7 +191,7 @@ class NND:
         self.waveform_samples = kwargs.get('waveform', None)
         self.freq = kwargs.get('freq', None)
         self.will_load = kwargs.get('will_load', True)
-        self.num_chars = kwargs.get('num_chars', 1)
+        self.num_classes = kwargs.get('num_classes', 8)
         self.invrate = kwargs.get('invrate', 1)
         self.savefile = savefile
         self.original_bin_array = kwargs.get('original_bin_array', []) #This is the binary string
@@ -207,8 +207,8 @@ class NND:
         #print(self.Y_train)
         #print(self.X_train)
         #print(len(self.X_train))
-        self.n_features = int(self.batch_size*self.invrate*8) #Each X-bit
-        self.n_classes = 8 
+        self.n_classes = self.num_classes
+        self.n_features = int(self.batch_size*self.invrate*self.n_classes) #Each X-bit
         #2**(N*r)#should be 2^(N*r) #This is each Y-bit
         self.D = self.n_features
         self.K = self.n_classes
@@ -327,7 +327,7 @@ class NND:
                     #print(total_batch)
                     for i in range(total_batch):
                             #X_, y_ = next_batch(self.n_features, self.n_classes, self.X_train, self.Y_train)
-                            X_,y_ = next_batch(self.X_train, self.Y_train, x_batch_size = self.batch_size*self.invrate*self.n_classes, y_batch_size = 8, 
+                            X_,y_ = next_batch(self.X_train, self.Y_train, x_batch_size = self.batch_size*self.invrate*self.n_classes, y_batch_size = self.n_classes, 
                                 x_start = self.batch_size*self.invrate*self.n_classes*i, y_start = (self.n_classes*i))
                             X_ = np.expand_dims(X_, axis = 0)
                             y_ = np.expand_dims(y_, axis = 0)
