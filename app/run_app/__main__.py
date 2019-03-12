@@ -73,15 +73,36 @@ def run():
 			sys.stderr.write(" \n Training our NN \n")
 			ErrorObject = ErrorMetrics(app_encoder.get_modulator_default())
 			#original_waveform = binary_str_to_intarray(original_str)
-			s = NND("./tf.model", 20 , 128, 64, 32, 0.3, decoded_waveform = app_encoder.decoded_binary_pulse(binary_str_unencoded), ErrorObject = ErrorObject, batch_size = app_encoder.get_modulator_default().tb, waveform = waveform_samples, freq = app_encoder.freq,
+			s = NND("./tf.model", 50 , 128, 64, 32, 0.01, decoded_waveform = app_encoder.decoded_binary_pulse(binary_str_unencoded), ErrorObject = ErrorObject, batch_size = app_encoder.get_modulator_default().tb, waveform = waveform_samples, freq = app_encoder.freq,
 				will_load = args.load, num_chars = len(original_str), invrate = args.inv_rate, original_bin_array = binary_str_unencoded)
-			training_epochs, nve_array, ber_array = s.Hidden_Layers() 
+			training_epochs, nve_array, ber_array, ber_map = s.Hidden_Layers()
+			#Normalize these arrays for inverse_rate * original_byte_length (8)
+			sum_training_epochs = []
+			sum_nve_array = []
+			sum_ber_array = []
+			sum_ber_map_array = []
+			for chunk_index in range(0, len(training_epochs), args.inv_rate):
+				curr_sum_training_epochs = 0
+				curr_sum_nve_array = 0
+				curr_ber_array = 0
+				for index in range(args.inv_rate):
+					curr_sum_training_epochs += training_epochs[chunk_index + index]/args.inv_rate
+					curr_sum_nve_array += nve_array[chunk_index + index]/args.inv_rate
+					curr_ber_array += ber_array[chunk_index + index]/args.inv_rate
+				sum_training_epochs.append(curr_sum_training_epochs)
+				sum_nve_array.append(curr_sum_nve_array)
+				sum_ber_array.append(curr_ber_array)
+				sum_ber_map_array.append(ber_map)
+
+			#print('sum_training_epochs:' + sum_training_epochs)
+
 			if args.plot == 'plot_error' or args.plot == 'plot_all':
 				plt.title("NVE and BER as a function of Epoch Indices")
-				plt.plot(training_epochs, nve_array, 'b-', label = 'NVE')
-				plt.plot(training_epochs, ber_array, 'r-', label = 'BER')
+				plt.plot(sum_training_epochs, sum_nve_array, 'b-', label = 'NVE')
+				plt.plot(sum_training_epochs, sum_ber_array, 'r-', label = 'BER Neural')
+				plt.plot(sum_training_epochs, sum_ber_map_array, 'g-', label = 'BER Map')
 				plt.xlabel("Training Epochs")
-				plt.ylabel("NVE")
+				plt.ylabel("NVE / BER")
 				plt.legend(loc = 'upper_left')
 				plt.show()
 

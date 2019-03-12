@@ -10,7 +10,7 @@ class ErrorMetrics:
 		for index, element in np.ndenumerate(data):
 			#print('element: ' + str(element))
 			#print('element2: ' + str(output_data[index]))
-			if round(element) != round(output_data[index]):
+			if round(int(element)) != round(output_data[index]):
 				wrong_bits = wrong_bits + 1
 		ber = wrong_bits / len(data)
 		return ber
@@ -22,15 +22,16 @@ class ErrorMetrics:
 			sys.stderr.write("Wrong length")
 		ber = self.BER(data_BER_array, output_data_BER_array)
 		observed_demod = self.demodulator.demodulate(waveform)
-		ber_map = 0.0
+		ber_map = 0
 		index = 0
 		for element in observed_demod:
 			element1 = round(output_data_BER_array[index]) #neural_netoutput
 			if round(element1) != round(int(element)):
 				ber_map += 1
 			index += 1
+		ber_map = ber_map / len(data_BER_array)
 		if ber_map != 0:
 			NVE = NVE + (ber/ber_map)
 		else:
 			NVE = NVE / len(data_BER_array)
-		return NVE
+		return NVE, ber_map

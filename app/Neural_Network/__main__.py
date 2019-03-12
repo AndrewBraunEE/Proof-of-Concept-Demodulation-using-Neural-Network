@@ -4,7 +4,7 @@ from numpy import array
 import pickle 
 import matplotlib.pyplot as plt
 import json
-
+from encoder.conversions import *
 import os
 
 N = 16
@@ -132,7 +132,7 @@ def next_batch(data, labels, **kwargs):
 
     idx = data[x_start:(x_start+x_batch_size)]
     idy = labels[y_start:(y_start+8)]
-    print('\nidy:' + str(idy))
+    #print('\nidy:' + str(idy))
     #print('idx:' + str(len(idx)) + '\nidy:' + str(len(idy)))
     return np.asarray(idx), np.asarray(idy)
 
@@ -204,11 +204,12 @@ class NND:
         self.train_data = load_data('csv/foo.csv')
         self.X_train = self.train_data.X
         self.Y_train = self.train_data.Y
-        print(self.Y_train)
+        #print(self.Y_train)
         #print(self.X_train)
         #print(len(self.X_train))
         self.n_features = int(self.batch_size*self.invrate*8) #Each X-bit
-        self.n_classes = 8 #2**(N*r)#should be 2^(N*r) #This is each Y-bit
+        self.n_classes = 8 
+        #2**(N*r)#should be 2^(N*r) #This is each Y-bit
         self.D = self.n_features
         self.K = self.n_classes
         #Each encoded bit is represented by:
@@ -217,7 +218,7 @@ class NND:
         #self.freq*self.tb*self.invrate
 
 
-        print("The length is: ", len(self.decoded_waveform))
+        #print("The length is: ", len(self.decoded_waveform))
         #self.n_features = n
         #self.n_classes = n_c
         self.X = tf.placeholder(tf.float32, [None, self.n_features], name='training')
@@ -301,7 +302,7 @@ class NND:
         #train the model
         with tf.Session() as sess:
             sess.run(init_op)
-            total_batch = int(self.n_features/(8*self.batch_size))
+            total_batch = int(self.n_features/(self.n_classes*self.batch_size))
             if self.will_load == True:
                 saver.restore(sess, self.savefile)
             print('x_train_len:' + str(len(self.X_train)))
@@ -321,14 +322,13 @@ class NND:
             for epoch_per_word in range(self.training_epochs * total_batch):
                 Epochs.append(epoch_per_word)
 
-
             for self.training_epochs in range(self.training_epochs):
                     avg_cost = 0
                     #print(total_batch)
                     for i in range(total_batch):
                             #X_, y_ = next_batch(self.n_features, self.n_classes, self.X_train, self.Y_train)
-                            X_,y_ = next_batch(self.X_train, self.Y_train, x_batch_size = self.batch_size*self.invrate*8, y_batch_size = 8, 
-                                x_start = self.batch_size*self.invrate*8*i, y_start = (self.n_classes*i))
+                            X_,y_ = next_batch(self.X_train, self.Y_train, x_batch_size = self.batch_size*self.invrate*self.n_classes, y_batch_size = 8, 
+                                x_start = self.batch_size*self.invrate*self.n_classes*i, y_start = (self.n_classes*i))
                             X_ = np.expand_dims(X_, axis = 0)
                             y_ = np.expand_dims(y_, axis = 0)
                             correct_prediction = (tf.argmax(self.Y,1), tf.argmax(y_, 1))
@@ -336,21 +336,21 @@ class NND:
                             _, c, nn_output = sess.run([optimiser, cross_entropy, output], feed_dict={self.X: X_, self.Y: y_}) #ERROR HERE
                             avg_cost += c / total_batch
                             #print("AVG COST: ", avg_cost)
-                            print('output:' + str(nn_output))
+                            #print('output:' + str(nn_output))
                             #for element in output:
                             #    print(element)
                             if self.decoded_waveform != [] and self.ErrorObject != None:
                                 #NeuralNetOutput = np.squeeze(np.asarray(self.Y.eval(session = sess, feed_dict={self.X: X_, self.Y: Y_})))
                                 NeuralNetOutput = np.squeeze(np.asarray(nn_output))
-                                NVE_Val = self.ErrorObject.NVE(self.decoded_waveform[i:i+8],NeuralNetOutput, self.waveform_samples[i:i*8]) #Doesn't chunk correctly for waveform_samples is the reason why not working
+                                NVE_Val, BER_Map = self.ErrorObject.NVE(binary_str_to_single_integer_array(self.original_bin_array[i*self.n_classes:(i+1)*self.n_classes]),NeuralNetOutput, self.waveform_samples[i*self.batch_size*self.invrate:(i+1)*self.batch_size*self.invrate]) #Doesn't chunk correctly for waveform_samples is the reason why not working
                                 NVE_Array.append(NVE_Val)
-                                BER_Val = self.ErrorObject.BER(self.decoded_waveform[i:i+8],NeuralNetOutput)
+                                BER_Val = self.ErrorObject.BER(binary_str_to_single_integer_array(self.original_bin_array[i*self.n_classes:(i+1)*self.n_classes]),NeuralNetOutput)
                                 BER_Array.append(BER_Val)
                             #print("AVG COST: ", avg_cost)
                     print("Epoch:",(self.training_epochs+1),"cost =", "{:.3f}".format(avg_cost))
-                    saver.save(sess, self.savefile, global_step = 1+self.training_epochs)
+                    saver.save(sess, self.savefile)
                 #print(sess.run(accuracy, feed_dict={self.X: mnist.test.images, self.Y: mnist.test.labels}))  
-        return (Epochs,NVE_Array,BER_Array)
+        return (Epochs,NVE_Array,BER_Array, BER_Map)
     
 if __name__ == '__main__':
     try:

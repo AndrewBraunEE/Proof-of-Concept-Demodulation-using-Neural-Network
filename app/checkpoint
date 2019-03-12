@@ -1,6 +1,2 @@
-model_checkpoint_path: "tf.model-20"
-all_model_checkpoint_paths: "tf.model-16"
-all_model_checkpoint_paths: "tf.model-17"
-all_model_checkpoint_paths: "tf.model-18"
-all_model_checkpoint_paths: "tf.model-19"
-all_model_checkpoint_paths: "tf.model-20"
+model_checkpoint_path: "tf.model"
+all_model_checkpoint_paths: "tf.model"

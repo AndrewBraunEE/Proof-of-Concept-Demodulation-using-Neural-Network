@@ -14,7 +14,7 @@ def str_to_binary_str(input=None):
 	remainder_bits = len(the_str) % 8
 	for i in range(8 - remainder_bits):
 		the_str += '0'
-	print('the_str:' + the_str)
+	#print('the_str:' + the_str)
 	return the_str
 
 def binary_str_to_str(input=None):
@@ -35,6 +35,15 @@ def binary_str_to_intarray(input = None):
 	int_list = []
 	for element in binary:
 		int_list.append(element)
+	return int_list
+
+def binary_str_to_single_integer_array(input):
+	input = input.replace(' ', '')
+	binary = wrap(input, 1)
+	int_list = []
+	for element in binary:
+		int_list.append(int(element, 2))
+	#print('int_list: ' + str(int_list))
 	return int_list
 
 def binary_str_to_bytes(input = None):
