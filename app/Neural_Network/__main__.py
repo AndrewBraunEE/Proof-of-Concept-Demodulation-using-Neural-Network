@@ -124,14 +124,14 @@ def next_batch(data, labels, **kwargs):
     y_start = kwargs.get('y_start', 0)
     iterator_index = kwargs.get('iterator_index', 0) #Index for Y_labels
     x_batch_size = kwargs.get('x_batch_size', 0)
-    y_batch_size = kwargs.get('x_batch_size', 0)
+    y_batch_size = kwargs.get('y_batch_size', 0)
     #idx = np.arange(0 , len(data))
     #idy = np.arange(0, len(labels))
 
 
 
     idx = data[x_start:(x_start+x_batch_size)]
-    idy = labels[y_start:(y_start+8)]
+    idy = labels[y_start:(y_start+y_batch_size)]
     #print('\nidy:' + str(idy))
     #print('idx:' + str(len(idx)) + '\nidy:' + str(len(idy)))
     return np.asarray(idx), np.asarray(idy)

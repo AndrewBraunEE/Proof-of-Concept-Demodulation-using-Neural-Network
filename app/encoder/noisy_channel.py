@@ -40,7 +40,7 @@ class Channel:
 
 		return signal + noise_distro
 
-	def work_items(self, input_items): #Acts as a source / sink
+	def work_items(self, input_items): #TODO: Acts as a source / sink
 		output_items = []
 		for element in input_items:
 			output_items.append(input_items[cnt] + self.w[cnt])
@@ -53,9 +53,9 @@ class Channel:
 		attenuation_matrix = np.random.random_sample((1,len(input_signal)))
 		cnt = 0
 		for element in input_signal:
-			#print(self.w[cnt])
+			#print('self_w_cnt:' + str(self.w[cnt]))
 			attenuation_matrix[(0,cnt)] = attenuation_matrix[(0,cnt)] * element
-			attenuation_matrix[(0, cnt)] += self.w[cnt]
+			attenuation_matrix[(0, cnt)] += self.w[(0, cnt)]
 			cnt += 1
 		return attenuation_matrix
 
