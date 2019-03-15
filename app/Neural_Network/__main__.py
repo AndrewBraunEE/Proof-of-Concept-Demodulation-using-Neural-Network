@@ -10,6 +10,7 @@ import os
 N = 16
 r = .5
 
+from tensorflow.python import pywrap_tensorflow
 
 
 #CREDIT TO CSM146 HW 2 CODE
@@ -301,6 +302,12 @@ class NND:
         saver = tf.train.Saver()
         #train the model
         with tf.Session() as sess:
+            var_name_list = [v.name for v in tf.trainable_variables()]
+            print('MEMORY VAR NAMES:' + str(var_name_list))
+            reader = pywrap_tensorflow.NewCheckpointReader('./tf.model')
+            var_to_shape_map = reader.get_variable_to_shape_map()
+            print(str('CHECKPOINT KEY NAMES:') + str(var_to_shape_map))
+
             sess.run(init_op)
             total_batch = int(self.n_features/(self.n_classes*self.batch_size))
             if self.will_load == True and (os.path.isfile('./tf.model') or os.path.isfile('./tf.model.index') or os.path.isfile('./checkpoint'))  :
