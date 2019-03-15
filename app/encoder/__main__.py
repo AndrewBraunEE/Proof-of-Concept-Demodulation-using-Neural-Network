@@ -471,6 +471,14 @@ class Encoder:
 				data+=file_resource.read().replace('\n', '')
 		return data
 
+	def load_str_dir_asarray(self, input_dir = 'data/*.txt'):
+		list_txt_files = glob.glob(input_dir)
+		data = []
+		for file in list_txt_files:
+			with open(file, 'r') as file_resource:
+				data.append(file_resource.read().replace('\n', ''))
+		return data
+
 	def numpy_array_to_tfdata(self, input): #Input: Numpy array in the format [(timeaxis), (waveformsamples)]^T with timeaxis on first row, waveform samples on second row with N samples for N columns
 		data_tf = tf.convert_to_tensor(input, np.float32)
 		saver = tf.train.Saver(input)

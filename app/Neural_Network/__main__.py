@@ -303,8 +303,11 @@ class NND:
         with tf.Session() as sess:
             sess.run(init_op)
             total_batch = int(self.n_features/(self.n_classes*self.batch_size))
-            if self.will_load == True:
-                saver.restore(sess, self.savefile)
+            if self.will_load == True and (os.path.isfile('./tf.model') or os.path.isfile('./tf.model.index') or os.path.isfile('./checkpoint'))  :
+                try:
+                    saver.restore(sess, self.savefile)
+                except:
+                    pass
             print('x_train_len:' + str(len(self.X_train)))
             print('y_train_len:' + str(len(self.Y_train)))
             print('total_batch:' + str(total_batch))
