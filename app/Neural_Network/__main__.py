@@ -299,9 +299,10 @@ class NND:
         #train_data = load_data('Wave_train')
         #test_data = load_data('Wave_test')
     
-        saver = tf.train.Saver(max_to_keep = 0)
+        saver = tf.train.Saver({'W1': W1, 'W2': W2, 'W3': W3, 'B1': B1, 'B2': B2, 'B3': B3, 'weightsOut': Wo, 'biasesOut': Bo}, max_to_keep = 0)
         #train the model
         with tf.Session() as sess:
+            '''
             var_name_list = [v.name for v in tf.trainable_variables()]
             try:
                 print('MEMORY VAR NAMES:' + str(var_name_list))
@@ -310,7 +311,8 @@ class NND:
                 print(str('CHECKPOINT KEY NAMES:') + str(var_to_shape_map))
             except:
                 pass
-
+            '''
+            
             sess.run(init_op)
             total_batch = int(self.n_features/(self.n_classes*self.batch_size))
             if self.will_load == True and (os.path.isfile('./tf.model') or os.path.isfile('./tf.model.index') or os.path.isfile('./checkpoint'))  :
