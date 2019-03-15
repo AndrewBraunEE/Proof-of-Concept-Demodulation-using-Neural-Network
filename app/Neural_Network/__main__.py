@@ -299,14 +299,17 @@ class NND:
         #train_data = load_data('Wave_train')
         #test_data = load_data('Wave_test')
     
-        saver = tf.train.Saver()
+        saver = tf.train.Saver(max_to_keep = 0)
         #train the model
         with tf.Session() as sess:
             var_name_list = [v.name for v in tf.trainable_variables()]
-            print('MEMORY VAR NAMES:' + str(var_name_list))
-            reader = pywrap_tensorflow.NewCheckpointReader('./tf.model')
-            var_to_shape_map = reader.get_variable_to_shape_map()
-            print(str('CHECKPOINT KEY NAMES:') + str(var_to_shape_map))
+            try:
+                print('MEMORY VAR NAMES:' + str(var_name_list))
+                reader = pywrap_tensorflow.NewCheckpointReader('./tf.model')
+                var_to_shape_map = reader.get_variable_to_shape_map()
+                print(str('CHECKPOINT KEY NAMES:') + str(var_to_shape_map))
+            except:
+                pass
 
             sess.run(init_op)
             total_batch = int(self.n_features/(self.n_classes*self.batch_size))
