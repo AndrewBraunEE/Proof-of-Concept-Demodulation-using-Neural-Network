@@ -312,11 +312,12 @@ class NND:
             except:
                 pass
             '''
-            
+
             sess.run(init_op)
             total_batch = int(self.n_features/(self.n_classes*self.batch_size))
             if self.will_load == True and (os.path.isfile('./tf.model') or os.path.isfile('./tf.model.index') or os.path.isfile('./checkpoint'))  :
                 try:
+                    print('LOADING CHECKPOINT')
                     saver.restore(sess, self.savefile)
                 except:
                     pass
