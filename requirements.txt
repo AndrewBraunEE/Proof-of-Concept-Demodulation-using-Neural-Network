@@ -9,4 +9,4 @@ numpy
 protobuf==3.6.0
 pyldpc
 scipy
-tensorflow==1.5.0
+tensorflow==2.9.3
